@@ -9,21 +9,21 @@ import Planner from "../pages/planner/Planner";
 const Page = () => {
   return (
     <div className="flex flex-row flex-1">
-      {/* Nav Bar area */}
-      <div id="nav" className="w-1/5 border-r-2 border-r-gray">
-        <Nav />
-      </div>
-      {/*  Content for each tab*/}
-      <div id="content" className="flex-1">
-        <BrowserRouter>
+      <BrowserRouter>
+        {/* Nav Bar area */}
+        <div id="nav" className="w-1/5 border-r-2 border-r-gray h-full">
+          <Nav />
+        </div>
+        {/*  Content for each tab*/}
+        <div id="content" className="flex-1">
           <Routes>
-            <Route element={<Overview/>} path="/"/>
-            <Route element={<Major/>} path="/major"/>
-            <Route element={<Minor/>} path="/minor"/>
-            <Route element={<Planner/>} path="/planner"/>
+            <Route element={<Overview />} path="/" />
+            <Route element={<Major />} path="/major" />
+            <Route element={<Minor />} path="/minor" />
+            <Route element={<Planner />} path="/planner" />
           </Routes>
-        </BrowserRouter>
-      </div>
+        </div>
+      </BrowserRouter>
     </div>
   );
 };
