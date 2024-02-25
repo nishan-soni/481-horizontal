@@ -4,6 +4,7 @@ import Overview from "../pages/overview/Overview";
 import Major from "../pages/major/Major";
 import Minor from "../pages/minor/Minor";
 import Planner from "../pages/planner/Planner";
+import Concentration from "../pages/concentration/Concentration";
 
 // This is the main page of the website
 const Page = () => {
@@ -21,6 +22,7 @@ const Page = () => {
             <Route element={<Major />} path="/major" />
             <Route element={<Minor />} path="/minor" />
             <Route element={<Planner />} path="/planner" />
+            <Route element={<Concentration />} path="/concentration" />
           </Routes>
         </div>
       </BrowserRouter>
