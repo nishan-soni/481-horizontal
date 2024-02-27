@@ -1,12 +1,11 @@
+import TablePage from "../../components/tablepage";
 
-const Major = () => { 
-    return (
-      <div>
-        <div>
-            Major
-        </div>
-      </div>
-    );
-  };
-  
-  export default Major;
+const Major = () => {
+  return (
+    <>
+      <TablePage />
+    </>
+  );
+};
+
+export default Major;
