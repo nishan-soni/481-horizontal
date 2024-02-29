@@ -1,0 +1,32 @@
+[
+    {
+      "id": "minor",
+      "label": "minor",
+      "value": 390,
+      "color": "hsl(191, 70%, 50%)"
+    },
+    {
+      "id": "javascript",
+      "label": "javascript",
+      "value": 32,
+      "color": "hsl(134, 70%, 50%)"
+    },
+    {
+      "id": "major",
+      "label": "major",
+      "value": 482,
+      "color": "hsl(210, 70%, 50%)"
+    },
+    {
+      "id": "lisp",
+      "label": "lisp",
+      "value": 258,
+      "color": "hsl(86, 70%, 50%)"
+    },
+    {
+      "id": "scala",
+      "label": "scala",
+      "value": 93,
+      "color": "hsl(51, 70%, 50%)"
+    }
+  ]
