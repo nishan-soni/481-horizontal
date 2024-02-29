@@ -1,0 +1,222 @@
+{
+    "Talia Ferris": {
+        "email": "talia-ferris@ucalgary.ca",
+        "ucid": 30115432,
+        "major": "Human Resources",
+        "minor": "Anthropology",
+        "year": 3,
+        "total-major-courses": 13,
+        "total-non-major-courses": 4,
+        "total-minor-courses": 2,
+        "total-open-option-courses": 2,
+        "courses": {
+            "OPMA-301": {
+                "title": "OPMA",
+                "id": 301,
+                "grade": "A-",
+                "status": "completed",
+                "units": "3.0",
+                "preq": [
+                    "STAT-201",
+                    "ENTI-201"
+                ],
+                "anti-req": [
+                    "OPMA-301",
+                    "OPMA-317"
+                ],
+                "date-complete": "2021-04-12"
+            },
+            "OPMA-317": {
+                "title": "OPMA",
+                "id": 317,
+                "grade": "B+",
+                "status": "completed",
+                "units": "3.0",
+                "preq": [
+                    "MGMT-217",
+                    "STAT-213"
+                ],
+                "anti-req": [
+                    "OPMA-301",
+                    "OPMA-317"
+                ],
+                "date-complete": "2021-08-23"
+            },
+            "OPMA-401": {
+                "title": "OPMA",
+                "id": 401,
+                "grade": "A",
+                "status": "completed",
+                "units": "3.0",
+                "preq": [
+                    "OPMA-317",
+                    "MGMT-391"
+                ],
+                "date-complete": "2022-05-15"
+            },
+            "OPMA-403": {
+                "title": "OPMA",
+                "id": 403,
+                "grade": "A",
+                "status": "completed",
+                "units": "3.0",
+                "preq": [
+                    "OPMA-317"
+                ],
+                "date-complete": "2022-05-15"
+            },
+            "OPMA-405": {
+                "title": "OPMA",
+                "id": 405,
+                "grade": "B",
+                "status": "completed",
+                "units": "3.0",
+                "preq": [
+                    "OPMA-317",
+                    "MGMT-391"
+                ],
+                "date-complete": "2022-12-02"
+            },
+            "OPMA-407": {
+                "title": "OPMA",
+                "id": 407,
+                "grade": "B-",
+                "status": "completed",
+                "units": "3.0",
+                "preq": [
+                    "OPMA-317",
+                    "MGMT-391"
+                ],
+                "date-complete": "2023-04-28"
+            },
+            "OPMA-409": {
+                "title": "OPMA",
+                "id": 409,
+                "grade": "C+",
+                "status": "completed",
+                "units": "3.0",
+                "preq": [
+                    "OPMA-317",
+                    "MGMT-391"
+                ],
+                "date-complete": "2023-08-12"
+            },
+            "OPMA-411": {
+                "title": "OPMA",
+                "id": 411,
+                "grade": "A-",
+                "status": "completed",
+                "units": "3.0",
+                "preq": [
+                    "OPMA-317",
+                    "MGMT-391",
+                    "OPMA-401",
+                    "OPMA-403"
+                ],
+                "date-complete": "2023-12-20"
+            },
+            "OPMA-415": {
+                "title": "OPMA",
+                "id": 415,
+                "grade": "A",
+                "status": "completed",
+                "units": "3.0",
+                "preq": [
+                    "MGMT-391"
+                ],
+                "date-complete": "2024-04-05"
+            },
+            "OPMA-419": {
+                "title": "OPMA",
+                "id": 419,
+                "grade": "B+",
+                "status": "completed",
+                "units": "3.0",
+                "preq": [
+                    "MGMT-391"
+                ],
+                "date-complete": "2024-08-18"
+            },
+            "OPMA-421": {
+                "title": "OPMA",
+                "id": 421,
+                "grade": "A-",
+                "status": "completed",
+                "units": "3.0",
+                "preq": [
+                    "MGMT-391"
+                ],
+                "anti-req": [
+                    "OPMA-559.07"
+                ],
+                "date-complete": "2025-01-10"
+            },
+            "OPMA-559": {
+                "title": "OPMA",
+                "id": 559,
+                "grade": "N/A",
+                "status": "incomplete",
+                "units": "3.0",
+                "preq": [
+                    "MGMT-391",
+                    "OPMA-317"
+                ],
+                "date-complete": "N/A"
+            },
+            "MATH-201": {
+                "title": "MATH",
+                "id": 201,
+                "grade": "A-",
+                "status": "completed",
+                "units": "3.0",
+                "preq": [],
+                "date-complete": "2023-12-20"
+            },
+            "DATA-201": {
+                "title": "DATA",
+                "id": 201,
+                "grade": "A-",
+                "status": "completed",
+                "units": "3.0",
+                "preq": [],
+                "date-complete": "2023-12-20"
+            },
+            "ANTH-201": {
+                "title": "ANTH",
+                "id": 201,
+                "grade": "A-",
+                "status": "completed",
+                "units": "3.0",
+                "preq": [],
+                "date-complete": "2023-04-12"
+            },
+            "ANTH-203": {
+                "title": "ANTH",
+                "id": 203,
+                "grade": "B-",
+                "status": "completed",
+                "units": "3.0",
+                "preq": [],
+                "date-complete": "2023-04-12"
+            },
+            "ANTH-303": {
+                "title": "ANTH",
+                "id": 303,
+                "grade": "N/A",
+                "status": "incomplete",
+                "units": "3.0",
+                "preq": [],
+                "date-complete": "N/A"
+            },
+            "CPSC-329": {
+                "title": "CPSC",
+                "id": 329,
+                "grade": "B",
+                "status": "complete",
+                "units": "3.0",
+                "preq": [],
+                "date-complete": "2023-04-12"
+            }
+        }
+    }
+}

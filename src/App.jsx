@@ -1,9 +1,13 @@
 import Page from "./components/page";
+import { DataProvider } from './DataProvider';
+
 
 function App() {
   return (
     <>
-      <Page/>
+      <DataProvider>
+        <Page />
+      </DataProvider>
     </>
   );
 }
