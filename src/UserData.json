@@ -6,10 +6,10 @@
         "minor": "Anthropology",
         "year": 3,
         "total-progression": {
-            "total-major-courses": 13,
-            "total-non-major-courses": 4,
-            "total-minor-courses": 2,
-            "total-open-option-courses": 2
+            "major-courses": 13,
+            "non-major-courses": 4,
+            "minor-courses": 2,
+            "open-option-courses": 2
         },
         "courses": {
             "OPMA-301": {
