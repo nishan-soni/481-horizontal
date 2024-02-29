@@ -5,10 +5,12 @@
         "major": "Human Resources",
         "minor": "Anthropology",
         "year": 3,
-        "total-major-courses": 13,
-        "total-non-major-courses": 4,
-        "total-minor-courses": 2,
-        "total-open-option-courses": 2,
+        "total-progression": {
+            "total-major-courses": 13,
+            "total-non-major-courses": 4,
+            "total-minor-courses": 2,
+            "total-open-option-courses": 2
+        },
         "courses": {
             "OPMA-301": {
                 "title": "OPMA",
