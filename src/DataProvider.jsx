@@ -14,9 +14,10 @@ export const DataProvider = ({ children }) => {
 
     const fetchData = async () => {
         try {
-            const response = await fetch('https:placeholder');
+            const response = await fetch('https://raw.githubusercontent.com/nishan-soni/481-horizontal/master/src/UserData.json');
             const jsonData = await response.json();
             setData(jsonData);
+            console.log("Json:", jsonData);
         } catch (error) {
             console.error('Error fetching data:', error);
         }
