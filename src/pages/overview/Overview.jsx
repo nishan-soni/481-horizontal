@@ -10,6 +10,12 @@ import greekCard from "../../assets/greekCard.jpg"
 import stockCard from "../../assets/stockCard.jpg"
 import codeCard from "../../assets/codeCard.jpg"
 import acctCard from "../../assets/acctCard.jpg"
+import test1 from "../../assets/d.png"
+import test5 from "../../assets/w.png"
+import test2 from "../../assets/x.png"
+import test3 from "../../assets/y.png"
+import test4 from "../../assets/z.png"
+
 
 const Overview = () => {
 
@@ -34,7 +40,7 @@ const Overview = () => {
 
           {/* Greeting */}
           <div className="w-full h-full relative">
-            <img src={welcome} alt="" className="absolute inset-0 w-full h-full rounded-2xl object-cover" />
+            <img src={welcome} alt="" className="absolute inset-0 w-full h-full rounded-2xl object-cover shadow-lg" />
             <div className="absolute border-1 border-gray-200 inset-0 flex flex-col justify-between backdrop-blur-sm rounded-2xl p-4 text-white">
               <div className="flex flex-row justify-between">
                 <p className="text-4xl font-bold">Talia Ferris</p>
@@ -57,6 +63,11 @@ const Overview = () => {
               <Card imgsrc={codeCard} course={"CPSC 329"}/>
               <Card imgsrc={stockCard} course={"OPMA 301"}/>
               <Card imgsrc={buildingCard} course={"OPMA 401"}/>
+              {/* <Card imgsrc={test1} course={"GRST 205"}/>
+              <Card imgsrc={test2} course={"ACCT 341"}/>
+              <Card imgsrc={test3} course={"CPSC 329"}/>
+              <Card imgsrc={test4} course={"OPMA 301"}/>
+              <Card imgsrc={test5} course={"OPMA 401"}/> */}
             </div>
           </div>
 
