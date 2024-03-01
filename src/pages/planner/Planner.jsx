@@ -1,8 +1,8 @@
 import { useEffect, useState } from "react";
 import TablePage from "../../components/tablepage";
 import { useData } from '../../DataProvider';
-import PieChart from '../../components/pieChart'
-import { formatData } from '../../Data/Utilities'
+import PieChart from '../../components/pieChart';
+import { formatData } from '../../Data/Utilities';
 
 
 
