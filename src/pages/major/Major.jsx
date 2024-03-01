@@ -6,7 +6,7 @@ const Major = () => {
   return (
     <>
       <div className="w-full h-full flex flex-row">
-        <div className="w-full h-full">Major</div>
+        <div className="w-full h-full  bg-green-200">Major</div>
         <TablePage>
           {/* Made a children prop for TablePage so that I can use TablePage in another file without the filter component*/}
           <Filter />

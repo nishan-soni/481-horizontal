@@ -1,7 +1,7 @@
 const Concentration = () => {
   return (
     <div>
-      <div>Concentration</div>
+      <div className=" bg-green-200">Concentration</div>
     </div>
   );
 };
