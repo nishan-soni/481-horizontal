@@ -11,10 +11,10 @@ const pieChart = ({ data, details }) => {
     // }, [data])
 
     return (
-        <div className="h-3/5">
+        <div className="h-1/2">
             <ResponsivePie
                 data={data}
-                margin={{ top: 0, right: 50, bottom: 80, left: 50 }}
+                margin={{ top: 0, right: 50, bottom: 0, left: 50 }}
                 innerRadius={0.5}
                 padAngle={0.7}
                 cornerRadius={3}
