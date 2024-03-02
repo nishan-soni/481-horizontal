@@ -20,33 +20,33 @@ const initialNodes = [
     {
         id: '1',
         type: 'custom',
-        data: { name: 'Jane Doe', job: 'CEO', emoji: '😎' },
-        position: { x: 0, y: 50 },
+        data: {"title":"CPSC","id":355,"grade":"N/A","status":"in progress","units":"3.0","preq":[],"date-complete":"N/A"},
+        position: { x: -200, y: -200 },
     },
     {
         id: '2',
         type: 'custom',
-        data: { name: 'Tyler Weary', job: 'Designer', emoji: '🤓' },
-
-        position: { x: -200, y: 200 },
+        data: {"title":"CPSC","id":331,"grade":"B","status":"complete","units":"3.0","preq":[],"date-complete":"2023-04-12"},
+        position: { x: 200, y: -200 },
     },
     {
         id: '3',
         type: 'custom',
-        data: { name: 'Kristi Price', job: 'Developer', emoji: '🤩' },
-        position: { x: 200, y: 200 },
-    },
+        data: {"title":"CPSC","id":441,"grade":"N/A","status":"incomplete","units":"3.0","preq":["CSPC 331", "CPSC 355"],"date-complete":"N/A"},
+        position: { x: 0, y: 50 },
+    }
 ];
+
 
 const initialEdges = [
     {
         id: 'e1-2',
         source: '1',
-        target: '2',
+        target: '3',
     },
     {
         id: 'e1-3',
-        source: '1',
+        source: '2',
         target: '3',
     },
 ];
@@ -77,8 +77,9 @@ function Canvas() {
         const dataString = event.dataTransfer.getData('application/reactFlow'); // catch the data transfered from CourseDrawerNode
         const { type, courseProp } = JSON.parse(dataString);
         console.log(dataString);
-        console.log(type);
-        console.log(typeof (type));
+        // console.log(type);
+        console.log("courseProp ", courseProp);
+        // console.log(typeof (type));
 
         // checking if the dragged element is a valid
         if (typeof type === 'undefined' || !type) {
@@ -101,27 +102,9 @@ function Canvas() {
     }, [reactFlowInstance]
     );
 
-
-
-
-    const { data } = useData();
-
-
-    // const [nodes, setNodes, onNodesChange] = useNodesState(initialNodes);
-    // const [edges, setEdges, onEdgesChange] = useEdgesState(initialEdges);
-
-
     useEffect(() => {
-        if (data != null) {
-            const courseData = data['Talia Ferris']['courses']
-            console.log(courseData);
-        }
-    }, [data])
-
-    // const onConnect = useCallback(
-    //     (params) => setEdges((eds) => addEdge(params, eds)),
-    //     [setEdges],
-    // );
+        console.log(initialNodes);
+    }, [])
 
     return (
         <div className="w-full h-full bg-stone-50">

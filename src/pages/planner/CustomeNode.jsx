@@ -29,7 +29,7 @@ function CustomNode({ data }) {
                     </svg>
                 </button>
                 <p className='font-semibold'>{title + " " + id}</p>
-                <div className={`rounded-full w-2.5 h-2.5
+                <div className={`rounded-full w-2.5 h-2.5 border-2 
                 ${status === "complete" ? 'bg-green-200 border-green-300'
                         : status === "incomplete" ? 'bg-red-200 border-red-300'
                             : 'bg-amber-200 border-amber-300'}
@@ -47,7 +47,7 @@ function CustomNode({ data }) {
                                 : 'bg-amber-200 text-amber-400'}
                     `}
                     >
-                        In Progress
+                        {status}
                     </p>
                 </div>
                 : ""
