@@ -10,11 +10,7 @@ import greekCard from "../../assets/greekCard.jpg"
 import stockCard from "../../assets/stockCard.jpg"
 import codeCard from "../../assets/codeCard.jpg"
 import acctCard from "../../assets/acctCard.jpg"
-import test1 from "../../assets/d.png"
-import test5 from "../../assets/w.png"
-import test2 from "../../assets/x.png"
-import test3 from "../../assets/y.png"
-import test4 from "../../assets/z.png"
+import Gpa from "../../components/Gpa";
 
 
 const Overview = () => {
@@ -36,7 +32,7 @@ const Overview = () => {
   return (
     <>
       <div className="w-full h-full flex flex-row">
-        <div className="flex flex-col w-full h-full p-14 gap-y-8 rounded-r-none bg-stone-50">
+        <div className="flex flex-col w-full h-full p-14 gap-y-8 rounded-r-none bg-stone-50 shadow-inner">
 
           {/* Greeting */}
           <div className="w-full h-full relative">
@@ -57,23 +53,20 @@ const Overview = () => {
           <div className="w-full h-full">
             <p className="text-3xl font-semibold my-5">Winter</p>
             <div className="w-full h-full lg:h-3/4 grid grid-cols-2 lg:grid-cols-5 rounded-3xl gap-2">
-              {/* <Card imgsrc={calc} course={"OPMA 301"}/> */}
               <Card imgsrc={greekCard} course={"GRST 205"}/>
               <Card imgsrc={acctCard} course={"ACCT 341"}/>
               <Card imgsrc={codeCard} course={"CPSC 329"}/>
               <Card imgsrc={stockCard} course={"OPMA 301"}/>
               <Card imgsrc={buildingCard} course={"OPMA 401"}/>
-              {/* <Card imgsrc={test1} course={"GRST 205"}/>
-              <Card imgsrc={test2} course={"ACCT 341"}/>
-              <Card imgsrc={test3} course={"CPSC 329"}/>
-              <Card imgsrc={test4} course={"OPMA 301"}/>
-              <Card imgsrc={test5} course={"OPMA 401"}/> */}
             </div>
           </div>
 
         </div>
         <TablePage>
-          {data != null && <PieChart data={newData} details={true} />}
+          <div className="flex flex-col justify-between h-full bg-yellow-20">
+          {data != null && <PieChart data={newData} details={true} mb={"125"} />}
+          <Gpa/>
+          </div>
         </TablePage>
       </div>
     </>

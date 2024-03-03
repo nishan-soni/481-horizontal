@@ -1,8 +1,10 @@
 
 // Styling for Nav Links
-const NavLink = ({children}) => {
+const NavLink = ({ children }) => {
   return (
-    <div className="text-xl text-center"><strong>{children}</strong></div>
+    <div className="w-full flex items-start bg-red-20">
+      <strong>{children}</strong>
+    </div>
   );
 };
 
