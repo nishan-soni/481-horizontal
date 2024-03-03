@@ -12,6 +12,7 @@ import ReactFlow, {
 import 'reactflow/dist/style.css';
 import CustomNode from './CustomeNode';
 import { useData } from "../../DataProvider";
+import Timeline from "./Timeline";
 
 const nodeTypes = {
     custom: CustomNode,
@@ -97,7 +98,7 @@ function Canvas({ onRemove }) {
         event.preventDefault();
         const dataString = event.dataTransfer.getData('application/reactFlow'); // catch the data transfered from CourseDrawerNode
         const { type, courseProp } = JSON.parse(dataString);
-       
+
         // console.log(dataString);
         // console.log(type);
         // console.log("courseProp ", courseProp);
@@ -121,40 +122,44 @@ function Canvas({ onRemove }) {
         }; // set the properties of the new node
 
         setNodes((nds) => nds.concat(newNode)); // add the node to the list of nodes
-        console.log("removing node: ", courseProp.title + courseProp.id);
+        // console.log("removing node: ", courseProp.title + courseProp.id);
         onRemove(courseProp);
 
     }, [reactFlowInstance]
     );
 
     useEffect(() => {
-        console.log(initialNodes);
+        // console.log(initialNodes);
     }, [])
 
     return (
-        <div className="w-full h-full bg-stone-50">
-            <ReactFlowProvider>
-                <div className="w-full h-full" ref={reactFlowWrapper}>
-                    <ReactFlow
-                        fitView
-                        snapToGrid={[100, 100]}
-                        nodes={nodes}
-                        edges={edges}
-                        nodeTypes={nodeTypes}
-                        onNodesChange={onNodesChange}
-                        onEdgesChange={onEdgesChange}
-                        onConnect={onConnect}
-                        onInit={setReactFlowInstance}
-                        onDrop={onDrop}
-                        onDragOver={onDragOver}
-                    >
-                        <Background color="#e7e5e4" variant="dots" size="2" />
-                        {/* <MiniMap /> */}
-                        <Controls />
-                    </ReactFlow>
-                </div>
-            </ReactFlowProvider>
-        </div>
+        <>
+            <div className="w-full h-full bg-stone-50 shadow-inner relative">
+                <Timeline/>
+                <ReactFlowProvider>
+                    <div className="w-full h-full" ref={reactFlowWrapper}>
+                        <ReactFlow
+                            fitView
+                            maxZoom={1.1}
+                            snapToGrid={[100, 100]}
+                            nodes={nodes}
+                            edges={edges}
+                            nodeTypes={nodeTypes}
+                            onNodesChange={onNodesChange}
+                            onEdgesChange={onEdgesChange}
+                            onConnect={onConnect}
+                            onInit={setReactFlowInstance}
+                            onDrop={onDrop}
+                            onDragOver={onDragOver}
+                        >
+                            <Background color="#e7e5e4" variant="dots" size="2" />
+                            {/* <MiniMap /> */}
+                            <Controls />
+                        </ReactFlow>
+                    </div>
+                </ReactFlowProvider>
+            </div >
+        </>
     )
 }
 

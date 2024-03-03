@@ -32,7 +32,7 @@ const Overview = () => {
   return (
     <>
       <div className="w-full h-full flex flex-row">
-        <div className="flex flex-col w-full h-full p-14 gap-y-8 rounded-r-none bg-stone-50">
+        <div className="flex flex-col w-full h-full p-14 gap-y-8 rounded-r-none bg-stone-50 shadow-inner">
 
           {/* Greeting */}
           <div className="w-full h-full relative">
@@ -64,7 +64,7 @@ const Overview = () => {
         </div>
         <TablePage>
           <div className="flex flex-col justify-between h-full bg-yellow-20">
-          {data != null && <PieChart data={newData} details={true} height={"3/4"} mb={"125"} />}
+          {data != null && <PieChart data={newData} details={true} mb={"125"} />}
           <Gpa/>
           </div>
         </TablePage>

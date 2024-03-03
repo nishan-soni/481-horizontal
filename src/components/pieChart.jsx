@@ -2,16 +2,16 @@ import { useEffect } from "react";
 import { ResponsivePie } from '@nivo/pie';
 import { useData } from "../DataProvider";
 
-const pieChart = ({ data, details, height, mb }) => {
+const pieChart = ({ data, details, mb }) => {
 
-    // useEffect(() => {
-    //     if (data != null) {
-    //         console.log("nivo", data);
-    //     }
-    // }, [data])
+    useEffect(() => {
+        if (data != null) {
+            console.log("nivo", data);
+        }
+    }, [data])
 
     return (
-        <div className={`h-${height}`}>
+        <div className="h-1/2 flex-grow">
             <ResponsivePie
                 data={data}
                 margin={{ top: 0, right: 50, bottom: mb, left: 50 }}

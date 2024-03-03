@@ -5,10 +5,10 @@ function Gpa({ cumlGpa, Gpa }) {
     const [visible, setVisible] = useState(false);
 
     return (
-        <div className='flex flex-col justify-end items-end bg-red-20 p-8 w-full'>
+        <div className='flex flex-col h-1/4 justify-end items-end bg-red-20 p-8 w-full'>
             <div className='flex flex-row text-2xl font-bold items-center'>
                 <button
-                
+
                     onClick={() => setVisible(!visible)}
                 >
                     {
@@ -41,18 +41,18 @@ function Gpa({ cumlGpa, Gpa }) {
                 }
             </div>
             <div className='flex flex-row text-lg font-semibold text-stone-300'>
-                <p className='pr-2'>
-                    Cummulative GPA
-                </p>
                 {
                     visible ? (
-                        <p>
-                            3.69
-                        </p>
+                        <>
+                            <p className='pr-2'>
+                                Cummulative GPA
+                            </p>
+                            <p>
+                                3.69
+                            </p>
+                        </>
                     ) : (
-                        <p>
-                            __{" "}__
-                        </p>
+                        ""
                     )
                 }
             </div>
