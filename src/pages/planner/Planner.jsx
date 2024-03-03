@@ -70,7 +70,7 @@ const Planner = () => {
               ))
             }
           </CourseDrawer>
-          {data != null && <PieChart data={chartData} details={false} mb={"0"} />}
+          {data != null && <PieChart data={chartData} details={false} height={"1/2"} mb={"0"} />}
         </TablePage>
       </div>
     </>
