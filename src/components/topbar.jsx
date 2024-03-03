@@ -35,7 +35,7 @@ const TopBar = () => {
       <div className="flex justify-end min-w-fit w-[28%]">
         <div className="flex flex-col mx-4">
           <div className=" text-lg">
-            <strong>Rex O’Saurus</strong>
+            <strong>Talia Ferris</strong>
           </div>
           <div className="text-sm text-right">
             30839283
@@ -45,7 +45,7 @@ const TopBar = () => {
           <img
             src={profile}
             alt="profile"
-            className="h-full w-full object-cover border-2 p-0.5 border-red-200 rounded-full"
+            className="h-full w-full object-cover border-2 p-0.5 border-red-400 rounded-full"
           />
         </div>
       </div>
