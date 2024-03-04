@@ -10,6 +10,8 @@ const pieChart = ({ data, details, mb }) => {
         }
     }, [data])
 
+    const customColors = ['#e7e5e4', '#f98b8b', '#fde68a', '#BAD7F2', '#B6E2D5'];
+
     return (
         <div className="h-1/2 flex-grow">
             <ResponsivePie
@@ -20,7 +22,7 @@ const pieChart = ({ data, details, mb }) => {
                 cornerRadius={3}
                 activeOuterRadiusOffset={8}
                 borderWidth={1}
-                colors={{ scheme: 'nivo' }}
+                colors={customColors}
                 borderColor={{
                     from: 'color',
                     modifiers: [['darker', 0.2]]
