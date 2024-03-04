@@ -22,7 +22,7 @@ const Nav = () => {
 
       {/* Navigation */}
       <div className="w-full flex flex-col h-3/5 pl-10">
-        <div className="flex-1 w-full flex flex-col justify-center gap-8 bg-red-20 text-lg font-light text-center">
+        <div className="flex-1 w-full flex flex-col justify-center gap-8 bg-red-20 text-lg font-light text-center text-base">
           <Link className={` pl-4 py-2 rounded-2xl rounded-r-sm hover:font-normal hover:bg-stone-100 ease-in-out transition-all duration-300
             ${tab == "/" ? 'border-r-[6px] border-red-500  bg-red-50 text-red-500 font-normal' : ''}`}
             to="/"
