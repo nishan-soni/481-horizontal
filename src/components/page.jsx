@@ -18,7 +18,7 @@ const Page = () => {
         </div>
         <div className="flex flex-col flex-1">
           {/* Top bar*/}
-          <div className="h-[12dvh] border-b border-b-gray-200 flex sticky top-0 bg-white z-10">
+          <div className="h-[12dvh] border-b border-b-gray-200 flex sticky top-0 bg-white z-10 shadow-[0_10px_20px_-5px_rgba(115,115,115,0.75]">
             <TopBar/>
           </div>
           {/*Content for each tab*/}

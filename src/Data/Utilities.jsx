@@ -6,7 +6,7 @@
  */
 export function formatData(data) {
     const ratios = [];
-    const totalProgression = data["Talia Ferris"]["total-progression"];
+    const totalProgression = data["Nathan Ferris"]["total-progression"];
 
     const emptySegment = {
       "id": "Remain",

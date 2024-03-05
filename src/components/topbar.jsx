@@ -2,11 +2,11 @@ import profile from "../assets/b.jpg";
 
 const TopBar = () => {
   return (
-    <div className="flex-1 flex flex-row items-center justify-end w-full pr-8 py-3 shadow">
+    <div className="flex-1 flex flex-row items-center justify-end w-full pr-8 py-3">
       <div className="flex justify-end min-w-fit w-[28%]">
         <div className="flex flex-col mx-4">
           <div className=" text-lg">
-            <strong>Talia Ferris</strong>
+            <strong>Nathan Ferris</strong>
           </div>
           <div className="text-sm text-right">
             30839283
