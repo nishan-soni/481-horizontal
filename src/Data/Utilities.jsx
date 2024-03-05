@@ -6,12 +6,12 @@
  */
 export function formatData(data) {
     const ratios = [];
-    const totalProgression = data["Talia Ferris"]["total-progression"];
+    const totalProgression = data["Nathan Ferris"]["total-progression"];
 
     const emptySegment = {
       "id": "Remain",
       "label": "Remain",
-      "value": 120 - (17 * 3),
+      "value": 120 - (15 * 3),
     }
     ratios.push(emptySegment);
 

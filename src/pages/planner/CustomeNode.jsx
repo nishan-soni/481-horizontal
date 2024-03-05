@@ -3,9 +3,8 @@ import { Handle, Position } from 'reactflow';
 
 function CustomNode({ data }) {
 
-    const { title, id, status } = data;
+    const { title, id, status, description } = data;
 
-    const desc = "An introduction to operations and supply chain management's strategic importance, wide applicability, and sustainability integration. Topics include management of inventory, quality, global supply chains, capacity, projects and process improvement."
     const [showDetails, setShowDetails] = useState(false);
 
     const truncateText = (text, numWords) => {
@@ -20,13 +19,19 @@ function CustomNode({ data }) {
     return (
         <div className="shadow-md rounded-lg w-full bg-white border-2 border-stone-300 active:animate-pulse">
             {/* Header */}
-            <div className='flex justify-start items-center w-full border-b px-3 py-1 gap-3'>
+            <div className='flex justify-between items-center w-full border-b px-3 py-1 gap-3'>
                 <button
                     onClick={() => setShowDetails(!showDetails)}
                 >
-                    <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" strokeWidth="1.5" stroke="currentColor" className="w-6 h-6 text-stone-300">
-                        <path strokeLinecap="round" strokeLinejoin="round" d="m19.5 8.25-7.5 7.5-7.5-7.5" />
-                    </svg>
+                    {
+                        showDetails ?
+                            <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" strokeWidth="1.5" stroke="currentColor" className="w-6 h-6 text-stone-300">
+                                <path strokeLinecap="round" strokeLinejoin="round" d="m4.5 15.75 7.5-7.5 7.5 7.5" />
+                            </svg> :
+                            <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" strokeWidth="1.5" stroke="currentColor" className="w-6 h-6 text-stone-300">
+                                <path strokeLinecap="round" strokeLinejoin="round" d="m19.5 8.25-7.5 7.5-7.5-7.5" />
+                            </svg>
+                    }
                 </button>
                 <p className='font-semibold'>{title + " " + id}</p>
                 <div className={`rounded-full w-2.5 h-2.5 border-2 
@@ -39,8 +44,8 @@ function CustomNode({ data }) {
             </div>
             {/* Description */}
             {showDetails ?
-                < div className={`px-3 py-2 max-w-44 transition-opacity duration-500 ease-in-out ${showDetails ? 'opacity-100' : 'opacity-0'}`}>
-                    <p className='text-stone-300 text-sm pb-4'>{truncateText(desc, 10)}</p>
+                < div className={`px-3 py-2 max-w-56 transition-opacity duration-500 ease-in-out ${showDetails ? 'opacity-100' : 'opacity-0'}`}>
+                    <p className='text-stone-300 text-sm pb-4'>{truncateText(description, 25)}</p>
                     <p className={`w-fit text-xs rounded-full py-0.5 px-2
                     ${status === "complete" ? 'bg-green-200 text-green-400'
                             : status === "incomplete" ? 'bg-red-200 text-red-400'

@@ -19,7 +19,7 @@ const Planner = () => {
   useEffect(() => {
     if (data != null) {
       setChartData(formatData(data))
-      setCourseNodeList(Object.values(data['Talia Ferris']['courses']));
+      setCourseNodeList(Object.values(data['Nathan Ferris']['courses']));
       console.log("course nodes list: ", courseNodeList);
     }
     // console.log("newData", chartData);
@@ -88,7 +88,7 @@ const Planner = () => {
           {/* <CourseDrawer>
             {
               data != null ?
-                Object.values(data['Talia Ferris']['courses']).map((course) => {
+                Object.values(data['Nathan Ferris']['courses']).map((course) => {
                   // console.log("Mapping course: ", course);
                   <CourseDrawerNode course={course} />
                 })
