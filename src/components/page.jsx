@@ -13,12 +13,12 @@ const Page = () => {
     <div className="flex flex-row flex-1">
       <BrowserRouter>
         {/* Nav Bar area */}
-        <div id="nav" className="w-1/5 border-r border-r-gray-200 h-full">
+        <div id="nav" className="w-1/5 border-r border-r-gray-200 h-full relative">
           <Nav />
         </div>
         <div className="flex flex-col flex-1">
           {/* Top bar*/}
-          <div className="h-[12dvh] border-b border-b-gray-200 flex">
+          <div className="h-[12dvh] border-b border-b-gray-200 flex sticky top-0 bg-white z-10 shadow-[0_10px_20px_-5px_rgba(115,115,115,0.75]">
             <TopBar/>
           </div>
           {/*Content for each tab*/}
