@@ -3,7 +3,7 @@
   "private": true,
   "version": "0.0.0",
   "type": "module",
-  "homepage": "https://nishan-soni.github.io/481-horizontal/#",
+  "homepage": "https://nishan-soni.github.io/481-horizontal/",
   "scripts": {
     "dev": "vite",
     "build": "vite build",
