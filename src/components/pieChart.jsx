@@ -2,25 +2,27 @@ import { useEffect } from "react";
 import { ResponsivePie } from '@nivo/pie';
 import { useData } from "../DataProvider";
 
-const pieChart = ({ data, details }) => {
+const pieChart = ({ data, details, mb }) => {
 
-    // useEffect(() => {
-    //     if (data != null) {
-    //         console.log("nivo", data);
-    //     }
-    // }, [data])
+    useEffect(() => {
+        if (data != null) {
+            console.log("nivo", data);
+        }
+    }, [data])
+
+    const customColors = ['#e7e5e4', '#f98b8b', '#fde68a', '#BAD7F2', '#B6E2D5'];
 
     return (
-        <div className="h-3/5">
+        <div className="h-1/2 flex-grow">
             <ResponsivePie
                 data={data}
-                margin={{ top: 0, right: 50, bottom: 80, left: 50 }}
+                margin={{ top: 0, right: 50, bottom: mb, left: 50 }}
                 innerRadius={0.5}
                 padAngle={0.7}
                 cornerRadius={3}
                 activeOuterRadiusOffset={8}
                 borderWidth={1}
-                colors={{ scheme: 'nivo' }}
+                colors={customColors}
                 borderColor={{
                     from: 'color',
                     modifiers: [['darker', 0.2]]
