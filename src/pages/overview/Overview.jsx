@@ -58,7 +58,7 @@ const Overview = () => {
 
             {/* Semester */}
             <div className="w-full h-full">
-              <p className="text-3xl font-semibold my-5">Winter</p>
+              <p className="text-3xl font-semibold my-5">Fall</p>
               <div className="w-full h-full max-h-full lg:h-3/4 grid grid-cols-2 lg:grid-cols-5 rounded-3xl gap-2 ">
                 <Card imgsrc={greekCard} course={"GRST 205"} />
                 <Card imgsrc={acctCard} course={"OPMA 301"} />
