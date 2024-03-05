@@ -1,5 +1,5 @@
 import Nav from "./nav";
-import { BrowserRouter, Routes, Route } from "react-router-dom";
+import {Routes, Route, HashRouter } from "react-router-dom";
 import Overview from "../pages/overview/Overview";
 import Major from "../pages/major/Major";
 import Minor from "../pages/minor/Minor";
@@ -11,7 +11,7 @@ import TopBar from "./topbar";
 const Page = () => {
   return (
     <div className="flex flex-row flex-1">
-      <BrowserRouter>
+      <HashRouter>
         {/* Nav Bar area */}
         <div id="nav" className="w-1/5 border-r border-r-gray-200 h-full">
           <Nav />
@@ -32,7 +32,7 @@ const Page = () => {
             </Routes>
           </div>
         </div>
-      </BrowserRouter>
+      </HashRouter>
     </div>
   );
 };
