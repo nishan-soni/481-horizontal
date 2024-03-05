@@ -24,19 +24,19 @@ const initialNodes = [
     {
         id: '1',
         type: 'custom',
-        data: { "title": "CPSC", "id": 355, "grade": "N/A", "status": "in progress", "units": "3.0", "preq": [], "date-complete": "N/A" },
+        data: { "title": "Add Courses", "id": 1, "grade": "N/A", "status": "in progress", "units": "3.0", "preq": [], "date-complete": "N/A", "description": "🆕 Add courses by dragging them from the side menu into the canvas." },
         position: { x: -200, y: -200 },
     },
     {
         id: '2',
         type: 'custom',
-        data: { "title": "CPSC", "id": 331, "grade": "B", "status": "complete", "units": "3.0", "preq": [], "date-complete": "2023-04-12" },
+        data: { "title": "Delete Courses", "id": 2, "grade": "B", "status": "complete", "units": "3.0", "preq": [], "date-complete": "2023-04-12", "description": "🔙 Delete courses by selecting the course or link, then press backspace to delete it." },
         position: { x: 200, y: -200 },
     },
     {
         id: '3',
         type: 'custom',
-        data: { "title": "CPSC", "id": 441, "grade": "N/A", "status": "incomplete", "units": "3.0", "preq": ["CSPC 331", "CPSC 355"], "date-complete": "N/A" },
+        data: { "title": "Move Canvas", "id": 3, "grade": "N/A", "status": "incomplete", "units": "3.0", "preq": ["CSPC 331", "CPSC 355"], "date-complete": "N/A", "description": "🖱 Scroll to zoom and drag the cursor on the canvas to move. Hold and drag courses to move them around as needed." },
         position: { x: 0, y: 50 },
     }
 ];
