@@ -1,9 +1,139 @@
-const ReqTable = () => {
-    return (
-        <div>
-            {/* Your component code goes here */}
-        </div>
-    );
-};
+import React from "react";
+import Box from "@mui/material/Box";
+import Collapse from "@mui/material/Collapse";
+import IconButton from "@mui/material/IconButton";
+import Table from "@mui/material/Table";
+import TableBody from "@mui/material/TableBody";
+import TableCell from "@mui/material/TableCell";
+import TableContainer from "@mui/material/TableContainer";
+import TableHead from "@mui/material/TableHead";
+import TableRow from "@mui/material/TableRow";
+import KeyboardArrowDownIcon from "@mui/icons-material/KeyboardArrowDown";
+import KeyboardArrowRightIcon from "@mui/icons-material/KeyboardArrowRight";
+import { useData } from "../DataProvider";
+import CompletionCard from "./completioncard";
+import { Typography } from "@mui/material";
+
+
+
+function Row(props) {
+  const { row } = props;
+  const [open, setOpen] = React.useState(row.completion !== "complete");
+
+
+  return (
+    <>
+      <TableRow
+        className=" bg-slate-50"
+        onClick={() => {
+          setOpen(!open);
+        }}
+        hover
+        sx={{ "& > *": { borderBottom: "unset" } }}
+      >
+        <TableCell>
+          <IconButton
+            aria-label="expand row"
+            size="small"
+            onClick={() => setOpen(!open)}
+          >
+            {open ? <KeyboardArrowDownIcon /> : <KeyboardArrowRightIcon />}
+          </IconButton>
+        </TableCell>
+        <TableCell component="th" scope="row">
+          <strong>{row.name}</strong>
+        </TableCell>
+        <TableCell align="center">
+          <CompletionCard decider={row.completion} />
+        </TableCell>
+        <TableCell align="center">{row.credits} / {row.outof}</TableCell>
+      </TableRow>
+      <TableRow className=" border-none shadow-inner bg-white">
+        <TableCell style={{ paddingBottom: 0, paddingTop: 0 }} colSpan={6}>
+          <Collapse in={open} timeout="auto" unmountOnExit>
+            <Box sx={{ margin: 1 }}>
+              <Table size="small" aria-label="purchases">
+                <TableHead>
+                  <TableRow>
+                    <TableCell align="center">
+                      <strong>Course</strong>
+                    </TableCell>
+                    <TableCell align="center">
+                      <strong>Semester</strong>
+                    </TableCell>
+                    <TableCell align="center">
+                      <strong>Grade</strong>
+                    </TableCell>
+                    <TableCell align="center">
+                      <strong>Status</strong>
+                    </TableCell>
+                  </TableRow>
+                </TableHead>
+                <TableBody>
+                  {row["courses"].map((courseRow) => (
+                    <TableRow key={courseRow.course}>
+                      <TableCell
+                        sx={{ borderBottom: "none" }}
+                        component="th"
+                        scope="row"
+                        align="center"
+                      >
+                        {courseRow.course}
+                      </TableCell>
+                      <TableCell sx={{ borderBottom: "none" }} align="center">
+                        {courseRow.sem}
+                      </TableCell>
+                      <TableCell sx={{ borderBottom: "none" }} align="center">
+                        {courseRow.grade}
+                      </TableCell>
+                      <TableCell sx={{ borderBottom: "none" }} align="center">
+                        <CompletionCard decider={courseRow.status} />
+                      </TableCell>
+                    </TableRow>
+                  ))}
+                </TableBody>
+              </Table>
+            </Box>
+          </Collapse>
+        </TableCell>
+      </TableRow>
+    </>
+  );
+}
+
+
+function ReqTable(props) {
+  const {data} = props; 
+  const user = useData();
+
+  return (
+    <>
+    <div className="border-2 rounded-xl p-2 mb-2"><Typography fontSize={24}>{data.reqtitle}</Typography></div>
+      <TableContainer className="bg-white border-2 rounded-xl">
+        <Table aria-label="collapsible table">
+          <TableHead className="bg-white">
+            <TableRow>
+              <TableCell />
+              <TableCell>
+                <strong>Requirement</strong>
+              </TableCell>
+              <TableCell align="center">
+                <strong>Completion</strong>
+              </TableCell>
+              <TableCell align="center">
+                <strong>Credits Acheived</strong>
+              </TableCell>
+            </TableRow>
+          </TableHead>
+          <TableBody className="">
+            {data["reqs"].map((row) => (
+              <Row key={row.name} row={row} />
+            ))}
+          </TableBody>
+        </Table>
+      </TableContainer>
+    </>
+  );
+}
 
 export default ReqTable;

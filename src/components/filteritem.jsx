@@ -5,14 +5,15 @@ import FormControl from "@mui/material/FormControl";
 import Select from "@mui/material/Select";
 import InputLabel from "@mui/material/InputLabel";
 import MenuItem from "@mui/material/MenuItem";
+import TextField from "@mui/material/TextField";
+import Autocomplete from "@mui/material/Autocomplete";
+import { Chip } from "@mui/material";
 
 const FilterItem = (props) => {
   const { name, options, type } = props;
   return (
-    <div className="flex flex-col flex-1 px-6 m-5">
-      <div className="text-lg">
-        <strong>{name}</strong>
-      </div>
+    <div className="flex flex-col w-full">
+      <div className="text-lg">{name}</div>
 
       {/*Multi select filter*/}
       {type == "multi-select" && (
@@ -34,33 +35,40 @@ const FilterItem = (props) => {
       {/* Combo box filter */}
 
       {type == "combobox" && (
-        <div>
-          <div></div>
-        </div>
+        <Autocomplete
+          fullWidth
+          multiple
+          id="combo-box-demo"
+          options={options}
+          renderTags={(value, getTagProps) =>
+            value.map((option, index) => (
+              <Chip
+                key={value}
+                variant="outlined"
+                label={option}
+                {...getTagProps({ index })}
+              />
+            ))
+          }
+          renderInput={(params) => <TextField {...params} fullWidth/>}
+        />
       )}
 
       {/* Drop down menu */}
 
       {type == "dropdown" && (
         <div>
-          <FormControl variant="standard" fullWidth>
-            <InputLabel>Year Taken</InputLabel>
-            <Select
-              labelId="demo-simple-select-label"
-              id="demo-simple-select"
-              //value={age}
-              label="Age"
-              // onChange={handleChange}
-            >
-              <MenuItem value={10}>Ten</MenuItem>
-              <MenuItem value={20}>Twenty</MenuItem>
-              <MenuItem value={30}>Thirty</MenuItem>
+          <FormControl fullWidth>
+            <Select>
+              {options.map((item, index) => {
+                return <MenuItem key = {item} value={item}>{item}</MenuItem>;
+              })}
             </Select>
           </FormControl>
         </div>
       )}
 
-      <div className=" border-b-[3px]"></div>
+      <div className="my-3 border-b-[3px] w-full m-auto"></div>
     </div>
   );
 };
