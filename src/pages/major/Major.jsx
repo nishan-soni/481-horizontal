@@ -5,7 +5,7 @@ const Major = () => {
   const data = {
     credits_completed: 12,
     credits_remaining: 4,
-    reqtitle: "Major: Computer Science",
+    reqtitle: "Major in Computer Science",
     reqs: [
       {
         name: "Logic Requirement",

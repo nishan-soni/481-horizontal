@@ -24,7 +24,7 @@ function Row(props) {
   return (
     <>
       <TableRow
-        className=" bg-slate-50"
+        className=" bg-stone-50"
         onClick={() => {
           setOpen(!open);
         }}
@@ -108,7 +108,7 @@ function ReqTable(props) {
 
   return (
     <>
-    <div className="border-2 rounded-xl p-2 mb-2"><Typography fontSize={24}>{data.reqtitle}</Typography></div>
+    <div className="border-2 rounded-xl p-4 mb-2 bg-white shadow-sm"><Typography fontSize={18}><strong>{data.reqtitle}</strong></Typography></div>
       <TableContainer className="bg-white border-2 rounded-xl">
         <Table aria-label="collapsible table">
           <TableHead className="bg-white">

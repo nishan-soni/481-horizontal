@@ -3,7 +3,7 @@ const Minor = () => {
   const data = {
     credits_completed: 6,
     credits_remaining: 0,
-    reqtitle: "Minor: Management",
+    reqtitle: "Minor in Management",
     reqs: [
       {
         name: "Required Courses",

@@ -3,7 +3,7 @@ const Concentration = () => {
   const data = {
     credits_completed: 9,
     credits_remaining: 6,
-    reqtitle: "Concentration: Game Development",
+    reqtitle: "Concentration in Game Development",
     reqs: [
       {
         name: "3 units from Physics 211, 221 or 227",
