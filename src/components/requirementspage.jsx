@@ -10,7 +10,7 @@ function RequirementsPage(props) {
       <div className=" w-3/4 h-full shadow-inner p-3 overflow-y-scroll">
         <ReqTable data={data} />
       </div>
-      <div className="border-l-2 h-[86dvh] sticky top-0 overflow-y-scroll">
+      <div className="border-l-2 h-[86dvh] sticky top-0 flex-grow overflow-y-scroll">
         <div className="h-1/3 border-b-2">
           <div className="w-full py-4 text-center text-2xl border-b-2">
             Credits
@@ -35,7 +35,6 @@ function RequirementsPage(props) {
           />
           </div>
         </div>
-       
         <Filter /> 
       </div>
     </div>
