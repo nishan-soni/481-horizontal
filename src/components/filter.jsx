@@ -2,7 +2,7 @@ import FilterItem from "./filteritem";
 
 const Filter = () => {
   return (
-    <div className="border-b-2 flex flex-col items-center max-w-full">
+    <div className="flex flex-col items-center max-w-full">
       <div className="text-2xl text-center border-b-2 w-full py-4">
         Filter Courses
       </div>
