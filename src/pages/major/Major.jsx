@@ -3,8 +3,8 @@ import RequirementsPage from "../../components/requirementspage";
 const Major = () => {
 
   const data = {
-    credits_completed: 12,
-    credits_remaining: 4,
+    credits_completed: 21,
+    credits_remaining: 16,
     reqtitle: "Major in Computer Science",
     reqs: [
       {
@@ -20,6 +20,50 @@ const Major = () => {
             status: "complete",
           },
         ],
+      },
+      {
+        name: "21 units from Computer Science 251, 331, 351, 355, 413, 449 and 457",
+        credits: 9,
+        outof:21,
+        completion: "in-complete",
+        courses: [
+          {
+            course: "CPSC 251",
+            sem: "Winter 2022",
+            grade: "B-",
+            status: "complete",
+          },
+          {
+            course: "CPSC 331",
+            sem: "Winter 2023",
+            grade: "A-",
+            status: "complete",
+          },
+          {
+            course: "CPSC 351",
+            sem: "Winter 2024",
+            grade: "A+",
+            status: "in-progress",
+          },
+          {
+            course: "CPSC 355",
+            sem: "Fall 2023",
+            grade: "A+",
+            status: "complete",
+          },
+          {
+            course: "CPSC 413",
+            sem: "Winter 2024",
+            grade: "N/A",
+            status: "in-progress",
+          },
+          {
+            course: "CPSC 457",
+            sem: "Winter 2024",
+            grade: "N/A",
+            status: "in-progress",
+          },
+        ]
       },
       {
         name: "Ethics Requirement",

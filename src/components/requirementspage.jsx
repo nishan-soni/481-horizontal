@@ -6,11 +6,11 @@ import { ResponsivePie } from "@nivo/pie";
 function RequirementsPage(props) {
   const { data } = props;
   return (
-    <div className="w-full h-full flex flex-row">
-      <div className=" w-3/4 h-full shadow-inner p-3">
+    <div className="w-full h-[86dvh] flex flex-row">
+      <div className=" w-3/4 h-full shadow-inner p-3 overflow-y-scroll">
         <ReqTable data={data} />
       </div>
-      <div className="border-l-2 flex-grow">
+      <div className="border-l-2 h-[86dvh] sticky top-0 overflow-y-scroll">
         <div className="h-1/3 border-b-2">
           <div className="w-full py-4 text-center text-2xl border-b-2">
             Credits
