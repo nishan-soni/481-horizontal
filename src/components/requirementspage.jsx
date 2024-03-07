@@ -19,7 +19,7 @@ function RequirementsPage(props) {
           <ResponsivePie
             data={[
               { id: "Completed", value: data["credits_completed"], color: 'rgb(80, 200, 120)' },
-              { id: "Remaining", value: data["credits_remaining"], color :'rgb(238, 75, 43)'},
+              { id: "Remaining", value: data["credits_remaining"], color :'rgb(255, 104, 101)'},
             ]}
             margin={{ top: 20, right: 100, bottom: 100, left: 100 }}
             innerRadius={0.5}
