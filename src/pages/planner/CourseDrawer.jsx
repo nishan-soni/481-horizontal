@@ -1,15 +1,24 @@
 import React, { useEffect, useState } from 'react'
 import CourseDrawerNode from './CourseDrawerNode'
+import ErrorMessage from '../../components/ErrorMessage';
 
 
 function CourseDrawer({ children }) {
 
     const [searchTerm, setSearchTerm] = useState('');
+    const [isError, setIsError] = useState(false);
 
-    // useEffect(() => {
-    //     console.log("Search term ", searchTerm)
-    // }, [searchTerm])
+    useEffect(() => {
+        const matchingResult = React.Children.toArray(children).filter(filterNodes);
+        setIsError(matchingResult.length === 0);
+    }, [searchTerm, children])
 
+
+    /**
+     * 
+     * @param {Object} child: a course object that is represented as a React DOM element in the drawer
+     * @returns {Boolean} returns the search results matching the search term
+     */
     function filterNodes(child) {
         if (searchTerm === '') {
             return true; // return true so that all children are displayed when there is no input
@@ -17,20 +26,17 @@ function CourseDrawer({ children }) {
 
         if (!child.props || !child.props.course.title) {
             console.log("No children or title found");
-            return false; // when there is no matching children
+            return false;
         }
 
+        // setIsError(false)
         const title = (child.props.course.title.toLowerCase() + '' + child.props.course.id.toString().toLowerCase()); // Add space between title and id
         const searchTermLower = searchTerm;
         // console.log("Title ", title);
         // console.log("search ", searchTermLower)
 
-
         return title.includes(searchTermLower);
     }
-
-
-
 
     return (
         <>
@@ -43,8 +49,9 @@ function CourseDrawer({ children }) {
                 )}
             >
             </input>
-            <div className='flex flex-col items-center border-b w-full h-[270px] p-4 gap-3 overflow-y-auto '>
+            <div className='flex flex-col items-center border-b w-full h-[270px] p-4 gap-3 overflow-y-auto'>
                 {React.Children.toArray(children).filter(filterNodes)}
+                {isError && <ErrorMessage errorMessage={"No results"} errorState={isError} color={"red"} background={false}/>}
             </div>
         </>
     )
