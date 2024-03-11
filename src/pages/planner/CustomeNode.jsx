@@ -46,10 +46,10 @@ function CustomNode({ data }) {
             {showDetails ?
                 < div className={`px-3 py-2 max-w-56 transition-opacity duration-500 ease-in-out ${showDetails ? 'opacity-100' : 'opacity-0'}`}>
                     <p className='text-stone-300 text-sm pb-4'>{truncateText(description, 25)}</p>
-                    <p className={`w-fit text-xs rounded-full py-0.5 px-2
-                    ${status === "complete" ? 'bg-green-200 text-green-400'
-                            : status === "incomplete" ? 'bg-red-200 text-red-400'
-                                : 'bg-amber-200 text-amber-400'}
+                    <p className={`w-fit text-center text-sm rounded-full py-0.5 px-2 capitalize
+                    ${status === "complete" ? 'bg-green-200 text-green-500'
+                            : status === "incomplete" ? 'bg-red-200 text-red-500'
+                                : 'bg-amber-200 text-amber-500'}
                     `}
                     >
                         {status}
