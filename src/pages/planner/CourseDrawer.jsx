@@ -41,9 +41,9 @@ function CourseDrawer({ children }) {
     return (
         <>
             <input
-                className='w-full flex justify-center items-center text-center shadow-inner focus:shadow bg-white h-10 
-                    focus:outline-none focus:border-b-[3px] border-b-[3px] border-white focus:border-red-500 transition-colors duration-300'
-                placeholder='Search...'
+                className={`w-full flex justify-center items-center text-center shadow-inner focus:shadow bg-white h-10 
+                    focus:outline-none focus:border-b-[3px] border-b-[3px] border-white ${ isError ? `focus:border-red-500` : ``} transition-colors duration-300`}
+                placeholder='Search Course'
                 onChange={(e) => (
                     setSearchTerm(e.target.value.toLowerCase().split(" ").join('')) // makes the search term lowercase and rids the term of spaces
                 )}

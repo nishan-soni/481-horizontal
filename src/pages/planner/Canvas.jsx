@@ -13,6 +13,7 @@ import 'reactflow/dist/style.css';
 import CustomNode from './CustomeNode';
 import { useData } from "../../DataProvider";
 import Timeline from "./Timeline";
+import normalEdge from "./NormalEdge";
 
 const nodeTypes = {
     custom: CustomNode,
@@ -41,6 +42,12 @@ const initialNodes = [
     }
 ];
 
+const edgeTypes = {
+    'normal-edge': normalEdge,
+};
+
+// TODO: problem: when you try to use a custom edge, then you cant apply a marker to it. But if you universally apply a marker without a custom edge
+// then it will show.s
 
 const initialEdges = [
     {
@@ -50,6 +57,7 @@ const initialEdges = [
         markerEnd: {
             type: MarkerType.ArrowClosed,
         },
+        type: 'normal-edge',
         // animated: true,
         // markerEnd: {
         //     type: MarkerType.ArrowClosed,
@@ -61,7 +69,16 @@ const initialEdges = [
         target: '3',
         markerEnd: {
             type: MarkerType.ArrowClosed,
+            width: 20,
+            height: 20,
+            color: '#FF0072',
         },
+        label: 'marker size and color',
+        style: {
+            strokeWidth: 2,
+            stroke: '#FF0072',
+        },
+
     },
 ];
 
@@ -135,7 +152,7 @@ function Canvas({ onRemove }) {
     return (
         <>
             <div className="w-full h-full bg-stone-50 shadow-inner relative">
-                <Timeline/>
+                <Timeline />
                 <ReactFlowProvider>
                     <div className="w-full h-full" ref={reactFlowWrapper}>
                         <ReactFlow
@@ -151,6 +168,7 @@ function Canvas({ onRemove }) {
                             onInit={setReactFlowInstance}
                             onDrop={onDrop}
                             onDragOver={onDragOver}
+                            edgeTypes={edgeTypes}
                         >
                             <Background color="#e7e5e4" variant="dots" size="2" />
                             {/* <MiniMap /> */}
