@@ -86,6 +86,7 @@ const initialEdges = [
     },
 ];
 
+
 let id = 0;
 const getId = () => `dndnode_${id++}`;
 
@@ -96,15 +97,35 @@ function Canvas({ onRemove }) {
     const [edges, setEdges, onEdgesChange] = useEdgesState(initialEdges);
     const [reactFlowInstance, setReactFlowInstance] = useState(null);
 
+    useEffect(() => {
+
+        console.log("Nodes: ", nodes);
+        console.log("Edges: ", edges);
+
+    }, [nodes, edges])
     // callback for setting the edges on nodes
     const onConnect = useCallback(
         (params) => {
+
+            const { source, target } = params;
+
+            let edgeType = 'normal-edge'
+            let sourceNode = nodes.find((node) => node.id === source);
+            let targetNode = nodes.find((node) => node.id === target);
+
+            // console.log(targetNode.data);
+            if (sourceNode && targetNode) {
+                // show warning edge if the source node is not one of the pre-requisites to the target node
+                if (targetNode.data.preq.find((preq) => sourceNode.data.title + "-" + sourceNode.data.id !== preq )) {
+                // if (targetNode.data.preq.includes(sourceNode.data.title + sourceNode.data.id)) {
+                    // if (parseInt(sourceNode.data.id) > parseInt(targetNode.data.id)) {
+                    edgeType = 'warning-edge'
+                }
+            }
+
             const newEdge = {
                 ...params,
-                // markerEnd: {
-                //     type: MarkerType.ArrowClosed,
-                // },
-                type: "warning-edge"
+                type: edgeType
             };
             setEdges((eds) => addEdge(newEdge, eds));
         },

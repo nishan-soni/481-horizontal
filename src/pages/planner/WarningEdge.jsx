@@ -29,24 +29,20 @@ export default function WarningEdge({ id, sourceX, sourceY, targetX, targetY }) 
                 path={edgePath}
                 label="hello"
                 style={{
-                    strokeWidth: 1,
+                    strokeWidth: 1.5,
                     stroke: '#ef4444',
-                    transition: 'stroke 0.5s ease-in-out',
+                    labelStyle: { fill: '#ef4444', fontWeight: 'bold'},
                 }}
                 markerEnd='url(#arrowClosed)'
                 
 
             />
             {/* Add label */}
-            
             <rect x={labelX - 20} y={labelY - 10} width={40} height={20} fill="#fafaf9" />
-            
             {/* Main label text */}
-            <text x={labelX} y={labelY} textAnchor="middle" fill="#ef4444" dominantBaseline="middle" className="pointer-events-none text-sm font-semibold font-sans ">
+            <text x={labelX} y={labelY} textAnchor="middle" fill="#ef4444" dominantBaseline="middle" className="pointer-events-none text-sm font-semibold font-sans">
                 Missing prerequisites
             </text>
-
-
         </>
     );
 }

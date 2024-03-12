@@ -22,6 +22,12 @@ export default function NormalEdge({ id, sourceX, sourceY, targetX, targetY }) {
             <BaseEdge
                 id={id}
                 path={edgePath}
+                style={{
+                    strokeWidth: 1.5,
+                    // markerWidth: 2,
+                    stroke: '#b9b9be',
+                    labelStyle: { fill: '#b9b9be', fontWeight: 'bold', stroke: 2 },
+                }}
                 markerEnd='url(#arrowClosed)'
             />
         </>
