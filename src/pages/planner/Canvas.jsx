@@ -14,6 +14,7 @@ import CustomNode from './CustomeNode';
 import { useData } from "../../DataProvider";
 import Timeline from "./Timeline";
 import normalEdge from "./NormalEdge";
+import WarningEdge from "./WarningEdge";
 
 const nodeTypes = {
     custom: CustomNode,
@@ -44,6 +45,7 @@ const initialNodes = [
 
 const edgeTypes = {
     'normal-edge': normalEdge,
+    'warning-edge': WarningEdge,
 };
 
 // TODO: problem: when you try to use a custom edge, then you cant apply a marker to it. But if you universally apply a marker without a custom edge
@@ -67,17 +69,19 @@ const initialEdges = [
         id: 'e1-3',
         source: '2',
         target: '3',
-        markerEnd: {
-            type: MarkerType.ArrowClosed,
-            width: 20,
-            height: 20,
-            color: '#FF0072',
-        },
-        label: 'marker size and color',
-        style: {
-            strokeWidth: 2,
-            stroke: '#FF0072',
-        },
+        type: 'warning-edge',
+        // animated: true,
+        // markerEnd: {
+        //     type: MarkerType.ArrowClosed,
+        //     width: 20,
+        //     height: 20,
+        //     color: '#FF0072',
+        // },
+        // label: 'marker size and color',
+        // style: {
+        //     strokeWidth: 2,
+        //     stroke: '#FF0072',
+        // },
 
     },
 ];
@@ -97,9 +101,10 @@ function Canvas({ onRemove }) {
         (params) => {
             const newEdge = {
                 ...params,
-                markerEnd: {
-                    type: MarkerType.ArrowClosed,
-                },
+                // markerEnd: {
+                //     type: MarkerType.ArrowClosed,
+                // },
+                type: "warning-edge"
             };
             setEdges((eds) => addEdge(newEdge, eds));
         },
