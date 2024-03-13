@@ -140,9 +140,9 @@ function Canvas({ onRemove }) {
             // }
 
             if (sourceNode && targetNode) {
-                console.log(sourceNode.data.title + "-" + sourceNode.data.id);
+                console.log(sourceNode.data.title + " " + sourceNode.data.id);
                 // show warning edge if the source node is not one of the pre-requisites to the target node
-                if (!targetNode.data.preq.includes(sourceNode.data.title + "-" + sourceNode.data.id)) {
+                if (!targetNode.data.preq.includes(sourceNode.data.title + " " + sourceNode.data.id)) {
                     // if (targetNode.data.preq.includes(sourceNode.data.title + sourceNode.data.id)) {
                     // if (parseInt(sourceNode.data.id) > parseInt(targetNode.data.id)) {
                     console.log("Warning-edge");

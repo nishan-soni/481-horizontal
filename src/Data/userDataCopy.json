@@ -1,0 +1,185 @@
+{
+    "Nathan Ferris": {
+        "email": "nathan-ferris@ucalgary.ca",
+        "ucid": 30115432,
+        "major": "Computer Science",
+        "minor": "Business",
+        "year": 3,
+        "gpa": 3.60,
+        "total-progression": {
+            "major-courses": 9,
+            "non-major-courses": 2,
+            "minor-courses": 1,
+            "open-option-courses": 3
+        },
+        "courses": {
+            "OPMA-301": {
+                "title": "OPMA",
+                "id": 301,
+                "grade": "N/A",
+                "status": "in-progress",
+                "units": "3.0",
+                "preq": [
+                    "STAT-201",
+                    "ENTI-201"
+                ],
+                "anti-req": [
+                    "OPMA-301",
+                    "OPMA-317"
+                ],
+                "date-complete": "N/A",
+                "description": "Introduction to project management."
+            },
+            "MATH-249": {
+                "title": "MATH",
+                "id": 249,
+                "grade": "A-",
+                "status": "complete",
+                "units": "3.0",
+                "preq": [],
+                "date-complete": "2023-12-20",
+                "description": "Introduction to University Calculus"
+            },
+            "MATH-211": {
+                "title": "MATH",
+                "id": 211,
+                "grade": "B-",
+                "status": "complete",
+                "units": "3.0",
+                "preq": [],
+                "date-complete": "2023-12-20",
+                "description": "Introduction to Linear Algebra"
+            },
+            "DATA-201": {
+                "title": "DATA",
+                "id": 201,
+                "grade": "A-",
+                "status": "complete",
+                "units": "3.0",
+                "preq": [],
+                "date-complete": "2023-12-20",
+                "description": "Introduction to data classification and processsing"
+            },
+            "DATA-203": {
+                "title": "DATA",
+                "id": 203,
+                "grade": "A",
+                "status": "complete",
+                "units": "3.0",
+                "preq": [],
+                "date-complete": "2023-04-09",
+                "description": "introduction to statistical analysis of data"
+            },
+            "ANTH-201": {
+                "title": "ANTH",
+                "id": 201,
+                "grade": "A-",
+                "status": "complete",
+                "units": "3.0",
+                "preq": [],
+                "date-complete": "2023-04-12",
+                "description": "Introduction to the major fields of biological anthropology including evolutionary theory and processes, human paleontology, primatology, genetics, osteology, human adaptation, development, and variation, with special emphasis on the path of human evolution."
+            },
+            "GRST-205": {
+                "title": "GRST",
+                "id": 205,
+                "grade": "N/A",
+                "status": "in-progress",
+                "units": "3.0",
+                "preq": [],
+                "date-complete": "N/A",
+                "description": "Introduction to greek and roman studies."
+            },
+            "CPSC-329": {
+                "title": "CPSC",
+                "id": 329,
+                "grade": "B",
+                "status": "complete",
+                "units": "3.0",
+                "preq": [],
+                "date-complete": "2023-04-12",
+                "description": "Introduction to software engineering principles, processes, methods, and tools."
+            },
+            "CPSC-355": {
+                "title": "CPSC",
+                "id": 355,
+                "grade": "B-",
+                "status": "complete",
+                "units": "3.0",
+                "preq": [],
+                "date-complete": "2023-04-12",
+                "description": "Introduction to computing machinery."
+            },
+            "CPSC-331": {
+                "title": "CPSC",
+                "id": 331,
+                "grade": "C+",
+                "status": "complete",
+                "units": "3.0",
+                "preq": [],
+                "date-complete": "2022-04-12",
+                "description": "Introduction to database systems concepts and design."
+            },
+            "CPSC-433": {
+                "title": "CPSC",
+                "id": 433,
+                "grade": "N/A",
+                "status": "incomplete",
+                "units": "3.0",
+                "preq": [],
+                "date-complete": "N/A",
+                "description": "Introduction to artificial intelligence algorithms and techniques."
+            },
+            "CPSC-441": {
+                "title": "CPSC",
+                "id": 441,
+                "grade": "N/A",
+                "status": "in-progress",
+                "units": "3.0",
+                "preq": [],
+                "date-complete": "N/A",
+                "description": "Introduction to the principles and techniques of computer networks."
+            },
+            "CPSC-481": {
+                "title": "CPSC",
+                "id": 481,
+                "grade": "N/A",
+                "status": "in-progress",
+                "units": "3.0",
+                "preq": [],
+                "date-complete": "N/A",
+                "description": "Fundamental theory and practice of the design, implementation, and evaluation of human-computer interfaces. Topics include: principles of design; methods for evaluating interfaces with or without user involvement; techniques for prototyping and implementing graphical user interfaces."
+            },
+            "CPSC-526": {
+                "title": "CPSC",
+                "id": 526,
+                "grade": "N/A",
+                "status": "incomplete",
+                "units": "3.0",
+                "preq": [],
+                "date-complete": "N/A",
+                "description": "Attacks on networked systems and Internet protocols. Tools and techniques for detection and protection against attacks including firewalls, authentication, and cryptographic protocols. Web security attacks and defenses including same-origin policy, cross site scripting, and UI redressing. Legal and ethical issues will be introduced."
+            },
+            "CPSC-517": {
+                "title": "CPSC",
+                "id": 517,
+                "grade": "N/A",
+                "status": "in-progress",
+                "units": "3.0",
+                "preq": [],
+                "date-complete": "N/A",
+                "description": "Advanced techniques for the design and analysis of deterministic and probabilistic algorithms; techniques for deriving lower bounds on the complexity of problems."
+            },
+            "CPSC-521": {
+                "title": "CPSC",
+                "id": 521,
+                "grade": "N/A",
+                "status": "incomplete",
+                "units": "3.0",
+                "preq": [],
+                "date-complete": "N/A",
+                "description": "Designing and implementing distributed systems that overcome challenges due to concurrent computation, failure of components in the system and heterogeneity of processors and communication channels. "
+            }
+        }
+    }
+}
