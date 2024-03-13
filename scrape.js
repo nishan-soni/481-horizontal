@@ -95,13 +95,55 @@ async function scrapeCourses(page, baseCalendarPageUrl, calendarData) {
   // Set screen size
   await page.setViewport({ width: 1080, height: 1024 });
 
-  // const calendarData = [
-  //   { title: 'ARCH', href: 'architecture.html' },
-  //   { title: 'APLA', href: 'architecture-planning-and-landscape.html' }
-  // ]
+  const calendarData = [
+    {
+      "title": "ACSC",
+      "href": "actuarial-science.html"
+    },
+    {
+      "title": "ASTR",
+      "href": "astronomy.html"
+    },
+    {
+      "title": "ASPH",
+      "href": "astrophysics.html"
+    },
+    {
+      "title": "BCEM",
+      "href": "biochemistry.html"
+    },
+    {
+      "title": "BIOL",
+      "href": "biology.html"
+    },
+    {
+      "title": "BIST",
+      "href": "biostatistics.html"
+    },
+    {
+      "title": "CMMB",
+      "href": "cellular-molecular-and-microbial-biology.html"
+    },
+    {
+      "title": "CHEM",
+      "href": "chemistry.html"
+    },
+    {
+      "title": "CMDA",
+      "href": "computational-media-design.html"
+    },
+    {
+      "title": "CPSC",
+      "href": "computer-science.html"
+    },
+    {
+      "title": "DATA",
+      "href": "data-science.html"
+    },
+  ]
 
-  const calendarData = await scrapeCalendarData(page, baseCalendarPageUrl);
-  console.log(calendarData);
+  // const calendarData = await scrapeCalendarData(page, baseCalendarPageUrl);
+  // console.log(calendarData);
   const courseData = await scrapeCourses(page, baseCalendarPageUrl, calendarData);
   console.log(courseData);
 
