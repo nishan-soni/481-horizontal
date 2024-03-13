@@ -38,7 +38,7 @@ const initialNodes = [
     {
         id: '3',
         type: 'custom',
-        data: { "title": "Move Canvas", "id": 3, "grade": "N/A", "status": "incomplete", "units": "3.0", "preq": ["CSPC 331", "CPSC 355"], "date-complete": "N/A", "description": "🖱 Scroll to zoom and drag the cursor on the canvas to move. Hold and drag courses to move them around as needed." },
+        data: { "title": "STAT", "id": 201, "grade": "N/A", "status": "incomplete", "units": "3.0", "preq": ["CSPC 331", "CPSC 355"], "date-complete": "N/A", "description": "🖱 Scroll to zoom and drag the cursor on the canvas to move. Hold and drag courses to move them around as needed." },
         position: { x: 0, y: 50 },
     }
 ];
@@ -113,12 +113,19 @@ function Canvas({ onRemove }) {
             let sourceNode = nodes.find((node) => node.id === source);
             let targetNode = nodes.find((node) => node.id === target);
 
-            // console.log(targetNode.data);
+            // try {
+            //     console.log(sourceNode);
+            // } catch (error) {
+            //     console.log("source node undefined");
+            // }
+
             if (sourceNode && targetNode) {
+                console.log(sourceNode.data.title + "-" + sourceNode.data.id);
                 // show warning edge if the source node is not one of the pre-requisites to the target node
-                if (targetNode.data.preq.find((preq) => sourceNode.data.title + "-" + sourceNode.data.id !== preq )) {
-                // if (targetNode.data.preq.includes(sourceNode.data.title + sourceNode.data.id)) {
+                if (!targetNode.data.preq.includes(sourceNode.data.title + "-" + sourceNode.data.id)) {
+                    // if (targetNode.data.preq.includes(sourceNode.data.title + sourceNode.data.id)) {
                     // if (parseInt(sourceNode.data.id) > parseInt(targetNode.data.id)) {
+                    console.log("Warning-edge");
                     edgeType = 'warning-edge'
                 }
             }
