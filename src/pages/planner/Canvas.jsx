@@ -24,6 +24,25 @@ const nodeTypes = {
 
 const initialNodes = [
     {
+        id: '4',
+        data: { label: '🍂 FALL' },
+        position: { x: -400, y: -300 },
+        className: 'light',
+        style: { backgroundColor: 'rgba(254, 202, 202, 0.2)', width: 1000, height: 200, },
+        selectable: false,
+        draggable: false,
+    },
+    {
+        id: '5',
+        data: { label: '❄ Winter' },
+        position: { x: -400, y: -50 },
+        className: 'light',
+        style: { backgroundColor: 'rgba(214, 237, 255, 0.2)', width: 1000, height: 200 },
+        selectable: false,
+        draggable: false,
+
+    },
+    {
         id: '1',
         type: 'custom',
         data: { "title": "Add Courses", "id": 1, "grade": "N/A", "status": "in progress", "units": "3.0", "preq": [], "date-complete": "N/A", "description": "🆕 Add courses by dragging them from the side menu into the canvas." },
@@ -39,8 +58,9 @@ const initialNodes = [
         id: '3',
         type: 'custom',
         data: { "title": "STAT", "id": 201, "grade": "N/A", "status": "incomplete", "units": "3.0", "preq": ["CSPC 331", "CPSC 355"], "date-complete": "N/A", "description": "🖱 Scroll to zoom and drag the cursor on the canvas to move. Hold and drag courses to move them around as needed." },
-        position: { x: 0, y: 50 },
-    }
+        position: { x: 20, y: 50 },
+        // parentNode: '4'
+    },
 ];
 
 const edgeTypes = {
