@@ -13,6 +13,8 @@ import 'reactflow/dist/style.css';
 import CustomNode from './CustomeNode';
 import { useData } from "../../DataProvider";
 import Timeline from "./Timeline";
+import normalEdge from "./NormalEdge";
+import WarningEdge from "./WarningEdge";
 
 const nodeTypes = {
     custom: CustomNode,
@@ -36,11 +38,18 @@ const initialNodes = [
     {
         id: '3',
         type: 'custom',
-        data: { "title": "Move Canvas", "id": 3, "grade": "N/A", "status": "incomplete", "units": "3.0", "preq": ["CSPC 331", "CPSC 355"], "date-complete": "N/A", "description": "🖱 Scroll to zoom and drag the cursor on the canvas to move. Hold and drag courses to move them around as needed." },
+        data: { "title": "STAT", "id": 201, "grade": "N/A", "status": "incomplete", "units": "3.0", "preq": ["CSPC 331", "CPSC 355"], "date-complete": "N/A", "description": "🖱 Scroll to zoom and drag the cursor on the canvas to move. Hold and drag courses to move them around as needed." },
         position: { x: 0, y: 50 },
     }
 ];
 
+const edgeTypes = {
+    'normal-edge': normalEdge,
+    'warning-edge': WarningEdge,
+};
+
+// TODO: problem: when you try to use a custom edge, then you cant apply a marker to it. But if you universally apply a marker without a custom edge
+// then it will show.s
 
 const initialEdges = [
     {
@@ -50,6 +59,7 @@ const initialEdges = [
         markerEnd: {
             type: MarkerType.ArrowClosed,
         },
+        type: 'normal-edge',
         // animated: true,
         // markerEnd: {
         //     type: MarkerType.ArrowClosed,
@@ -59,11 +69,23 @@ const initialEdges = [
         id: 'e1-3',
         source: '2',
         target: '3',
-        markerEnd: {
-            type: MarkerType.ArrowClosed,
-        },
+        type: 'warning-edge',
+        // animated: true,
+        // markerEnd: {
+        //     type: MarkerType.ArrowClosed,
+        //     width: 20,
+        //     height: 20,
+        //     color: '#FF0072',
+        // },
+        // label: 'marker size and color',
+        // style: {
+        //     strokeWidth: 2,
+        //     stroke: '#FF0072',
+        // },
+
     },
 ];
+
 
 let id = 0;
 const getId = () => `dndnode_${id++}`;
@@ -75,14 +97,42 @@ function Canvas({ onRemove }) {
     const [edges, setEdges, onEdgesChange] = useEdgesState(initialEdges);
     const [reactFlowInstance, setReactFlowInstance] = useState(null);
 
+    useEffect(() => {
+
+        console.log("Nodes: ", nodes);
+        console.log("Edges: ", edges);
+
+    }, [nodes, edges])
     // callback for setting the edges on nodes
     const onConnect = useCallback(
         (params) => {
+
+            const { source, target } = params;
+
+            let edgeType = 'normal-edge'
+            let sourceNode = nodes.find((node) => node.id === source);
+            let targetNode = nodes.find((node) => node.id === target);
+
+            // try {
+            //     console.log(sourceNode);
+            // } catch (error) {
+            //     console.log("source node undefined");
+            // }
+
+            if (sourceNode && targetNode) {
+                console.log(sourceNode.data.title + "-" + sourceNode.data.id);
+                // show warning edge if the source node is not one of the pre-requisites to the target node
+                if (!targetNode.data.preq.includes(sourceNode.data.title + "-" + sourceNode.data.id)) {
+                    // if (targetNode.data.preq.includes(sourceNode.data.title + sourceNode.data.id)) {
+                    // if (parseInt(sourceNode.data.id) > parseInt(targetNode.data.id)) {
+                    console.log("Warning-edge");
+                    edgeType = 'warning-edge'
+                }
+            }
+
             const newEdge = {
                 ...params,
-                markerEnd: {
-                    type: MarkerType.ArrowClosed,
-                },
+                type: edgeType
             };
             setEdges((eds) => addEdge(newEdge, eds));
         },
@@ -135,7 +185,7 @@ function Canvas({ onRemove }) {
     return (
         <>
             <div className="w-full h-full bg-stone-50 shadow-inner relative">
-                <Timeline/>
+                <Timeline />
                 <ReactFlowProvider>
                     <div className="w-full h-full" ref={reactFlowWrapper}>
                         <ReactFlow
@@ -151,6 +201,7 @@ function Canvas({ onRemove }) {
                             onInit={setReactFlowInstance}
                             onDrop={onDrop}
                             onDragOver={onDragOver}
+                            edgeTypes={edgeTypes}
                         >
                             <Background color="#e7e5e4" variant="dots" size="2" />
                             {/* <MiniMap /> */}

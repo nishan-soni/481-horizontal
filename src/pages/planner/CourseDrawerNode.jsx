@@ -5,9 +5,9 @@ function CourseDrawerNode({ course, onRemove }) {
     const { title, id, grade, preq, status, units } = course;
     const [dragging, setDragging] = useState(false);
 
-    useEffect(() => {
-        console.log("Title", title);
-    }, [])
+    // useEffect(() => {
+    //     console.log("Title", title);
+    // }, [])
 
     // define a function to handle the drag start event
     const onDragStart = (event, type, courseProp) => {
