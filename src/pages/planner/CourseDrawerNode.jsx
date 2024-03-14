@@ -32,8 +32,8 @@ function CourseDrawerNode({ course, onRemove }) {
         <div className="rounded-lg w-fit bg-white border border-stone-200 active:animate-pulse"
             onDragStart={(event) => onDragStart(event, 'custom', course)}  //set the node to be the custom node defined in Canvas; Toss the data to Canvas
             draggable
-            // onDrop={onDrop} // call onDrop when an item is dropped onto Canvas
-            // onDragEnd={onDragEnd} // call onDragEnd to set the dragging state to false
+        // onDrop={onDrop} // call onDrop when an item is dropped onto Canvas
+        // onDragEnd={onDragEnd} // call onDragEnd to set the dragging state to false
         >
             {/* Header */}
             <div className='flex justify-between items-center w-full min-w-fit lg:min-w-44 px-3 py-1 gap-3 hover:cursor-pointer active:cursor-grabbing'>
@@ -50,7 +50,8 @@ function CourseDrawerNode({ course, onRemove }) {
                     rounded-full p-1 w-2.5 h-2.5 border-2
                     ${status === "complete" ? 'bg-green-200 border-green-300'
                         : status === "incomplete" ? 'bg-red-200 border-red-300'
-                            : 'bg-amber-200 border-amber-300'}
+                            : status === "in progress" ? 'bg-amber-200 border-amber-300'
+                                : 'bg-sky-200 border-sky-300'}
                     `}
                 >
                 </div>

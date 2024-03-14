@@ -37,7 +37,8 @@ function CustomNode({ data }) {
                 <div className={`rounded-full w-2.5 h-2.5 border-2 
                 ${status === "complete" ? 'bg-green-200 border-green-300'
                         : status === "incomplete" ? 'bg-red-200 border-red-300'
-                            : 'bg-amber-200 border-amber-300'}
+                            : status === "in progress" ? 'bg-amber-200 border-amber-300'
+                                : 'bg-sky-200 border-sky-300'}
                 `}
                 >
                 </div>
@@ -47,9 +48,10 @@ function CustomNode({ data }) {
                 < div className={`px-3 py-2 max-w-56 transition-opacity duration-500 ease-in-out ${showDetails ? 'opacity-100' : 'opacity-0'}`}>
                     <p className='text-stone-300 text-sm pb-4'>{truncateText(description, 25)}</p>
                     <p className={`w-fit text-center text-sm rounded-full py-0.5 px-2 capitalize
-                    ${status === "complete" ? 'bg-green-200 text-green-500'
-                            : status === "incomplete" ? 'bg-red-200 text-red-500'
-                                : 'bg-amber-200 text-amber-500'}
+                    ${status === "complete" ? 'bg-green-200 border-green-300 text-green-500'
+                            : status === "incomplete" ? 'bg-red-200 border-red-300 text-red-500'
+                                : status === "in progress" ? 'bg-amber-200 border-amber-300 text-amber-500'
+                                    : 'bg-sky-200 border-sky-300 text-sky-500'}
                     `}
                     >
                         {status}
