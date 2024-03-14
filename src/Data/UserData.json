@@ -143,8 +143,8 @@
                 "description": "Probability spaces, random variables, expectation, independence, concentration bounds, conditional probability, repeated trials, error bounds. Turing machines and finite automata. Deterministic, nondeterministic and probabilistic models of computation. Languages, regular languages and regular expressions. Methods for classifying computational problems as decidable or undecidable.",
                 "preq": "3 units from Computer Science 219, 233 or 235; and 3 units from Mathematics 249, 265 or 275; and Philosophy 279 or 377; and Computer Science 251; or Statistics 213 and Mathematics 271 or 273.",
                 "units": "3 units",
-                "status": "complete",
-                "grade": "B"
+                "status": "incomplete",
+                "grade": ""
               },
               "CPSC 355": {
                 "title": "CPSC",
@@ -178,6 +178,28 @@
                 "units": "3 units",
                 "status": "in progress",
                 "grade": "A"
+              },
+              "CPSC 413": {
+                "title": "CPSC",
+                "id": "413",
+                "fullTitle": "Computer Science",
+                "overview": "Design and Analysis of Algorithms I",
+                "description": "Techniques for the analysis of algorithms, including counting, summation, recurrences, and asymptotic relations; techniques for the design of efficient algorithms, including greedy methods, divide and conquer, and dynamic programming; examples of their application; an introduction to tractable and intractable problems.",
+                "preq": "Computer Science 331; and 313 or 351; and Mathematics 211 or 213; and 3 units from Mathematics 249, 265 or 275.",
+                "units": "3 units",
+                "status": "incomplete",
+                "grade": ""
+              },
+              "CPSC 449": {
+                "title": "CPSC",
+                "id": "449",
+                "fullTitle": "Computer Science",
+                "overview": "Programming Paradigms",
+                "description": "Examination of the basic principles of the major programming language paradigms. Focus on declarative paradigms such as functional and logic programming. Data types, control expressions, loops, types of references, lazy evaluation, different interpretation principles, information hiding.",
+                "preq": "Computer Science 319 or 331; Computer Science 313 or 351; and Philosophy 279 or 377.",
+                "units": "3 units",
+                "status": "incomplete",
+                "grade": ""
               }
         }
     }

@@ -13,39 +13,49 @@ import CourseDrawerNode from "./CourseDrawerNode";
 const Planner = () => {
 
   const [chartData, setChartData] = useState(null);
-  const [drawerData, setdrawerData] = useState(null);
   const [courseNodeList, setCourseNodeList] = useState([]);
-  const { data } = useData();
+  const { data, totalCourseData } = useData();
 
   useEffect(() => {
-    fetchData();
-    if (data != null && drawerData != null) {
-      setChartData(formatData(data))
-      setCourseNodeList(Object.values(drawerData));
-      // console.log("course nodes list: ", courseNodeList);
+    if (data != null && totalCourseData != null) {
+      const userCourses = data["Nathan Ferris"]['courses']; // No need to convert to an array
+      const allCourses = { ...userCourses, ...totalCourseData['courses'] };
+
+      // Convert the object of courses back to an array if needed
+      const mergedCourseArray = Object.values(allCourses);
+      console.log("merged", data["Nathan Ferris"]['courses']);
+      setCourseNodeList(mergedCourseArray);
+      setChartData(formatData(data));
     }
-    // console.log("newData", chartData);
-  }, [data, drawerData])
+  }, [data, totalCourseData]);
+
 
   useEffect(() => {
     console.log("coursenodeList ", courseNodeList)
   }, [courseNodeList])
 
+  // if (data != null && totalCourseData != null) {
+  //   const userCourses = data['Nathan Ferris']['courses']; // Assuming 'Nathan Ferris' is the user key in your data object
+  //   const mergedCourseNodeList = Object.values(totalCourseData['courses']).reduce((merged, course) => {
+  //     // check if the course already exists in userCourses
+  //     const courseExistsInData = userCourses.some(dataCourse => dataCourse.title === course.title && dataCourse.id === course.id);
+
+  //     // if course doesnt exist yet, add it to the accumulator
+  //     if (!courseExistsInData) {
+  //       merged.push(course);
+  //     }
+
+  //     return merged;
+  //   }, [...userCourses]); // Start with the courses from data
+
+  //   setCourseNodeList(mergedCourseNodeList);
+  //   setChartData(formatData(data))
+  // }
+
   // const removeCourse = (course) => {
   //   console.log("removing course: ", course.title + " " + course.id);
   //   setCourseNodeList(courseNodeList.filter(elmnt => elmnt.id !== course.id && elmnt.title !== course.title));
   // };
-
-  const fetchData = async () => {
-    try {
-      const response = await fetch('https://raw.githubusercontent.com/nishan-soni/481-horizontal/liam-dev2/src/Data/UserData.json');
-      const jsonData = await response.json();
-      setdrawerData(jsonData);
-      console.log("Json:", jsonData);
-    } catch (error) {
-      console.error('Error fetching data:', error);
-    }
-  };
 
   const removeCourse = useCallback((courseToRemove) => {
     setCourseNodeList(prevCourseNodeList => {
