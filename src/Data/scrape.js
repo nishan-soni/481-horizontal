@@ -36,41 +36,55 @@ async function scrapeCourses(page, baseCalendarPageUrl, calendarData) {
   const programData = { "courses": {} };
 
   for (let i = 0; i < calendarData.length; i++) {
+  // for (let i = 0; i < 1; i++) {
     console.log(baseCalendarPageUrl + '/' + calendarData[i].href);
     await page.goto(baseCalendarPageUrl + '/' + calendarData[i].href)
 
     const courseData = await page.evaluate(() => {
       const courseData = {};
 
-      const trElements = document.querySelectorAll('table[cellpadding="2"] > tbody > tr');
-      const courseAliasElement = document.querySelector('.page-title');
+      const trElements = document.querySelectorAll('table[cellpadding="2"] > tbody > tr'); // select all elements in this HTML hierachy
+
+      const courseAliasElement = document.querySelector('.page-title'); // select the course title
       const courseName = courseAliasElement.textContent.trim().split(' ');
-      const courseAlias = courseName[courseName.length - 1]
+      const courseAlias = courseName[courseName.length - 1] // trim it to only include the alias
 
-      trElements.forEach((tr, index) => {
-        const cnCourseElmnt = tr.querySelector('.course-code[id*="cnCourse"]');
-        const cnCodeElmnt = tr.querySelector('.course-code[id*="cnCode"]');
-        const cnTitleElmnt = tr.querySelector('.course-code[id*="cnTitle"]');
-        const cnDescElmnt = tr.querySelector('.course-desc');
-        const cnUnitsElmnt = tr.querySelector('.course-hours');
-        const cnPreqElmnt = tr.querySelector('.course-prereq');
+      trElements.forEach((tr, index) => { // for each tr in the html
 
-        if (cnCourseElmnt && cnCodeElmnt) {
-          const cnCourse = cnCourseElmnt.textContent.trim();
-          const cnCode = cnCodeElmnt.textContent.trim();
-          const cnTitle = cnTitleElmnt.textContent.trim();
-          const cnDesc = cnDescElmnt ? cnDescElmnt.textContent.trim() : 'N/A';
-          const cnUnits = cnUnitsElmnt ? cnUnitsElmnt.textContent.trim() : 'N/A';
-          const cnPreq = cnPreqElmnt ? cnPreqElmnt.textContent.trim() : 'N/A';
+        const courseInfoTr = tr.nextElementSibling; // get the next sibling to the tr element
+        if (courseInfoTr) {
+          const courseDescriptionElement = courseInfoTr.querySelector('.course-desc'); // select the course description label
+          const coursePrereqElement = courseInfoTr.querySelector('.course-prereq'); // select the course prereq label
+          const courseHoursElement = courseInfoTr.querySelector('.course-hours'); // select the course hours label
 
-          courseData[courseAlias + " " + cnCode] = {
-            "title": courseAlias,
-            "id": cnCode,
-            "fullTitle": cnTitle,
-            "description": cnDesc,
-            "preq": cnPreq,
-            "units": cnUnits
-          };
+          const cnCourseElmnt = tr.querySelector('.course-code[id*="cnCourse"]');
+          const cnCodeElmnt = tr.querySelector('.course-code[id*="cnCode"]');
+          const cnTitleElmnt = tr.querySelector('.course-code[id*="cnTitle"]');
+
+          if (cnCourseElmnt && cnCodeElmnt && courseAlias) { // if these 3 things are defined
+            const cnCourse = cnCourseElmnt.textContent.trim();
+            const cnCode = cnCodeElmnt.textContent.trim();
+            const cnTitle = cnTitleElmnt.textContent.trim();
+            const cnDesc = courseDescriptionElement.textContent.trim();
+
+            const dirtyUnits = courseHoursElement.textContent.trim().split(" ");
+            const cnUnits = dirtyUnits[0] + " " + dirtyUnits[1].replace(";", "");
+
+            const cnPreq = coursePrereqElement.textContent.trim()
+
+
+            courseData[courseAlias + " " + cnCode] = {
+              "title": courseAlias,
+              "id": cnCode,
+              "fullTitle": cnCourse,
+              "overview": cnTitle,
+              "description": cnDesc,
+              "preq": cnPreq,
+              "units": cnUnits,
+              "status": "unenrolled",
+              "grade": "N/A",
+            };
+          }
         }
       });
 
@@ -144,11 +158,11 @@ async function scrapeCourses(page, baseCalendarPageUrl, calendarData) {
 
   // const calendarData = await scrapeCalendarData(page, baseCalendarPageUrl);
   // console.log(calendarData);
-  const courseData = await scrapeCourses(page, baseCalendarPageUrl, calendarData);
+  const CourseData = await scrapeCourses(page, baseCalendarPageUrl, calendarData);
   console.log(courseData);
 
   // Write courseData to a JSON file
-  fs.writeFile('courseData.json', JSON.stringify(courseData, null, 2), err => {
+  fs.writeFile('./courseData.json', JSON.stringify(courseData, null, 2), err => {
     if (err) {
       console.error('Error writing JSON file:', err);
     } else {

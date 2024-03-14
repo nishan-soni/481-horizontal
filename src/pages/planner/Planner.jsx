@@ -13,17 +13,19 @@ import CourseDrawerNode from "./CourseDrawerNode";
 const Planner = () => {
 
   const [chartData, setChartData] = useState(null);
+  const [drawerData, setdrawerData] = useState(null);
   const [courseNodeList, setCourseNodeList] = useState([]);
   const { data } = useData();
 
   useEffect(() => {
-    if (data != null) {
+    fetchData();
+    if (data != null && drawerData != null) {
       setChartData(formatData(data))
-      setCourseNodeList(Object.values(data['Nathan Ferris']['courses']));
+      setCourseNodeList(Object.values(drawerData));
       // console.log("course nodes list: ", courseNodeList);
     }
     // console.log("newData", chartData);
-  }, [data])
+  }, [data, drawerData])
 
   useEffect(() => {
     console.log("coursenodeList ", courseNodeList)
@@ -33,6 +35,17 @@ const Planner = () => {
   //   console.log("removing course: ", course.title + " " + course.id);
   //   setCourseNodeList(courseNodeList.filter(elmnt => elmnt.id !== course.id && elmnt.title !== course.title));
   // };
+
+  const fetchData = async () => {
+    try {
+      const response = await fetch('https://raw.githubusercontent.com/nishan-soni/481-horizontal/liam-dev2/src/Data/UserData.json');
+      const jsonData = await response.json();
+      setdrawerData(jsonData);
+      console.log("Json:", jsonData);
+    } catch (error) {
+      console.error('Error fetching data:', error);
+    }
+  };
 
   const removeCourse = useCallback((courseToRemove) => {
     setCourseNodeList(prevCourseNodeList => {
