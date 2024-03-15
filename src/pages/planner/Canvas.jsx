@@ -124,38 +124,67 @@ function Canvas({ onRemove }) {
 
     }, [nodes, edges])
 
-    const normalEdge = { "style": { strokeWidth: 1.5, stroke: '#b9b9be' }, 
-        "markerEnd": { style: { stroke: '#b9b9be' }, type: MarkerType.ArrowClosed, width: 20, height: 20, color: "#b9b9be" }, 
-        "label": "", "labelStyle": {}, "labelBg": {} }
+    const normalEdge = {
+        "style": { strokeWidth: 1.5, stroke: '#b9b9be' },
+        "markerEnd": { style: { stroke: '#b9b9be' }, type: MarkerType.ArrowClosed, width: 20, height: 20, color: "#b9b9be" },
+        "label": "", "labelStyle": {}, "labelBg": {}
+    }
 
-    const warningEdge = { "style": { strokeWidth: 1.5, stroke: '#ef4444' }, 
-        "markerEnd": { style: { stroke: '#ef4444' }, type: MarkerType.ArrowClosed, width: 20, height: 20, color: "#ef4444" }, 
-        "label": "Missing Preq", "labelStyle": { fill: '#ef4444', fontWeight: 'bold' }, "labelBg": { fill: '#fafaf9' } }
-        
+    const warningEdge = {
+        "style": { strokeWidth: 1.5, stroke: '#ef4444' },
+        "markerEnd": { style: { stroke: '#ef4444' }, type: MarkerType.ArrowClosed, width: 20, height: 20, color: "#ef4444" },
+        "label": "", "labelStyle": { fill: '#ef4444', fontWeight: 'bold' }, "labelBg": { fill: '#fafaf9' }
+    }
+
     // callback for setting the edges on nodes
     const onConnect = useCallback(
         (params) => {
 
+
+            //TODO: source and target node are not yet added as object to the nodes list until the callback finishes
+
+            console.log("Params", params);
+            console.log("NODESSSS ", nodes);
             const { source, target } = params;
 
             // Default edge attributes
-            let edgeType = normalEdge
+            console.log("Source ", source);
+            console.log("Target ", target);
+
+
+            // let sourceNode = source
+            // let targetNode = target
 
             let sourceNode = nodes.find((node) => node.id === source);
             let targetNode = nodes.find((node) => node.id === target);
 
+            console.log("Find result", sourceNode, " ", targetNode);
+
+            // if (sourceNode == undefined || targetNode == undefined) {
+            //     console.log(undefined);
+            // }
+            let edgeType = normalEdge
+
 
             if (sourceNode && targetNode) {
-                console.log(sourceNode.data.title + " " + sourceNode.data.id);
+                console.log("BRUSDHAHASD", sourceNode.data.fullTitle + " " + sourceNode.data.id);
 
                 // show warning edge if the source node is not one of the pre-requisites to the target node
-                if (!targetNode.data.preq.includes(sourceNode.data.title + " " + sourceNode.data.id)) {
-                    // if (targetNode.data.preq.includes(sourceNode.data.title + sourceNode.data.id)) {
-                    // if (parseInt(sourceNode.data.id) > parseInt(targetNode.data.id)) {
+                // if (!targetNode.data.preq.includes(sourceNode.data.fullTitle + " " + sourceNode.data.id)) {
+
+                // if(!targetNode.data.preq.includes(sourceNode.data.fullTitle) && !targetNode.data.preq.includes(sourceNode.data.id)) {
+                if (!targetNode.data.preq.includes(sourceNode.data.fullTitle) && !targetNode.data.preq.includes(sourceNode.data.id)) {
+
+                // const searchString = sourceNode.data.fullTitle + " " + sourceNode.data.id;
+                // const searchTerms = searchString.split(/\s+/); // Split search string by spaces
+                // if (searchTerms.filter((term) => !term.includes(targetNode.data.preq)).length > searchTerms.length()) {
+                    // if (parseInt(sourceNode.data.id[0]) > parseInt(targetNode.data.id[0])) {
 
                     console.log("Warning-edge");
 
-                    // Warning Edge Attributes
+                    // set the edge type to warningEdge
+                    warningEdge.label = "Invalid Prereq"
+
                     edgeType = warningEdge
 
 
@@ -173,7 +202,7 @@ function Canvas({ onRemove }) {
             };
             setEdges((eds) => addEdge(newEdge, eds));
         },
-        [setEdges]
+        [setEdges, nodes] // call onConnect again when the dependincies setEdges or nodes updates 
     );
 
     const onDragOver = useCallback((event) => {
