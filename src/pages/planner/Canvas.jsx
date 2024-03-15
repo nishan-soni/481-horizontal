@@ -170,25 +170,22 @@ function Canvas({ onRemove }) {
                 console.log("BRUSDHAHASD", sourceNode.data.fullTitle + " " + sourceNode.data.id);
 
                 // show warning edge if the source node is not one of the pre-requisites to the target node
-                // if (!targetNode.data.preq.includes(sourceNode.data.fullTitle + " " + sourceNode.data.id)) {
-
-                // if(!targetNode.data.preq.includes(sourceNode.data.fullTitle) && !targetNode.data.preq.includes(sourceNode.data.id)) {
-                if (!targetNode.data.preq.includes(sourceNode.data.fullTitle) && !targetNode.data.preq.includes(sourceNode.data.id)) {
-
-                // const searchString = sourceNode.data.fullTitle + " " + sourceNode.data.id;
-                // const searchTerms = searchString.split(/\s+/); // Split search string by spaces
-                // if (searchTerms.filter((term) => !term.includes(targetNode.data.preq)).length > searchTerms.length()) {
-                    // if (parseInt(sourceNode.data.id[0]) > parseInt(targetNode.data.id[0])) {
+                // checks if either the prereq string DOES NOT contain the fullTitle or the prereq string DOES NOT includes the id
+                if ((!targetNode.data.preq.includes(sourceNode.data.fullTitle) || !targetNode.data.preq.includes(sourceNode.data.id))) {
 
                     console.log("Warning-edge");
-
                     // set the edge type to warningEdge
                     warningEdge.label = "Invalid Prereq"
-
                     edgeType = warningEdge
 
 
                 }
+                // checks if the course ids are in the wrong order. ex 200 before 300 level
+                if (parseInt(sourceNode.data.id[0]) > parseInt(targetNode.data.id[0])) { 
+                    warningEdge.label = "Invalid course ID order"
+                    edgeType = warningEdge
+                }
+
             }
 
             const newEdge = {

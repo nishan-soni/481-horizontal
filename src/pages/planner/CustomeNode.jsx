@@ -58,15 +58,15 @@ function CustomNode({ data }) {
             {showDetails ?
                 < div className={`px-3 py-2 max-w-72 transition-opacity duration-500 ease-in-out ${showDetails ? 'opacity-100' : 'opacity-0'}`}>
                     <p className='text-stone-600 font-semibold text-sm pb-3'>{overview}</p>
-                    <p className='text-neutral-400 text-sm pb-2'>
+                    <span className='text-neutral-400 text-sm pb-2 flex flex-col items-start'>
                         {showDesc ? description : truncateText(description, DESC_TRUNC_LENGTH)}
                         <button
-                        className='font-semibold text-xs text-stone-300 pl-2'
-                        onClick={() => setShowDesc(!showDesc)}
+                            className='font-semibold text-xs text-stone-300'
+                            onClick={() => setShowDesc(!showDesc)}
                         >
-                        {showDesc ? "Hide" : "Read More"}
+                            {showDesc ? "Hide" : "Read More"}
                         </button>
-                    </p>
+                    </span>
                     <p className='text-stone-600 font-semibold text-sm pb-1'>Prerequisties</p>
                     <p className='text-neutral-400 text-sm pb-4'>{preq}</p>
                     {/* <p className='text-stone-300 text-sm pb-4'>{description}</p> */}
