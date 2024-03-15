@@ -123,53 +123,36 @@ function Canvas({ onRemove }) {
         console.log("Edges: ", edges);
 
     }, [nodes, edges])
-
-    const normalEdge = { "style": { strokeWidth: 1.5, stroke: '#b9b9be' }, 
-        "markerEnd": { style: { stroke: '#b9b9be' }, type: MarkerType.ArrowClosed, width: 20, height: 20, color: "#b9b9be" }, 
-        "label": "", "labelStyle": {}, "labelBg": {} }
-
-    const warningEdge = { "style": { strokeWidth: 1.5, stroke: '#ef4444' }, 
-        "markerEnd": { style: { stroke: '#ef4444' }, type: MarkerType.ArrowClosed, width: 20, height: 20, color: "#ef4444" }, 
-        "label": "Missing Preq", "labelStyle": { fill: '#ef4444', fontWeight: 'bold' }, "labelBg": { fill: '#fafaf9' } }
-        
     // callback for setting the edges on nodes
     const onConnect = useCallback(
         (params) => {
 
             const { source, target } = params;
 
-            // Default edge attributes
-            let edgeType = normalEdge
-
+            let edgeType = 'normal-edge'
             let sourceNode = nodes.find((node) => node.id === source);
             let targetNode = nodes.find((node) => node.id === target);
 
+            // try {
+            //     console.log(sourceNode);
+            // } catch (error) {
+            //     console.log("source node undefined");
+            // }
 
             if (sourceNode && targetNode) {
                 console.log(sourceNode.data.title + " " + sourceNode.data.id);
-
                 // show warning edge if the source node is not one of the pre-requisites to the target node
                 if (!targetNode.data.preq.includes(sourceNode.data.title + " " + sourceNode.data.id)) {
                     // if (targetNode.data.preq.includes(sourceNode.data.title + sourceNode.data.id)) {
                     // if (parseInt(sourceNode.data.id) > parseInt(targetNode.data.id)) {
-
                     console.log("Warning-edge");
-
-                    // Warning Edge Attributes
-                    edgeType = warningEdge
-
-
+                    edgeType = 'warning-edge'
                 }
             }
 
             const newEdge = {
                 ...params,
-                markerEnd: edgeType.markerEnd,
-                style: edgeType.style,
-                label: edgeType.label,
-                labelStyle: edgeType.labelStyle,
-                labelBgStyle: edgeType.labelBg,
-                // animated: true
+                type: edgeType
             };
             setEdges((eds) => addEdge(newEdge, eds));
         },

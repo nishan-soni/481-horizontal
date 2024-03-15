@@ -15,14 +15,6 @@ function CustomNode({ data }) {
         return words.slice(0, numWords).join(' ') + '...';
     };
 
-    const HANDLE_STYLE = {
-        "width": 10,
-        "height": 10,
-        // "left": -10,
-        // "border": "red",
-        "border": "3px solid white",        
-    }
-
 
     return (
         <div className="shadow-md rounded-lg w-full bg-white border-[1.5px] border-stone-300 active:animate-pulse">
@@ -68,8 +60,8 @@ function CustomNode({ data }) {
                 </div>
                 : ""
             }
-            <Handle type="target" position={Position.Left} style={{...HANDLE_STYLE, background: "#555555"}}/>
-            <Handle type="source" position={Position.Right} style={{...HANDLE_STYLE, background: "#555555"}}/>
+            <Handle type="target" position={Position.Top} />
+            <Handle type="source" position={Position.Bottom} />
         </div >
     );
 }

@@ -72,7 +72,7 @@ const Planner = () => {
     return (
       <div className="flex flex-row h-full w-full items-center justify-center">
         <p className="animate-pulse">Loading...</p>
-        <p className="animate-spin pl-2">🤔</p>
+        <p className="animate-bounce pl-2">🦖</p>
       </div>
     )
   }
