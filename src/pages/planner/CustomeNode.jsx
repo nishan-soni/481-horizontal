@@ -22,7 +22,7 @@ function CustomNode({ data }) {
         "border": "3px solid white",
     }
 
-    const DESC_TRUNC_LENGTH = 10
+    const DESC_TRUNC_LENGTH = 25
     // const PREQ_TRUNC_LENGTH = 6
 
 
@@ -36,11 +36,11 @@ function CustomNode({ data }) {
                 >
                     {
                         showDetails ?
-                            <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" strokeWidth="1.5" stroke="currentColor" className="w-6 h-6 text-stone-300">
+                            <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" strokeWidth="1.5" stroke="currentColor" className="w-6 h-6 text-stone-300 transition-all duration-500">
                                 <path strokeLinecap="round" strokeLinejoin="round" d="m4.5 15.75 7.5-7.5 7.5 7.5" />
                             </svg> :
-                            <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" strokeWidth="1.5" stroke="currentColor" className="w-6 h-6 text-stone-300">
-                                <path strokeLinecap="round" strokeLinejoin="round" d="m19.5 8.25-7.5 7.5-7.5-7.5" />
+                            <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" strokeWidth="1.5" stroke="currentColor" className="w-6 h-6 text-stone-300 transition-all duration-300 rotate-180">
+                                <path strokeLinecap="round" strokeLinejoin="round" d="m4.5 15.75 7.5-7.5 7.5 7.5" />
                             </svg>
                     }
                 </button>
@@ -54,24 +54,41 @@ function CustomNode({ data }) {
                 >
                 </div>
             </div>
-            {/* Description */}
-            {showDetails ?
-                < div className={`px-3 py-2 max-w-72 transition-opacity duration-500 ease-in-out ${showDetails ? 'opacity-100' : 'opacity-0'}`}>
-                    <p className='text-stone-600 font-semibold text-sm pb-3'>{overview}</p>
-                    <span className='text-neutral-400 text-sm pb-2 flex flex-col items-start'>
-                        {showDesc ? description : truncateText(description, DESC_TRUNC_LENGTH)}
-                        <button
-                            className='font-semibold text-xs text-stone-300'
-                            onClick={() => setShowDesc(!showDesc)}
-                        >
-                            {showDesc ? "Hide" : "Read More"}
-                        </button>
-                    </span>
-                    <p className='text-stone-600 font-semibold text-sm pb-1'>Prerequisties</p>
-                    <p className='text-neutral-400 text-sm pb-4'>{preq}</p>
-                    {/* <p className='text-stone-300 text-sm pb-4'>{description}</p> */}
-                    <div className='flex flex-row justify-between w-full'>
 
+            {/* < div className={`transition-all duration-150 ease-in-out ${showDetails ? 'px-3 py-2 max-w-72 max-h-fit' : 'opacity-0 w-0 max-h-0 max-w-fit'}`}> */}
+
+            {/* Description and Preq */}
+            {/* {showDetails ? */}
+            < div className={`transition-all ${showDetails ? 'px-3 py-2 pt-3 max-w-72 max-h-fit duration-200 ease-in' : 'opacity-0 w-0 max-h-0 max-w-fit duration-150 ease-out'}`}>
+                <div className={`${showDetails ? 'opacity-100 transition-all delay-100 duration-500 ease-in' : 'opacity-0 transition-all duration-0'}`}>
+                    {description != "" && overview != "" &&
+                        <p className='text-stone-600 font-semibold text-sm pb-3'>{overview}</p>
+                    }
+                    {description != "" &&
+                        <>
+                            <span className='text-neutral-400 text-sm flex flex-col items-start'>
+                                {showDesc ? description : truncateText(description, DESC_TRUNC_LENGTH)}
+                                <button
+                                    className='font-semibold text-xs pb-3 text-stone-300 transition-all duration-300'
+                                    onClick={() => setShowDesc(!showDesc)}
+                                >
+                                    {/* check if the length of the description is greater than TRUNC LEN then check if showDesc is true */}
+                                    {description.split(" ").length > DESC_TRUNC_LENGTH ? (showDesc ? "Hide" : "Read More") : ""}
+                                </button>
+                            </span>
+                        </>
+                    }
+
+                    {preq != "" &&
+                        <div>
+                            <p className='text-stone-600 font-semibold text-sm pb-1'>Prerequisties</p>
+                            <p className='text-neutral-400 text-sm pb-4'>{preq}</p>
+                        </div>
+                    }
+                    {/* <p className='text-stone-300 text-sm pb-4'>{description}</p> */}
+
+
+                    <div className='flex flex-row justify-between w-full h-fit'>
                         <p className={`w-fit h-fit text-center text-sm rounded-full py-0.5 px-2 capitalize
                             ${status === "complete" ? 'bg-green-200 border-green-300 text-green-500'
                                 : status === "incomplete" ? 'bg-red-200 border-red-300 text-red-500'
@@ -84,8 +101,9 @@ function CustomNode({ data }) {
                         <p className='text-stone-300 font-semibold text-sm'>{units}</p>
                     </div>
                 </div>
-                : ""
-            }
+            </div>
+            {/* : ""
+            } */}
             <Handle type="target" position={Position.Left} style={{ ...HANDLE_STYLE, background: "#555555" }} />
             <Handle type="source" position={Position.Right} style={{ ...HANDLE_STYLE, background: "#555555" }} />
         </div >

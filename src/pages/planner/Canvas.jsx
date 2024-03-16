@@ -26,18 +26,18 @@ const initialNodes = [
     {
         id: '4',
         data: { label: '🍂 FALL' },
-        position: { x: -400, y: -300 },
+        position: { x: -25, y: -225 },
         className: 'light',
-        style: { backgroundColor: 'rgba(254, 202, 202, 0.2)', width: 1000, height: 200, },
+        style: { backgroundColor: 'rgba(254, 202, 202, 0.2)', width: 250, height: 500, },
         selectable: false,
         draggable: false,
     },
     {
         id: '5',
         data: { label: '❄ Winter' },
-        position: { x: -400, y: -50 },
+        position: { x: 375, y: -225 },
         className: 'light',
-        style: { backgroundColor: 'rgba(214, 237, 255, 0.2)', width: 1000, height: 200 },
+        style: { backgroundColor: 'rgba(214, 237, 255, 0.2)', width: 250, height: 500 },
         selectable: false,
         draggable: false,
 
@@ -46,19 +46,19 @@ const initialNodes = [
         id: '1',
         type: 'custom',
         data: { "title": "Add Courses", "id": 1, "grade": "N/A", "status": "in progress", "units": "3.0", "preq": [], "date-complete": "N/A", "description": "🆕 Add courses by dragging them from the side menu into the canvas." },
-        position: { x: -200, y: -200 },
+        position: { x: 0, y: -100 },
     },
     {
         id: '2',
         type: 'custom',
         data: { "title": "Delete Courses", "id": 2, "grade": "B", "status": "complete", "units": "3.0", "preq": [], "date-complete": "2023-04-12", "description": "🔙 Delete courses by selecting the course or link, then press backspace to delete it." },
-        position: { x: 200, y: -200 },
+        position: { x: 0, y: 100 },
     },
     {
         id: '3',
         type: 'custom',
-        data: { "title": "STAT", "id": 201, "grade": "N/A", "status": "incomplete", "units": "3.0", "preq": ["CSPC 331", "CPSC 355"], "date-complete": "N/A", "description": "🖱 Scroll to zoom and drag the cursor on the canvas to move. Hold and drag courses to move them around as needed." },
-        position: { x: 20, y: 50 },
+        data: { "title": "Move Canvas", "id": 3, "grade": "N/A", "status": "incomplete", "units": "3.0", "preq": "", "date-complete": "N/A", "description": "🖱 Scroll to zoom and drag the cursor on the canvas to move. Hold and drag courses to move them around as needed." },
+        position: { x: 400, y: 0 },
         // parentNode: '4'
     },
 ];
@@ -76,10 +76,8 @@ const initialEdges = [
         id: 'e1-2',
         source: '1',
         target: '3',
-        markerEnd: {
-            type: MarkerType.ArrowClosed,
-        },
-        type: 'normal-edge',
+        markerEnd: { type: MarkerType.ArrowClosed, width: 20, height: 20, }
+        // type: 'normal-edge',
         // animated: true,
         // markerEnd: {
         //     type: MarkerType.ArrowClosed,
@@ -89,7 +87,8 @@ const initialEdges = [
         id: 'e1-3',
         source: '2',
         target: '3',
-        type: 'warning-edge',
+        markerEnd: { type: MarkerType.ArrowClosed, width: 20, height: 20, }
+        // type: 'warning-edge',
         // animated: true,
         // markerEnd: {
         //     type: MarkerType.ArrowClosed,

@@ -8,6 +8,7 @@ import { formatData } from '../../Data/Utilities';
 import Canvas from './Canvas';
 import 'reactflow/dist/style.css';
 import CourseDrawerNode from "./CourseDrawerNode";
+import Dino from "../../assets/dino.gif"
 
 
 const Planner = () => {
@@ -70,9 +71,10 @@ const Planner = () => {
   // allow the data to load
   if (data === null || totalCourseData === null) {
     return (
-      <div className="flex flex-row h-full w-full items-center justify-center">
+      <div className="flex flex-col h-full w-full items-center justify-center ">
+        <img src={Dino} className="w-16 h-16"></img>
         <p className="animate-pulse">Loading...</p>
-        <p className="animate-bounce pl-2">🦖</p>
+        {/* <p className="animate-bounce pl-2">🦖</p> */}
       </div>
     )
   }
