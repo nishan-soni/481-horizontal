@@ -13,173 +13,194 @@
             "open-option-courses": 3
         },
         "courses": {
-            "OPMA-301": {
+            "OPMA 301": {
                 "title": "OPMA",
                 "id": 301,
-                "grade": "N/A",
-                "status": "in-progress",
-                "units": "3.0",
-                "preq": [
-                    "STAT-201",
-                    "ENTI-201"
-                ],
-                "anti-req": [
-                    "OPMA-301",
-                    "OPMA-317"
-                ],
-                "date-complete": "N/A",
+                "grade": "",
+                "status": "in progress",
+                "units": "3 units",
+                "preq": "",
                 "description": "Introduction to project management."
             },
-            "MATH-249": {
+            "MATH 249": {
                 "title": "MATH",
                 "id": 249,
                 "grade": "A-",
                 "status": "complete",
-                "units": "3.0",
-                "preq": [],
-                "date-complete": "2023-12-20",
+                "units": "3 units",
+                "preq": "",
                 "description": "Introduction to University Calculus"
             },
-            "MATH-211": {
+            "MATH 211": {
                 "title": "MATH",
                 "id": 211,
                 "grade": "B-",
                 "status": "complete",
-                "units": "3.0",
-                "preq": [],
-                "date-complete": "2023-12-20",
+                "units": "3 units",
+                "preq": "",
                 "description": "Introduction to Linear Algebra"
             },
-            "DATA-201": {
+            "DATA 201": {
                 "title": "DATA",
-                "id": 201,
-                "grade": "A-",
+                "id": "201",
+                "fullTitle": "Data Science",
+                "overview": "Thinking with Data",
+                "description": "An introduction to tools and techniques for managing, visualizing, and making sense of data. Includes an introduction to data cleaning, basic statistics, exploratory visualization, sensemaking, and data presentation.",
+                "preq": "",
+                "units": "3 units",
                 "status": "complete",
-                "units": "3.0",
-                "preq": [],
-                "date-complete": "2023-12-20",
-                "description": "Introduction to data classification and processsing"
+                "grade": "A"
             },
-            "DATA-203": {
+            "DATA 211": {
                 "title": "DATA",
-                "id": 203,
-                "grade": "A",
-                "status": "complete",
-                "units": "3.0",
-                "preq": [],
-                "date-complete": "2023-04-09",
-                "description": "introduction to statistical analysis of data"
+                "id": "211",
+                "fullTitle": "Data Science",
+                "overview": "Programming with Data",
+                "description": "A hands-on introduction to basic coding skills, including core programming concepts and the fundamentals of reading, writing, and executing code – with a focus on data manipulation. Emphasizes important tools and practices for programming with data, including development environments, source control, and debugging.",
+                "preq": "Data Science 201.",
+                "units": "3 units",
+                "status": "in progress",
+                "grade": ""
             },
-            "ANTH-201": {
+            "ANTH 201": {
                 "title": "ANTH",
                 "id": 201,
                 "grade": "A-",
                 "status": "complete",
-                "units": "3.0",
-                "preq": [],
-                "date-complete": "2023-04-12",
+                "units": "3 units",
+                "preq": "",
                 "description": "Introduction to the major fields of biological anthropology including evolutionary theory and processes, human paleontology, primatology, genetics, osteology, human adaptation, development, and variation, with special emphasis on the path of human evolution."
             },
-            "GRST-205": {
+            "GRST 205": {
                 "title": "GRST",
                 "id": 205,
-                "grade": "N/A",
-                "status": "in-progress",
-                "units": "3.0",
-                "preq": [],
-                "date-complete": "N/A",
+                "grade": "",
+                "status": "in progress",
+                "units": "3 units",
+                "preq": "",
                 "description": "Introduction to greek and roman studies."
             },
-            "CPSC-329": {
+            "CPSC 217": {
                 "title": "CPSC",
-                "id": 329,
-                "grade": "B",
+                "id": "217",
+                "fullTitle": "Computer Science",
+                "overview": "Introduction to Computer Science for Multidisciplinary Studies I",
+                "description": "Introduction to problem solving, analysis and design of small-scale computational systems and implementation using a procedural programming language. For students wishing to combine studies in computer science with studies in other disciplines.",
+                "preq": "",
+                "units": "3 units",
                 "status": "complete",
-                "units": "3.0",
-                "preq": [],
-                "date-complete": "2023-04-12",
-                "description": "Introduction to software engineering principles, processes, methods, and tools."
-            },
-            "CPSC-355": {
+                "grade": "A-"
+              },
+              "CPSC 219": {
                 "title": "CPSC",
-                "id": 355,
-                "grade": "B-",
+                "id": "219",
+                "fullTitle": "Computer Science",
+                "overview": "Introduction to Computer Science for Multidisciplinary Studies II",
+                "description": "Continuation of Introduction to Computer Science for Multidisciplinary Studies I. Emphasis on object-oriented analysis and design of small-scale computational systems and implementation using an object-oriented language. Issues of design, modularization and programming style will be emphasized.",
+                "preq": "Computer Science 217 or Data Science 211.",
+                "units": "3 units",
                 "status": "complete",
-                "units": "3.0",
-                "preq": [],
-                "date-complete": "2023-04-12",
-                "description": "Introduction to computing machinery."
-            },
-            "CPSC-331": {
+                "grade": "B"
+              },
+              "CPSC 251": {
                 "title": "CPSC",
-                "id": 331,
-                "grade": "C+",
+                "id": "251",
+                "fullTitle": "Computer Science",
+                "overview": "Theoretical Foundations of Computer Science I",
+                "description": "Proof techniques. Recursion and iteration. Specification of algorithmic problems and fundamental proof techniques in Computer Science. Discrete structures such as graphs, trees, strings, functions, and their computer representation. Counting, permutations. Random events. Conditional events. Applications in Computer Science.",
+                "preq": "Computer Science 219 or 231.",
+                "units": "3 units",
                 "status": "complete",
-                "units": "3.0",
-                "preq": [],
-                "date-complete": "2022-04-12",
-                "description": "Introduction to database systems concepts and design."
-            },
-            "CPSC-433": {
+                "grade": "C+"
+              },
+              "CPSC 329": {
                 "title": "CPSC",
-                "id": 433,
-                "grade": "N/A",
+                "id": "329",
+                "fullTitle": "Computer Science",
+                "overview": "Explorations in Information Security and Privacy",
+                "description": "A broad survey of topics in information security and privacy, with the purpose of cultivating an appropriate mindset for approaching security and privacy issues. Topics will be motivated by recreational puzzles. Legal and ethical considerations will be introduced as necessary.",
+                "preq": "Mathematics 30-1, 30-2 or 31.",
+                "units": "3 units",
+                "status": "in progress",
+                "grade": ""
+              },
+              "CPSC 331": {
+                "title": "CPSC",
+                "id": "331",
+                "fullTitle": "Computer Science",
+                "overview": "Data Structures, Algorithms, and Their Analysis",
+                "description": "Fundamental data structures, including arrays, lists, stacks, queues, trees, hash tables, and graphs. Algorithms for searching and sorting. Introduction to the correctness and analysis of algorithms. For computer science majors and those interested in algorithm design and analysis, information security, and other mathematically-intensive areas.",
+                "preq": "3 units from Computer Science 251, Mathematics 271 or 273; and 3 units from Computer Science 219, 233, 235, Computer Engineering 335, 339 or Software Engineering for Engineers 337.",
+                "units": "3 units",
+                "status": "complete",
+                "grade": "B-"
+              },
+              "CPSC 351": {
+                "title": "CPSC",
+                "id": "351",
+                "fullTitle": "Computer Science",
+                "overview": "Theoretical Foundations of Computer Science II",
+                "description": "Probability spaces, random variables, expectation, independence, concentration bounds, conditional probability, repeated trials, error bounds. Turing machines and finite automata. Deterministic, nondeterministic and probabilistic models of computation. Languages, regular languages and regular expressions. Methods for classifying computational problems as decidable or undecidable.",
+                "preq": "3 units from Computer Science 219, 233 or 235; and 3 units from Mathematics 249, 265 or 275; and Philosophy 279 or 377; and Computer Science 251; or Statistics 213 and Mathematics 271 or 273.",
+                "units": "3 units",
                 "status": "incomplete",
-                "units": "3.0",
-                "preq": [],
-                "date-complete": "N/A",
-                "description": "Introduction to artificial intelligence algorithms and techniques."
-            },
-            "CPSC-441": {
+                "grade": ""
+              },
+              "CPSC 355": {
                 "title": "CPSC",
-                "id": 441,
-                "grade": "N/A",
-                "status": "in-progress",
-                "units": "3.0",
-                "preq": [],
-                "date-complete": "N/A",
-                "description": "Introduction to the principles and techniques of computer networks."
-            },
-            "CPSC-481": {
+                "id": "355",
+                "fullTitle": "Computer Science",
+                "overview": "Computing Machinery I",
+                "description": "An introduction to computing machinery establishing the connection between programs expressed in a compiled language, an assembly language, and machine code, and how such code is executed. Includes the detailed study of a modern CPU architecture, its assembly language and internal data representation, and the relationship between high-level program constructs and machine operations.",
+                "preq": "3 units from Computer Science 219, 233 or 235.",
+                "units": "3 units",
+                "status": "complete",
+                "grade": "A"
+              },
+              "CPSC 359": {
                 "title": "CPSC",
-                "id": 481,
-                "grade": "N/A",
-                "status": "in-progress",
-                "units": "3.0",
-                "preq": [],
-                "date-complete": "N/A",
-                "description": "Fundamental theory and practice of the design, implementation, and evaluation of human-computer interfaces. Topics include: principles of design; methods for evaluating interfaces with or without user involvement; techniques for prototyping and implementing graphical user interfaces."
-            },
-            "CPSC-526": {
+                "id": "359",
+                "fullTitle": "Computer Science",
+                "overview": "Computing Machinery II",
+                "description": "An introduction to hardware and microprocessor design, including the connection between gate-level digital logic circuits and sequential machines that can execute an algorithm and perform input and output.",
+                "preq": "Computer Science 355 and Philosophy 279 or 377.",
+                "units": "3 units",
+                "status": "in progress",
+                "grade": ""
+              },
+              "CPSC 411": {
                 "title": "CPSC",
-                "id": 526,
-                "grade": "N/A",
+                "id": "411",
+                "fullTitle": "Computer Science",
+                "overview": "Compiler Construction",
+                "description": "Introduction to compilers, interpreters, and the tools for parsing and translation. Lexical analysis, context free grammars and software tools for their recognition. Attribute grammars and their applications in translation and compiling.",
+                "preq": "Computer Science 319 or 331; and Computer Science 355 or Computer Engineering 369.",
+                "units": "3 units",
+                "status": "in progress",
+                "grade": "A"
+              },
+              "CPSC 413": {
+                "title": "CPSC",
+                "id": "413",
+                "fullTitle": "Computer Science",
+                "overview": "Design and Analysis of Algorithms I",
+                "description": "Techniques for the analysis of algorithms, including counting, summation, recurrences, and asymptotic relations; techniques for the design of efficient algorithms, including greedy methods, divide and conquer, and dynamic programming; examples of their application; an introduction to tractable and intractable problems.",
+                "preq": "Computer Science 331; and 313 or 351; and Mathematics 211 or 213; and 3 units from Mathematics 249, 265 or 275.",
+                "units": "3 units",
                 "status": "incomplete",
-                "units": "3.0",
-                "preq": [],
-                "date-complete": "N/A",
-                "description": "Attacks on networked systems and Internet protocols. Tools and techniques for detection and protection against attacks including firewalls, authentication, and cryptographic protocols. Web security attacks and defenses including same-origin policy, cross site scripting, and UI redressing. Legal and ethical issues will be introduced."
-            },
-            "CPSC-517": {
+                "grade": ""
+              },
+              "CPSC 449": {
                 "title": "CPSC",
-                "id": 517,
-                "grade": "N/A",
-                "status": "in-progress",
-                "units": "3.0",
-                "preq": [],
-                "date-complete": "N/A",
-                "description": "Advanced techniques for the design and analysis of deterministic and probabilistic algorithms; techniques for deriving lower bounds on the complexity of problems."
-            },
-            "CPSC-521": {
-                "title": "CPSC",
-                "id": 521,
-                "grade": "N/A",
+                "id": "449",
+                "fullTitle": "Computer Science",
+                "overview": "Programming Paradigms",
+                "description": "Examination of the basic principles of the major programming language paradigms. Focus on declarative paradigms such as functional and logic programming. Data types, control expressions, loops, types of references, lazy evaluation, different interpretation principles, information hiding.",
+                "preq": "Computer Science 319 or 331; Computer Science 313 or 351; and Philosophy 279 or 377.",
+                "units": "3 units",
                 "status": "incomplete",
-                "units": "3.0",
-                "preq": [],
-                "date-complete": "N/A",
-                "description": "Designing and implementing distributed systems that overcome challenges due to concurrent computation, failure of components in the system and heterogeneity of processors and communication channels. "
-            }
+                "grade": ""
+              }
         }
     }
 }
