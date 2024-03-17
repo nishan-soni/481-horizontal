@@ -6,8 +6,9 @@ import ReactFlow, {
     addEdge,
     MiniMap,
     Controls,
-    ReactFlowProvider,
-    MarkerType
+    // ReactFlowProvider,
+    MarkerType,
+    useStoreApi,
 } from 'reactflow';
 import 'reactflow/dist/style.css';
 import CustomNode from './CustomeNode';
@@ -15,6 +16,7 @@ import { useData } from "../../DataProvider";
 import Timeline from "./Timeline";
 import normalEdge from "./NormalEdge";
 import WarningEdge from "./WarningEdge";
+import { red } from "@mui/material/colors";
 
 const nodeTypes = {
     custom: CustomNode,
@@ -27,19 +29,22 @@ const initialNodes = [
         id: '4',
         data: { label: '🍂 FALL' },
         position: { x: -25, y: -225 },
-        className: 'light',
         style: { backgroundColor: 'rgba(254, 202, 202, 0.2)', width: 250, height: 500, },
         selectable: false,
         draggable: false,
+        connectable: false,
+        type: 'default',
+
     },
     {
         id: '5',
         data: { label: '❄ Winter' },
         position: { x: 375, y: -225 },
-        className: 'light',
         style: { backgroundColor: 'rgba(214, 237, 255, 0.2)', width: 250, height: 500 },
         selectable: false,
         draggable: false,
+        connectable: false,
+        type: 'default',
 
     },
     {
@@ -111,81 +116,88 @@ const getId = () => `dndnode_${id++}`;
 
 function Canvas({ onRemove }) {
 
+    const store = useStoreApi(); // access the reactflow store object for access to the internal state
     const reactFlowWrapper = useRef(null);
     const [nodes, setNodes, onNodesChange] = useNodesState(initialNodes);
     const [edges, setEdges, onEdgesChange] = useEdgesState(initialEdges);
     const [reactFlowInstance, setReactFlowInstance] = useState(null);
+    const MIN_DISTANCE = 300
+    const MIN_HORZ = 100
 
-    useEffect(() => {
-
-        console.log("Nodes: ", nodes);
-        console.log("Edges: ", edges);
-
-    }, [nodes, edges])
+    // useEffect(() => {
+    //     console.log("Nodes: ", nodes);
+    //     console.log("Edges: ", edges);
+    // }, [nodes, edges])
 
     const normalEdge = {
-        "style": { strokeWidth: 1.5, stroke: '#b9b9be' },
-        "markerEnd": { style: { stroke: '#b9b9be' }, type: MarkerType.ArrowClosed, width: 20, height: 20, color: "#b9b9be" },
-        "label": "", "labelStyle": {}, "labelBg": {}
+        "style": { strokeWidth: 1.5, stroke: '#d4d4d4' },
+        "markerEnd": { style: { stroke: '#d4d4d4' }, type: MarkerType.ArrowClosed, width: 20, height: 20, color: "#d4d4d4" },
+        "label": "", "labelStyle": {}, "labelBg": {}, animated: false, type: '',
+
     }
 
     const warningEdge = {
         "style": { strokeWidth: 1.5, stroke: '#ef4444' },
         "markerEnd": { style: { stroke: '#ef4444' }, type: MarkerType.ArrowClosed, width: 20, height: 20, color: "#ef4444" },
-        "label": "", "labelStyle": { fill: '#ef4444', fontWeight: 'bold' }, "labelBg": { fill: '#fafaf9' }
+        "label": "", "labelStyle": { fill: '#ef4444', fontWeight: 'bold' }, "labelBg": { fill: '#fafaf9' }, animated: false, type: '',
+
     }
 
-    // callback for setting the edges on nodes
+    const tempEdge = {
+        "style": { strokeWidth: 1.5, stroke: '#e5e7eb' },
+        "markerEnd": { style: { stroke: '#e5e7eb' }, type: MarkerType.ArrowClosed, width: 20, height: 20, color: "#e5e7eb" },
+        "label": "", "labelStyle": { fill: '#e5e7eb', fontWeight: 'bold' }, "labelBg": { fill: '#fafaf9' }, animated: true, type: '',
+    }
+
+    /**
+     * Handles conditionally rendering the type of edge between nodes
+     * @param {String} source source node
+     * @param {String} target target node
+     */
+    function decideEdge(source, target, temp) {
+
+        let sourceNode = nodes.find((node) => node.id === source);
+        let targetNode = nodes.find((node) => node.id === target);
+        let edgeType = normalEdge // Default edge attributes
+        // console.log("TEST", sourceNode.data.fullTitle + " " + sourceNode.data.id);
+
+        // if none of the following are defined just display a normal edge
+        if (!sourceNode || !sourceNode.data || !targetNode || !targetNode.data || !sourceNode.data.id || !sourceNode.data.id) {
+            return edgeType;
+        }
+
+        if (temp) {
+            console.log("temp");
+            edgeType = tempEdge
+        }
+        // checks if either the prereq string DOES NOT contain the fullTitle or the prereq string DOES NOT includes the id
+        if ((!targetNode.data.preq.includes(sourceNode.data.fullTitle) || !targetNode.data.preq.includes(sourceNode.data.id))) {
+            // set the edge type to warningEdge
+            warningEdge.label = "❌ Invalid Prereq" // checks if either the prereq string DOES NOT contain the fullTitle or the prereq string DOES NOT includes the id
+            temp && (warningEdge.style.stroke = "#fecaca", warningEdge.labelStyle.fill = "#fecaca", warningEdge.markerEnd.color = "#fecaca", warningEdge.animated = true) // render the temp colors if temp is true
+            edgeType = warningEdge
+        }
+        // checks if the course ids are in the wrong order. ex 200 before 300 level
+        if (parseInt(sourceNode.data.id[0]) > parseInt(targetNode.data.id[0])) {
+            warningEdge.label = `❌ ${sourceNode.data.id[0]}00 level before ${targetNode.data.id[0]}00 level`;
+            edgeType = warningEdge
+        }
+        return edgeType
+    }
+
+
+    /**
+     * Callback for setting the edges between nodes
+     */
     const onConnect = useCallback(
         (params) => {
 
-
-            //TODO: source and target node are not yet added as object to the nodes list until the callback finishes
-
-            console.log("Params", params);
-            console.log("NODESSSS ", nodes);
             const { source, target } = params;
 
-            // Default edge attributes
-            console.log("Source ", source);
-            console.log("Target ", target);
+            // console.log("Source ", source);
+            // console.log("Target ", target);
 
-
-            // let sourceNode = source
-            // let targetNode = target
-
-            let sourceNode = nodes.find((node) => node.id === source);
-            let targetNode = nodes.find((node) => node.id === target);
-
-            console.log("Find result", sourceNode, " ", targetNode);
-
-            // if (sourceNode == undefined || targetNode == undefined) {
-            //     console.log(undefined);
-            // }
-            let edgeType = normalEdge
-
-
-            if (sourceNode && targetNode) {
-                console.log("BRUSDHAHASD", sourceNode.data.fullTitle + " " + sourceNode.data.id);
-
-                // show warning edge if the source node is not one of the pre-requisites to the target node
-                // checks if either the prereq string DOES NOT contain the fullTitle or the prereq string DOES NOT includes the id
-                if ((!targetNode.data.preq.includes(sourceNode.data.fullTitle) || !targetNode.data.preq.includes(sourceNode.data.id))) {
-
-                    console.log("Warning-edge");
-                    // set the edge type to warningEdge
-                    warningEdge.label = "Invalid Prereq"
-                    edgeType = warningEdge
-
-
-                }
-                // checks if the course ids are in the wrong order. ex 200 before 300 level
-                if (parseInt(sourceNode.data.id[0]) > parseInt(targetNode.data.id[0])) { 
-                    warningEdge.label = "Invalid course ID order"
-                    edgeType = warningEdge
-                }
-
-            }
+            let edgeType = decideEdge(source, target);
 
             const newEdge = {
                 ...params,
@@ -194,18 +206,128 @@ function Canvas({ onRemove }) {
                 label: edgeType.label,
                 labelStyle: edgeType.labelStyle,
                 labelBgStyle: edgeType.labelBg,
-                // animated: true
+                animated: edgeType.animated,
+                type: edgeType.type,
             };
             setEdges((eds) => addEdge(newEdge, eds));
         },
-        [setEdges, nodes] // call onConnect again when the dependincies setEdges or nodes updates 
-    );
+        [setEdges, nodes]); // call onConnect again when the dependincies setEdges or nodes updates 
 
+
+    /* ----------- Functions to handle dragging nodes in close proximity to others (Proximity connect) ---------- */
+
+    /**
+     * Function to calculate the closest proximity node 
+     */
+    const getClosestEdge = useCallback((node) => {
+        const { nodeInternals } = store.getState();
+        const storeNodes = Array.from(nodeInternals.values());
+
+        const closestNode = storeNodes.reduce((res, n) => {
+            if (n.id !== node.id) {
+                //calculate the distance between the closest node node being dragged 
+                const dx = n.positionAbsolute.x - node.positionAbsolute.x;
+                const dy = n.positionAbsolute.y - node.positionAbsolute.y;
+                const d = Math.sqrt(dx * dx + dy * dy);
+                const horizontalDistance = Math.abs(dx); // additional parameter to fix the issue of nodes connecting when right under each other
+
+                if (d < res.distance && d < MIN_DISTANCE && horizontalDistance > MIN_HORZ) {
+                    res.distance = d;
+                    res.node = n;
+                }
+            }
+            return res;
+        }, { distance: Number.MAX_VALUE, node: null, }); //accumulator initial value
+
+        if (!closestNode.node) {
+            return null;
+        }
+
+        const closeNodeIsSource = closestNode.node.positionAbsolute.x < node.positionAbsolute.x;
+
+        return {
+            id: closeNodeIsSource
+                ? `${closestNode.node.id}-${node.id}`
+                : `${node.id}-${closestNode.node.id}`,
+            source: closeNodeIsSource ? closestNode.node.id : node.id,
+            target: closeNodeIsSource ? node.id : closestNode.node.id,
+        };
+    }, []);
+
+    /**
+    * Handles when dragging a node in close proximity to another
+    */
+    const onNodeDrag = useCallback((_, node) => {
+        const closeEdge = getClosestEdge(node); // get the closest edge to the node being dragged
+
+        setEdges((es) => {
+            const nextEdges = es.filter((e) => e.className !== 'temp');
+
+            if (closeEdge &&
+                !nextEdges.find((ne) => ne.source === closeEdge.source && ne.target === closeEdge.target,)
+            ) {
+                const edgeType = decideEdge(closeEdge.source, closeEdge.target, true)
+                const updatedEdge = {
+                    ...closeEdge,
+                    markerEnd: edgeType.markerEnd,
+                    style: edgeType.style,
+                    label: edgeType.label,
+                    labelStyle: edgeType.labelStyle,
+                    labelBgStyle: edgeType.labelBg,
+                    animated: edgeType.animated,
+                    type: edgeType.type,
+                };
+                updatedEdge.className = 'temp' // indicator for filter so that the temp edge disconnects when a closer node is found
+                nextEdges.push(updatedEdge);
+            }
+            return nextEdges;
+        });
+    }, [getClosestEdge, setEdges, nodes]);
+
+
+    /**
+     * Handles when dragging a node in close proximity to another ENDS
+     */
+    const onNodeDragStop = useCallback((_, node) => {
+        const closeEdge = getClosestEdge(node);
+
+        setEdges((es) => {
+            const nextEdges = es.filter((e) => e.className !== 'temp');
+
+            if (closeEdge &&
+                !nextEdges.find((ne) => ne.source === closeEdge.source && ne.target === closeEdge.target,)
+            ) {
+                const edgeType = decideEdge(closeEdge.source, closeEdge.target)
+                const updatedEdge = {
+                    ...closeEdge,
+                    markerEnd: edgeType.markerEnd,
+                    style: edgeType.style,
+                    label: edgeType.label,
+                    labelStyle: edgeType.labelStyle,
+                    labelBgStyle: edgeType.labelBg,
+                    animated: edgeType.animated,
+                    type: edgeType.type,
+                };
+                nextEdges.push(updatedEdge);
+            }
+            return nextEdges;
+        });
+    }, [getClosestEdge, nodes]);
+
+
+    /* ------------------ Functions to handle dragging nodes from node drawer ------------------ */
+
+    /**
+     * Handles when the node is finished being dragged onto the canvas from the nodeDrawer 
+     */
     const onDragOver = useCallback((event) => {
         event.preventDefault();
         event.dataTransfer.dropEffect = 'move';
     }, [])
 
+    /**
+     * Handles when a node is dragged from the nodeDrawer and dropped onto the canvas
+     */
     const onDrop = useCallback((event) => {
         event.preventDefault();
         const dataString = event.dataTransfer.getData('application/reactFlow'); // catch the data transfered from CourseDrawerNode
@@ -237,8 +359,7 @@ function Canvas({ onRemove }) {
         // console.log("removing node: ", courseProp.title + courseProp.id);
         onRemove(courseProp);
 
-    }, [reactFlowInstance]
-    );
+    }, [reactFlowInstance]);
 
     useEffect(() => {
         // console.log(initialNodes);
@@ -247,30 +368,32 @@ function Canvas({ onRemove }) {
     return (
         <>
             <div className="w-full h-full bg-stone-50 shadow-inner relative">
-                <Timeline />
-                <ReactFlowProvider>
-                    <div className="w-full h-full" ref={reactFlowWrapper}>
-                        <ReactFlow
-                            fitView
-                            maxZoom={1.1}
-                            snapToGrid={[100, 100]}
-                            nodes={nodes}
-                            edges={edges}
-                            nodeTypes={nodeTypes}
-                            onNodesChange={onNodesChange}
-                            onEdgesChange={onEdgesChange}
-                            onConnect={onConnect}
-                            onInit={setReactFlowInstance}
-                            onDrop={onDrop}
-                            onDragOver={onDragOver}
-                            edgeTypes={edgeTypes}
-                        >
-                            <Background color="#e7e5e4" variant="dots" size="2" />
-                            {/* <MiniMap /> */}
-                            <Controls />
-                        </ReactFlow>
-                    </div>
-                </ReactFlowProvider>
+                {/* <Timeline /> */}
+                {/* <ReactFlowProvider> */}
+                <div className="w-full h-full" ref={reactFlowWrapper}>
+                    <ReactFlow
+                        fitView
+                        maxZoom={1.1}
+                        snapToGrid={[100, 100]}
+                        nodes={nodes}
+                        edges={edges}
+                        nodeTypes={nodeTypes}
+                        onNodesChange={onNodesChange}
+                        onEdgesChange={onEdgesChange}
+                        onNodeDrag={onNodeDrag}
+                        onNodeDragStop={onNodeDragStop}
+                        onConnect={onConnect}
+                        onInit={setReactFlowInstance}
+                        onDrop={onDrop}
+                        onDragOver={onDragOver}
+                        edgeTypes={edgeTypes}
+                    >
+                        <Background color="#e7e5e4" variant="dots" size="2" />
+                        {/* <MiniMap /> */}
+                        <Controls />
+                    </ReactFlow>
+                </div>
+                {/* </ReactFlowProvider> */}
             </div >
         </>
     )

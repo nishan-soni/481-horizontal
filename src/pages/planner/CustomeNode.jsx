@@ -28,7 +28,7 @@ function CustomNode({ data }) {
 
 
     return (
-        <div className="shadow-md rounded-lg w-full bg-white border-[1.5px] border-stone-300 active:animate-pulse">
+        <div className={`shadow-md rounded-lg w-full bg-white border-[1.5px] border-stone-300 active:animate-pulse ${showDetails ?  'bg-opacity-[87%] backdrop-blur-sm' : ""}`}>
             {/* Header */}
             <div className='flex justify-between items-center w-full border-b px-3 py-1 gap-3'>
                 <button
@@ -59,7 +59,7 @@ function CustomNode({ data }) {
 
             {/* Description and Preq */}
             {/* {showDetails ? */}
-            < div className={`transition-all ${showDetails ? 'px-3 py-2 pt-3 max-w-72 max-h-fit duration-200 ease-in' : 'opacity-0 w-0 max-h-0 max-w-fit duration-150 ease-out'}`}>
+            < div className={`transition-all ${showDetails ? 'px-3 py-2 pt-3 max-w-72 max-h-fit duration-200 ease-in' : 'opacity-0 overflow-hidden w-0 max-h-0 max-w-fit duration-150 ease-out'}`}>
                 <div className={`${showDetails ? 'opacity-100 transition-all delay-100 duration-500 ease-in' : 'opacity-0 transition-all duration-0'}`}>
                     {description != "" && overview != "" &&
                         <p className='text-stone-600 font-semibold text-sm pb-3'>{overview}</p>

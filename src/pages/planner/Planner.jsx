@@ -1,5 +1,4 @@
 import { useCallback, useEffect, useState } from "react";
-import ReactFlow, { Background, useNodesState, useEdgesState, addEdge } from 'reactflow';
 import TablePage from "../../components/tablepage";
 import { useData } from '../../DataProvider';
 import CourseDrawer from './CourseDrawer';
@@ -9,6 +8,8 @@ import Canvas from './Canvas';
 import 'reactflow/dist/style.css';
 import CourseDrawerNode from "./CourseDrawerNode";
 import Dino from "../../assets/dino.gif"
+// import ReactFlow, { Background, useNodesState, useEdgesState, addEdge } from 'reactflow';
+import { ReactFlowProvider } from 'reactflow';
 
 
 const Planner = () => {
@@ -82,7 +83,9 @@ const Planner = () => {
     return (
       <>
         <div className="w-full h-full flex flex-row">
-          <Canvas data={data} onRemove={course => removeCourse(course)} />
+          <ReactFlowProvider>
+            <Canvas data={data} onRemove={course => removeCourse(course)} />
+          </ReactFlowProvider>
           <TablePage>
             <CourseDrawer>
               {totalCourseData != null ?
