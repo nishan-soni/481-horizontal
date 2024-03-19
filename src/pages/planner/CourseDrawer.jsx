@@ -49,7 +49,7 @@ function CourseDrawer({ children }) {
                 )}
             >
             </input>
-            <div className='flex flex-col items-center border-b w-full h-[270px] p-4 gap-3 overflow-y-auto'>
+            <div className='flex flex-col items-center border-b w-full h-[270px] p-4 gap-3 overflow-y-auto cust-scrollbar'>
                 {React.Children.toArray(children).filter(filterNodes)}
                 {isError && <ErrorMessage errorMessage={"No results"} errorState={isError} color={"red"} background={false}/>}
             </div>

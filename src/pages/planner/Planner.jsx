@@ -10,7 +10,7 @@ import CourseDrawerNode from "./CourseDrawerNode";
 import Dino from "../../assets/dino.gif"
 // import ReactFlow, { Background, useNodesState, useEdgesState, addEdge } from 'reactflow';
 import { ReactFlowProvider } from 'reactflow';
-
+import Modal from "../../components/Modal"
 
 const Planner = () => {
 
@@ -69,6 +69,7 @@ const Planner = () => {
     });
   }, []);
 
+
   // allow the data to load
   if (data === null || totalCourseData === null) {
     return (
@@ -82,6 +83,8 @@ const Planner = () => {
   else {
     return (
       <>
+        <Modal/>
+
         <div className="w-full h-full flex flex-row">
           <ReactFlowProvider>
             <Canvas data={data} onRemove={course => removeCourse(course)} />
