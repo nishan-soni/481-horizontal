@@ -104,8 +104,8 @@ function CustomNode({ data }) {
             </div>
             {/* : ""
             } */}
-            <Handle type="target" position={Position.Left} style={{ ...HANDLE_STYLE, background: "#555555" }} />
-            <Handle type="source" position={Position.Right} style={{ ...HANDLE_STYLE, background: "#555555" }} />
+            <Handle type="target" position={Position.Left} style={{ ...HANDLE_STYLE, background: "#9ca3af" }} />
+            <Handle type="source" position={Position.Right} style={{ ...HANDLE_STYLE, background: "#9ca3af" }} />
         </div >
     );
 }
