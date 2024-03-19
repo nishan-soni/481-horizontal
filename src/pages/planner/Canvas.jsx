@@ -129,21 +129,21 @@ function Canvas({ onRemove }) {
     //     console.log("Edges: ", edges);
     // }, [nodes, edges])
 
-    const normalEdge = {
+    let normalEdge = {
         "style": { strokeWidth: 1.5, stroke: '#d4d4d4' },
         "markerEnd": { style: { stroke: '#d4d4d4' }, type: MarkerType.ArrowClosed, width: 20, height: 20, color: "#d4d4d4" },
         "label": "", "labelStyle": {}, "labelBg": {}, animated: false, type: '',
 
     }
 
-    const warningEdge = {
+    let warningEdge = {
         "style": { strokeWidth: 1.5, stroke: '#ef4444' },
         "markerEnd": { style: { stroke: '#ef4444' }, type: MarkerType.ArrowClosed, width: 20, height: 20, color: "#ef4444" },
         "label": "", "labelStyle": { fill: '#ef4444', fontWeight: 'bold' }, "labelBg": { fill: '#fafaf9' }, animated: false, type: '',
 
     }
 
-    const tempEdge = {
+    let tempEdge = {
         "style": { strokeWidth: 1.5, stroke: '#e5e7eb' },
         "markerEnd": { style: { stroke: '#e5e7eb' }, type: MarkerType.ArrowClosed, width: 20, height: 20, color: "#e5e7eb" },
         "label": "", "labelStyle": { fill: '#e5e7eb', fontWeight: 'bold' }, "labelBg": { fill: '#fafaf9' }, animated: true, type: '',
