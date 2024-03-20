@@ -132,24 +132,26 @@ function Canvas({ onRemove }) {
     let normalEdge = {
         "style": { strokeWidth: 1.5, stroke: '#d4d4d4' },
         "markerEnd": { style: { stroke: '#d4d4d4' }, type: MarkerType.ArrowClosed, width: 20, height: 20, color: "#d4d4d4" },
-        "label": "", "labelStyle": {}, "labelBg": {}, animated: false, type: '',
+        "label": "", "labelStyle": {}, "labelBg": {}, animated: false, type: 'smoothstep',
 
     }
 
     let warningEdge = {
         "style": { strokeWidth: 1.5, stroke: '#ef4444' },
         "markerEnd": { style: { stroke: '#ef4444' }, type: MarkerType.ArrowClosed, width: 20, height: 20, color: "#ef4444" },
-        "label": "", "labelStyle": { fill: '#ef4444', fontWeight: 'bold' }, "labelBg": { fill: '#fafaf9' }, animated: false, type: '',
+        "label": "", "labelStyle": { fill: '#ef4444', fontWeight: 'bold' }, "labelBg": { fill: '#fafaf9' }, animated: false, type: 'smoothstep',
 
     }
 
     let tempEdge = {
         "style": { strokeWidth: 1.5, stroke: '#e5e7eb' },
         "markerEnd": { style: { stroke: '#e5e7eb' }, type: MarkerType.ArrowClosed, width: 20, height: 20, color: "#e5e7eb" },
-        "label": "", "labelStyle": { fill: '#e5e7eb', fontWeight: 'bold' }, "labelBg": { fill: '#fafaf9' }, animated: true, type: '',
+        "label": "", "labelStyle": { fill: '#e5e7eb', fontWeight: 'bold' }, "labelBg": { fill: '#fafaf9' }, animated: true, type: 'smoothstep',
     }
 
     /**
+     * @TODO Optomize deep copying by creating a custom edge instead
+     * 
      * Handles conditionally rendering the type of edge between nodes
      * @param {String} source source node
      * @param {String} target target node
@@ -158,7 +160,7 @@ function Canvas({ onRemove }) {
 
         let sourceNode = nodes.find((node) => node.id === source);
         let targetNode = nodes.find((node) => node.id === target);
-        let edgeType = normalEdge // Default edge attributes
+        let edgeType = JSON.parse(JSON.stringify(normalEdge));// Default edge attributes; create deep copy to avoid read-only error
         // console.log("TEST", sourceNode.data.fullTitle + " " + sourceNode.data.id);
 
         // if none of the following are defined just display a normal edge
@@ -168,19 +170,34 @@ function Canvas({ onRemove }) {
 
         if (temp) {
             console.log("temp");
-            edgeType = tempEdge
+            edgeType = JSON.parse(JSON.stringify(tempEdge));
         }
         // checks if either the prereq string DOES NOT contain the fullTitle or the prereq string DOES NOT includes the id
         if ((!targetNode.data.preq.includes(sourceNode.data.fullTitle) || !targetNode.data.preq.includes(sourceNode.data.id))) {
             // set the edge type to warningEdge
-            warningEdge.label = "❌ Invalid Prereq" // checks if either the prereq string DOES NOT contain the fullTitle or the prereq string DOES NOT includes the id
-            temp && (warningEdge.style.stroke = "#fecaca", warningEdge.labelStyle.fill = "#fecaca", warningEdge.markerEnd.color = "#fecaca", warningEdge.animated = true) // render the temp colors if temp is true
-            edgeType = warningEdge
+            edgeType = JSON.parse(JSON.stringify(warningEdge));
+            edgeType.label = "❌ Invalid Prereq" // checks if either the prereq string DOES NOT contain the fullTitle or the prereq string DOES NOT includes the id
+            console.log(Object.isFrozen(edgeType.style)); // Check if style object is frozen
+            console.log(Object.isSealed(edgeType.style));
+            if (temp) {
+                edgeType.style.stroke = "#fecaca";
+                edgeType.labelStyle.fill = "#fecaca";
+                edgeType.markerEnd.color = "#fecaca";
+                edgeType.animated = true;
+            }
         }
         // checks if the course ids are in the wrong order. ex 200 before 300 level
         if (parseInt(sourceNode.data.id[0]) > parseInt(targetNode.data.id[0])) {
-            warningEdge.label = `❌ ${sourceNode.data.id[0]}00 level before ${targetNode.data.id[0]}00 level`;
-            edgeType = warningEdge
+            edgeType = JSON.parse(JSON.stringify(warningEdge));
+            edgeType.label = `❌ ${sourceNode.data.id[0]}00 level before ${targetNode.data.id[0]}00 level`;
+            console.log(Object.isFrozen(edgeType.style)); // Check if style object is frozen
+            console.log(Object.isSealed(edgeType.style));
+            if (temp) {
+                edgeType.style.stroke = "#fecaca";
+                edgeType.labelStyle.fill = "#fecaca";
+                edgeType.markerEnd.color = "#fecaca";
+                edgeType.animated = true;
+            }
         }
         return edgeType
     }
