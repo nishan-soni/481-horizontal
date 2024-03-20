@@ -28,7 +28,7 @@ function CustomNode({ data }) {
 
 
     return (
-        <div className={`shadow-md rounded-lg w-full bg-white border-[1.5px] border-stone-300 active:animate-pulse ${showDetails ?  'bg-opacity-[87%] backdrop-blur-sm' : ""}`}>
+        <div className={`shadow-md rounded-lg w-full bg-white border-[1px] border-stone-300 active:animate-pulse ${showDetails ?  'bg-opacity-[87%] backdrop-blur-sm' : ""}`}>
             {/* Header */}
             <div className='flex justify-between items-center w-full border-b px-3 py-1 gap-3'>
                 <button

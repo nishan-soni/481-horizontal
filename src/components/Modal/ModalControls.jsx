@@ -23,7 +23,7 @@ function ModalControls({ children }) {
                 </button>
             </div>
 
-            <div className='fixed flex justify-center h-full w-full'>
+            <div className='fixed flex justify-center h-full w-full pt-2'>
                 <p className='text-gray-300'>{slideNum+1}/{slideList.length}</p>
             </div>
             {slideList[slideNum]}

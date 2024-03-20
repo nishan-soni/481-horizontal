@@ -15,6 +15,7 @@ import ModalBody from "../../components/Modal/ModalBody";
 import ModalControls from "../../components/Modal/ModalControls";
 import Preview from "../../assets/Preview.png"
 import Preview2 from "../../assets/Preview2.png"
+import KeyboardKey from "../../components/Modal/KeyboardKey";
 
 const Planner = () => {
 
@@ -95,17 +96,25 @@ const Planner = () => {
       <>
         <Modal isOpen={modalOpen} onClose={() => setModalOpen(false)}>
           <ModalControls>
-            <ModalBody header={"Adding and Deleting Courses"}
-              description={"Drag courses from the sidebar onto the canvas to add them"}
+            <ModalBody
+              header={"Adding and Deleting Courses"}
+              description={
+                <span className="inline-block">
+                  Drag courses from the sidebar onto the canvas to add them to your planner.
+                  To delete a course, select it and press the <span className="inline-block"><KeyboardKey /></span> key on your keyboard.
+                </span>
+              }
               photo={Preview}
               onClose={() => setModalOpen(false)}
             />
             <ModalBody
               header={"Bruh"}
               description={"STUFFF"}
-              photo={Preview2} />
+              photo={Preview2}
+              onClose={() => setModalOpen(false)}
+            />
           </ModalControls>
-        </Modal>
+        </Modal >
 
         <div className="w-full h-full flex flex-row">
           <ReactFlowProvider>
