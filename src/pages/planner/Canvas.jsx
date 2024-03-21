@@ -121,7 +121,7 @@ function Canvas({ onRemove }) {
     const [nodes, setNodes, onNodesChange] = useNodesState(initialNodes);
     const [edges, setEdges, onEdgesChange] = useEdgesState(initialEdges);
     const [reactFlowInstance, setReactFlowInstance] = useState(null);
-    const MIN_DISTANCE = 300
+    const MIN_DISTANCE = 1000000 // make large value so that prerequisite nodes automatically connect on canvas
     const MIN_HORZ = 100
 
     // useEffect(() => {
@@ -149,6 +149,29 @@ function Canvas({ onRemove }) {
         "label": "", "labelStyle": { fill: '#e5e7eb', fontWeight: 'bold' }, "labelBg": { fill: '#fafaf9' }, animated: true, type: 'smoothstep',
     }
 
+
+    function decideEdgePreview(source, target, temp) {
+
+        let sourceNode = nodes.find((node) => node.id === source);
+        let targetNode = nodes.find((node) => node.id === target);
+        let edgeType = JSON.parse(JSON.stringify(normalEdge));// Default edge attributes; create deep copy to avoid read-only error
+
+        // if the node being dragged is temporary and if the target preq title and id is the same as the source nodes title and id
+        if (temp && targetNode.data.preq.includes(sourceNode.data.fullTitle) && targetNode.data.preq.includes(sourceNode.data.id)) {
+            // then set it to a temporary edge
+            edgeType = JSON.parse(JSON.stringify(tempEdge));
+            return edgeType
+        }
+        // if it is not a temporary node (i.e. the node being dragged is placed on canvas) 
+        else if (!temp && targetNode.data.preq.includes(sourceNode.data.fullTitle) && targetNode.data.preq.includes(sourceNode.data.id)) {
+            return edgeType // then set it to the normal edge
+        }
+        else {
+            // return null if the source course is not a preq to target and it is not a temporary edge 
+            return null;
+        }
+    }
+
     /**
      * @TODO Optomize deep copying by creating a custom edge instead
      * 
@@ -168,10 +191,6 @@ function Canvas({ onRemove }) {
             return edgeType;
         }
 
-        if (temp) {
-            console.log("temp");
-            edgeType = JSON.parse(JSON.stringify(tempEdge));
-        }
         // checks if either the prereq string DOES NOT contain the fullTitle or the prereq string DOES NOT includes the id
         if ((!targetNode.data.preq.includes(sourceNode.data.fullTitle) || !targetNode.data.preq.includes(sourceNode.data.id))) {
             // set the edge type to warningEdge
@@ -179,12 +198,6 @@ function Canvas({ onRemove }) {
             edgeType.label = "❌ Invalid Prereq" // checks if either the prereq string DOES NOT contain the fullTitle or the prereq string DOES NOT includes the id
             console.log(Object.isFrozen(edgeType.style)); // Check if style object is frozen
             console.log(Object.isSealed(edgeType.style));
-            if (temp) {
-                edgeType.style.stroke = "#fecaca";
-                edgeType.labelStyle.fill = "#fecaca";
-                edgeType.markerEnd.color = "#fecaca";
-                edgeType.animated = true;
-            }
         }
         // checks if the course ids are in the wrong order. ex 200 before 300 level
         if (parseInt(sourceNode.data.id[0]) > parseInt(targetNode.data.id[0])) {
@@ -192,12 +205,6 @@ function Canvas({ onRemove }) {
             edgeType.label = `❌ ${sourceNode.data.id[0]}00 level before ${targetNode.data.id[0]}00 level`;
             console.log(Object.isFrozen(edgeType.style)); // Check if style object is frozen
             console.log(Object.isSealed(edgeType.style));
-            if (temp) {
-                edgeType.style.stroke = "#fecaca";
-                edgeType.labelStyle.fill = "#fecaca";
-                edgeType.markerEnd.color = "#fecaca";
-                edgeType.animated = true;
-            }
         }
         return edgeType
     }
@@ -278,24 +285,29 @@ function Canvas({ onRemove }) {
         const closeEdge = getClosestEdge(node); // get the closest edge to the node being dragged
 
         setEdges((es) => {
-            const nextEdges = es.filter((e) => e.className !== 'temp');
+            const nextEdges = es.filter((e) => e.className !== 'temp'); // filter out non-temp edges
 
             if (closeEdge &&
                 !nextEdges.find((ne) => ne.source === closeEdge.source && ne.target === closeEdge.target,)
             ) {
-                const edgeType = decideEdge(closeEdge.source, closeEdge.target, true)
-                const updatedEdge = {
-                    ...closeEdge,
-                    markerEnd: edgeType.markerEnd,
-                    style: edgeType.style,
-                    label: edgeType.label,
-                    labelStyle: edgeType.labelStyle,
-                    labelBgStyle: edgeType.labelBg,
-                    animated: edgeType.animated,
-                    type: edgeType.type,
-                };
-                updatedEdge.className = 'temp' // indicator for filter so that the temp edge disconnects when a closer node is found
-                nextEdges.push(updatedEdge);
+                const edgeType = decideEdgePreview(closeEdge.source, closeEdge.target, true)
+
+                if (edgeType !== null) { // if the edtype is not null so that there is a temporary edge preview
+
+                    const updatedEdge = {
+                        ...closeEdge,
+                        markerEnd: edgeType.markerEnd,
+                        style: edgeType.style,
+                        label: edgeType.label,
+                        labelStyle: edgeType.labelStyle,
+                        labelBgStyle: edgeType.labelBg,
+                        animated: edgeType.animated,
+                        type: edgeType.type,
+                    };
+
+                    updatedEdge.className = 'temp' // indicator for filter so that the temp edge disconnects when a closer node is found
+                    nextEdges.push(updatedEdge);
+                }
             }
             return nextEdges;
         });
@@ -309,23 +321,26 @@ function Canvas({ onRemove }) {
         const closeEdge = getClosestEdge(node);
 
         setEdges((es) => {
-            const nextEdges = es.filter((e) => e.className !== 'temp');
+            const nextEdges = es.filter((e) => e.className !== 'temp'); // filter out non-temp edges
 
             if (closeEdge &&
                 !nextEdges.find((ne) => ne.source === closeEdge.source && ne.target === closeEdge.target,)
             ) {
-                const edgeType = decideEdge(closeEdge.source, closeEdge.target)
-                const updatedEdge = {
-                    ...closeEdge,
-                    markerEnd: edgeType.markerEnd,
-                    style: edgeType.style,
-                    label: edgeType.label,
-                    labelStyle: edgeType.labelStyle,
-                    labelBgStyle: edgeType.labelBg,
-                    animated: edgeType.animated,
-                    type: edgeType.type,
-                };
-                nextEdges.push(updatedEdge);
+                const edgeType = decideEdgePreview(closeEdge.source, closeEdge.target)
+
+                if (edgeType !== null) { // if it is not null so that the source is preq of target, place the normalEdge
+                    const updatedEdge = {
+                        ...closeEdge,
+                        markerEnd: edgeType.markerEnd,
+                        style: edgeType.style,
+                        label: edgeType.label,
+                        labelStyle: edgeType.labelStyle,
+                        labelBgStyle: edgeType.labelBg,
+                        animated: edgeType.animated,
+                        type: edgeType.type,
+                    };
+                    nextEdges.push(updatedEdge);
+                }
             }
             return nextEdges;
         });
