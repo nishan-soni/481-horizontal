@@ -16,35 +16,65 @@ import { useData } from "../../DataProvider";
 import Timeline from "./Timeline";
 import normalEdge from "./NormalEdge";
 import WarningEdge from "./WarningEdge";
+import YearNode from "./YearNode";
 import { red } from "@mui/material/colors";
+import SemesterNode from "./SemesterNode";
 
 const nodeTypes = {
     custom: CustomNode,
+    yearNode: YearNode,
+    semNode: SemesterNode,
 };
 
 
 
 const initialNodes = [
+    // {
+    //     id: '4',
+    //     data: { label: '🍂 FALL' },
+    //     position: { x: -25, y: -225 },
+    //     style: { backgroundColor: 'rgba(254, 202, 202, 0.2)', width: 250, height: 500, },
+    //     selectable: false,
+    //     draggable: false,
+    //     connectable: false,
+    //     type: 'default',
+
+    // },
+    // {
+    //     id: '5',
+    //     data: { label: '❄ Winter' },
+    //     position: { x: 375, y: -225 },
+    //     style: { backgroundColor: 'rgba(214, 237, 255, 0.2)', width: 250, height: 500 },
+    //     selectable: false,
+    //     draggable: false,
+    //     connectable: false,
+    //     type: 'default',
+
+    // },
     {
-        id: '4',
-        data: { label: '🍂 FALL' },
-        position: { x: -25, y: -225 },
-        style: { backgroundColor: 'rgba(254, 202, 202, 0.2)', width: 250, height: 500, },
+        id: '10',
+        position: { x: 800, y: -400 },
         selectable: false,
-        draggable: false,
-        connectable: false,
-        type: 'default',
+        draggable: true,
+        type: 'yearNode',
 
     },
+    // {
+    //     id: '11',
+    //     position: { x: 1600, y: -400 },
+    //     selectable: false,
+    //     draggable: true,
+    //     type: 'semNode',
+    //     color: "red"
+
+    // },
     {
-        id: '5',
-        data: { label: '❄ Winter' },
-        position: { x: 375, y: -225 },
-        style: { backgroundColor: 'rgba(214, 237, 255, 0.2)', width: 250, height: 500 },
+        id: '12',
+        position: { x: 1600, y: -400 },
         selectable: false,
-        draggable: false,
-        connectable: false,
-        type: 'default',
+        draggable: true,
+        type: 'semNode',
+        data: { color: 'blue' }
 
     },
     {
@@ -130,9 +160,9 @@ function Canvas({ onRemove }) {
     // }, [nodes, edges])
 
     let normalEdge = {
-        "style": { strokeWidth: 1.5, stroke: '#d4d4d4' },
-        "markerEnd": { style: { stroke: '#d4d4d4' }, type: MarkerType.ArrowClosed, width: 20, height: 20, color: "#d4d4d4" },
-        "label": "", "labelStyle": {}, "labelBg": {}, animated: false, type: 'smoothstep',
+        "style": { strokeWidth: 1.5, stroke: '#bfbfbf' },
+        "markerEnd": { style: { stroke: '#bfbfbf' }, type: MarkerType.ArrowClosed, width: 20, height: 20, color: "#bfbfbf" },
+        "label": "Preq", "labelStyle": { fill: '#bfbfbf', fontWeight: 'bold' }, "labelBg": { fill: '#fafaf9' }, animated: false, type: 'smoothstep',
 
     }
 
@@ -144,17 +174,30 @@ function Canvas({ onRemove }) {
     }
 
     let tempEdge = {
-        "style": { strokeWidth: 1.5, stroke: '#e5e7eb' },
-        "markerEnd": { style: { stroke: '#e5e7eb' }, type: MarkerType.ArrowClosed, width: 20, height: 20, color: "#e5e7eb" },
-        "label": "", "labelStyle": { fill: '#e5e7eb', fontWeight: 'bold' }, "labelBg": { fill: '#fafaf9' }, animated: true, type: 'smoothstep',
+        "style": { strokeWidth: 1.5, stroke: '#d4d4d4' },
+        "markerEnd": { style: { stroke: '#d4d4d4' }, type: MarkerType.ArrowClosed, width: 20, height: 20, color: "#d4d4d4" },
+        "label": "Preq", "labelStyle": { fill: '#d4d4d4', fontWeight: 'bold' }, "labelBg": { fill: '#fafaf9' }, animated: true, type: 'smoothstep',
     }
 
 
+    /**
+     * @TODO first if statement is redundant with if statement in getClosestEdge function
+     * 
+     * 
+     * @param {*} source 
+     * @param {*} target 
+     * @param {*} temp 
+     * @returns 
+     */
     function decideEdgePreview(source, target, temp) {
 
         let sourceNode = nodes.find((node) => node.id === source);
         let targetNode = nodes.find((node) => node.id === target);
         let edgeType = JSON.parse(JSON.stringify(normalEdge));// Default edge attributes; create deep copy to avoid read-only error
+
+        if (!sourceNode || !sourceNode.data || !targetNode || !targetNode.data || !sourceNode.data.id || !sourceNode.data.id) {
+            return edgeType;
+        }
 
         // if the node being dragged is temporary and if the target preq title and id is the same as the source nodes title and id
         if (temp && targetNode.data.preq.includes(sourceNode.data.fullTitle) && targetNode.data.preq.includes(sourceNode.data.id)) {
@@ -248,7 +291,10 @@ function Canvas({ onRemove }) {
         const storeNodes = Array.from(nodeInternals.values());
 
         const closestNode = storeNodes.reduce((res, n) => {
-            if (n.id !== node.id) {
+            // checks if the node being dragged id is not also the node in prxomity 
+            // and if the source node and target node data is not undefined
+            // and if the target nodes data includes the sources nodes id
+            if (n.id !== node.id && node.data !== undefined && n.data !== undefined && n.data.preq.includes(node.data.id)) {
                 //calculate the distance between the closest node node being dragged 
                 const dx = n.positionAbsolute.x - node.positionAbsolute.x;
                 const dy = n.positionAbsolute.y - node.positionAbsolute.y;
@@ -406,7 +452,8 @@ function Canvas({ onRemove }) {
                     <ReactFlow
                         fitView
                         maxZoom={1.1}
-                        snapToGrid={[100, 100]}
+                        snapToGrid
+                        snapGrid={[10, 10]}
                         nodes={nodes}
                         edges={edges}
                         nodeTypes={nodeTypes}
@@ -419,6 +466,7 @@ function Canvas({ onRemove }) {
                         onDrop={onDrop}
                         onDragOver={onDragOver}
                         edgeTypes={edgeTypes}
+                    // selectNodesOnDrag={false}
                     >
                         <Background color="#e7e5e4" variant="dots" size="2" />
                         {/* <MiniMap /> */}

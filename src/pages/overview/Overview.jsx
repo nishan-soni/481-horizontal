@@ -77,7 +77,7 @@ const Overview = () => {
               <div className="flex flex-col gap-3">
                 <Requirements>
                   <p>Intro Math Courses</p>
-                  <p>2/2</p>
+                  <p>1/2</p>
                 </Requirements>
                 <Requirements>
                   <p>Intro CPSC Courses</p>
