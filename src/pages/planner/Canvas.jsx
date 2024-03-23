@@ -53,24 +53,31 @@ const initialNodes = [
     // },
     {
         id: '10',
-        position: { x: 800, y: -400 },
+        position: { x: 0, y: 0 },
         selectable: false,
         draggable: true,
         type: 'yearNode',
-
+        data: { year: 'Year 1' }
     },
-    // {
-    //     id: '11',
-    //     position: { x: 1600, y: -400 },
-    //     selectable: false,
-    //     draggable: true,
-    //     type: 'semNode',
-    //     color: "red"
-
-    // },
     {
-        id: '12',
-        position: { x: 1600, y: -400 },
+        id: '11',
+        position: { x: 525, y: 0 },
+        selectable: false,
+        draggable: true,
+        type: 'yearNode',
+        data: { year: 'Year 2' }
+    },
+    {
+        id: '14',
+        position: { x: 50, y: 25 },
+        selectable: false,
+        draggable: true,
+        type: 'semNode',
+        data: { color: 'red' }
+    },
+    {
+        id: '15',
+        position: { x: 275, y: 25 },
         selectable: false,
         draggable: true,
         type: 'semNode',
@@ -78,24 +85,41 @@ const initialNodes = [
 
     },
     {
-        id: '1',
-        type: 'custom',
-        data: { "title": "Add Courses", "id": 1, "grade": "N/A", "status": "in progress", "units": "3.0", "preq": [], "date-complete": "N/A", "description": "🆕 Add courses by dragging them from the side menu into the canvas." },
-        position: { x: 0, y: -100 },
+        id: '16',
+        position: { x: 575, y: 25 },
+        selectable: false,
+        draggable: true,
+        type: 'semNode',
+        data: { color: 'red' }
     },
     {
-        id: '2',
-        type: 'custom',
-        data: { "title": "Delete Courses", "id": 2, "grade": "B", "status": "complete", "units": "3.0", "preq": [], "date-complete": "2023-04-12", "description": "🔙 Delete courses by selecting the course or link, then press backspace to delete it." },
-        position: { x: 0, y: 100 },
+        id: '17',
+        position: { x: 800, y: 25 },
+        selectable: false,
+        draggable: true,
+        type: 'semNode',
+        data: { color: 'blue' }
+
     },
-    {
-        id: '3',
-        type: 'custom',
-        data: { "title": "Move Canvas", "id": 3, "grade": "N/A", "status": "incomplete", "units": "3.0", "preq": "", "date-complete": "N/A", "description": "🖱 Scroll to zoom and drag the cursor on the canvas to move. Hold and drag courses to move them around as needed." },
-        position: { x: 400, y: 0 },
-        // parentNode: '4'
-    },
+    // {
+    //     id: '1',
+    //     type: 'custom',
+    //     data: { "title": "Add Courses", "id": 1, "grade": "N/A", "status": "in progress", "units": "3.0", "preq": [], "date-complete": "N/A", "description": "🆕 Add courses by dragging them from the side menu into the canvas." },
+    //     position: { x: 0, y: -100 },
+    // },
+    // {
+    //     id: '2',
+    //     type: 'custom',
+    //     data: { "title": "Delete Courses", "id": 2, "grade": "B", "status": "complete", "units": "3.0", "preq": [], "date-complete": "2023-04-12", "description": "🔙 Delete courses by selecting the course or link, then press backspace to delete it." },
+    //     position: { x: 0, y: 100 },
+    // },
+    // {
+    //     id: '3',
+    //     type: 'custom',
+    //     data: { "title": "Move Canvas", "id": 3, "grade": "N/A", "status": "incomplete", "units": "3.0", "preq": "", "date-complete": "N/A", "description": "🖱 Scroll to zoom and drag the cursor on the canvas to move. Hold and drag courses to move them around as needed." },
+    //     position: { x: 400, y: 0 },
+    //     // parentNode: '4'
+    // },
 ];
 
 const edgeTypes = {
@@ -160,11 +184,18 @@ function Canvas({ onRemove }) {
     // }, [nodes, edges])
 
     let normalEdge = {
-        "style": { strokeWidth: 1.5, stroke: '#bfbfbf' },
-        "markerEnd": { style: { stroke: '#bfbfbf' }, type: MarkerType.ArrowClosed, width: 20, height: 20, color: "#bfbfbf" },
-        "label": "Preq", "labelStyle": { fill: '#bfbfbf', fontWeight: 'bold' }, "labelBg": { fill: '#fafaf9' }, animated: false, type: 'smoothstep',
+        "style": { strokeWidth: 1.5, stroke: '#9ca3af' },
+        "markerEnd": { style: { stroke: '#9ca3af' }, type: MarkerType.ArrowClosed, width: 20, height: 20, color: "#9ca3af" },
+        "label": "Preq", "labelStyle": { fill: '#9ca3af', fontWeight: 'bold' }, "labelBg": { fill: '#fafaf9' }, animated: false, type: 'smoothstep',
 
     }
+
+    // let normalEdge = {
+    //     "style": { strokeWidth: 1.5, stroke: '#bfbfbf' },
+    //     "markerEnd": { style: { stroke: '#bfbfbf' }, type: MarkerType.ArrowClosed, width: 20, height: 20, color: "#bfbfbf" },
+    //     "label": "Preq", "labelStyle": { fill: '#bfbfbf', fontWeight: 'bold' }, "labelBg": { fill: '#fafaf9' }, animated: false, type: 'smoothstep',
+
+    // }
 
     let warningEdge = {
         "style": { strokeWidth: 1.5, stroke: '#ef4444' },
@@ -294,16 +325,19 @@ function Canvas({ onRemove }) {
             // checks if the node being dragged id is not also the node in prxomity 
             // and if the source node and target node data is not undefined
             // and if the target nodes data includes the sources nodes id
-            if (n.id !== node.id && node.data !== undefined && n.data !== undefined && n.data.preq.includes(node.data.id)) {
-                //calculate the distance between the closest node node being dragged 
-                const dx = n.positionAbsolute.x - node.positionAbsolute.x;
-                const dy = n.positionAbsolute.y - node.positionAbsolute.y;
-                const d = Math.sqrt(dx * dx + dy * dy);
-                const horizontalDistance = Math.abs(dx); // additional parameter to fix the issue of nodes connecting when right under each other
+            // if (n.id !== node.id && node.data !== undefined && n.data !== undefined && n.data.preq.includes(node.data.id) && closestNode !== undefined) {
+            if (n.data !== undefined && node.data !== undefined && n.data.preq !== undefined && node.data.id !== undefined) {
+                if (n.id !== node.id && n.data.preq.includes(node.data.id)) {
+                    //calculate the distance between the closest node node being dragged 
+                    const dx = n.positionAbsolute.x - node.positionAbsolute.x;
+                    const dy = n.positionAbsolute.y - node.positionAbsolute.y;
+                    const d = Math.sqrt(dx * dx + dy * dy);
+                    const horizontalDistance = Math.abs(dx); // additional parameter to fix the issue of nodes connecting when right under each other
 
-                if (d < res.distance && d < MIN_DISTANCE && horizontalDistance > MIN_HORZ) {
-                    res.distance = d;
-                    res.node = n;
+                    if (d < res.distance && d < MIN_DISTANCE && horizontalDistance > MIN_HORZ) {
+                        res.distance = d;
+                        res.node = n;
+                    }
                 }
             }
             return res;
@@ -453,7 +487,7 @@ function Canvas({ onRemove }) {
                         fitView
                         maxZoom={1.1}
                         snapToGrid
-                        snapGrid={[10, 10]}
+                        snapGrid={[8, 8]}
                         nodes={nodes}
                         edges={edges}
                         nodeTypes={nodeTypes}

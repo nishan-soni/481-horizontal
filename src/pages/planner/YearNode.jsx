@@ -6,7 +6,9 @@ import { select } from 'd3-selection';
 
 
 
-function YearNode({id}) {
+function YearNode({id, data}) {
+
+    const {year} = data
 
     // const rotateControlRef = useRef(null);
     // const [resizeable, setResizeable] = useState(!!data.resizeable);
@@ -21,8 +23,8 @@ function YearNode({id}) {
     // })
 
     return (
-        <div className="border-2 bg-stone-50 bg-opacity-25 border-stone-400 border-dashed w-[500px] h-96 year rounded-md" style={{zIndex:-1}}>
-            <p className='absolute -top-3 text-white ml-10 px-2 py-0.5 bg-red-500 rounded-full'>Year 1</p>
+        <div className="border-2 bg-stone-50 bg-opacity-5 border-stone-300 border-dashed w-[500px] h-[450px] year rounded-md">
+            <p className='absolute -top-3 text-white ml-10 px-2 py-0.5 bg-red-500 rounded-full'>{year}</p>
         </div >
     );
 
