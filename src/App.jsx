@@ -1,6 +1,7 @@
 import Page from "./components/page";
 import { DataProvider } from "./DataProvider";
 import { createTheme, ThemeProvider } from "@mui/material/styles";
+import { NodeHoverProvider } from "./pages/planner/NodeHoverProvider";
 
 const theme = createTheme({
   palette: {
@@ -13,11 +14,13 @@ const theme = createTheme({
 function App() {
   return (
     <>
-      <DataProvider>
-        <ThemeProvider theme={theme}>
-          <Page />
-        </ThemeProvider>
-      </DataProvider>
+      <NodeHoverProvider>
+        <DataProvider>
+          <ThemeProvider theme={theme}>
+            <Page />
+          </ThemeProvider>
+        </DataProvider>
+      </NodeHoverProvider>
     </>
   );
 }

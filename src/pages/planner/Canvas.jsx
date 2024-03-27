@@ -6,19 +6,19 @@ import ReactFlow, {
     addEdge,
     MiniMap,
     Controls,
-    // ReactFlowProvider,
+    ControlButton,
     MarkerType,
     useStoreApi,
 } from 'reactflow';
 import 'reactflow/dist/style.css';
-import CustomNode from './CustomeNode';
+import CustomNode from './CustomNode';
 import { useData } from "../../DataProvider";
 import Timeline from "./Timeline";
 import normalEdge from "./NormalEdge";
 import WarningEdge from "./WarningEdge";
 import YearNode from "./YearNode";
-import { red } from "@mui/material/colors";
 import SemesterNode from "./SemesterNode";
+import { useNodeHover } from "./NodeHoverProvider";
 
 const nodeTypes = {
     custom: CustomNode,
@@ -175,6 +175,7 @@ function Canvas({ onRemove }) {
     const [nodes, setNodes, onNodesChange] = useNodesState(initialNodes);
     const [edges, setEdges, onEdgesChange] = useEdgesState(initialEdges);
     const [reactFlowInstance, setReactFlowInstance] = useState(null);
+    const [hidden, setHidden] = useState(false);
     const MIN_DISTANCE = 1000000 // make large value so that prerequisite nodes automatically connect on canvas
     const MIN_HORZ = 100
 
@@ -186,7 +187,7 @@ function Canvas({ onRemove }) {
     let normalEdge = {
         "style": { strokeWidth: 1.5, stroke: '#9ca3af' },
         "markerEnd": { style: { stroke: '#9ca3af' }, type: MarkerType.ArrowClosed, width: 20, height: 20, color: "#9ca3af" },
-        "label": "Preq", "labelStyle": { fill: '#9ca3af', fontWeight: 'bold' }, "labelBg": { fill: '#fafaf9' }, animated: false, type: 'smoothstep',
+        "label": "Preq", "labelStyle": { fill: '#9ca3af', fontWeight: 'bold' }, "labelBg": { fill: '#fafaf9' }, animated: false, type: '',
 
     }
 
@@ -200,14 +201,14 @@ function Canvas({ onRemove }) {
     let warningEdge = {
         "style": { strokeWidth: 1.5, stroke: '#ef4444' },
         "markerEnd": { style: { stroke: '#ef4444' }, type: MarkerType.ArrowClosed, width: 20, height: 20, color: "#ef4444" },
-        "label": "", "labelStyle": { fill: '#ef4444', fontWeight: 'bold' }, "labelBg": { fill: '#fafaf9' }, animated: false, type: 'smoothstep',
+        "label": "", "labelStyle": { fill: '#ef4444', fontWeight: 'bold' }, "labelBg": { fill: '#fafaf9' }, animated: false, type: '',
 
     }
 
     let tempEdge = {
         "style": { strokeWidth: 1.5, stroke: '#d4d4d4' },
         "markerEnd": { style: { stroke: '#d4d4d4' }, type: MarkerType.ArrowClosed, width: 20, height: 20, color: "#d4d4d4" },
-        "label": "Preq", "labelStyle": { fill: '#d4d4d4', fontWeight: 'bold' }, "labelBg": { fill: '#fafaf9' }, animated: true, type: 'smoothstep',
+        "label": "Preq", "labelStyle": { fill: '#d4d4d4', fontWeight: 'bold' }, "labelBg": { fill: '#fafaf9' }, animated: true, type: '',
     }
 
 
@@ -473,9 +474,22 @@ function Canvas({ onRemove }) {
 
     }, [reactFlowInstance]);
 
+    /* ------------------ Functions to control canvas objects ------------------ */
+
+    const {isHidden} = useNodeHover();
+
+    const hide = (hidden) => (nodeOrEdge) => {
+        nodeOrEdge.hidden = hidden;
+        return nodeOrEdge;
+    }
+
     useEffect(() => {
-        // console.log(initialNodes);
-    }, [])
+        setEdges((eds) => eds.map(hide(hidden)))
+    }, [hidden])
+
+    useEffect(() => {
+       setHidden(isHidden)
+    }, [isHidden])
 
     return (
         <>
@@ -504,7 +518,27 @@ function Canvas({ onRemove }) {
                     >
                         <Background color="#e7e5e4" variant="dots" size="2" />
                         {/* <MiniMap /> */}
-                        <Controls />
+                        <Controls>
+                            <ControlButton
+                                onClick={(() =>
+                                    setHidden(!hidden)
+                                )}
+
+                                title="hide/reveal edges"
+                            >
+                                {
+                                    hidden ?
+                                        <svg className="w-6 h-6 text-red-500" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" width="24" height="24" fill="none" viewBox="0 0 24 24">
+                                            <path stroke="currentColor" strokeWidth="2.5" d="M21 12c0 1.2-4.03 6-9 6s-9-4.8-9-6c0-1.2 4.03-6 9-6s9 4.8 9 6Z" />
+                                            <path stroke="currentColor" strokeWidth="2.5" d="M15 12a3 3 0 1 1-6 0 3 3 0 0 1 6 0Z" />
+                                        </svg>
+                                        :
+                                        <svg className="w-6 h-6 text-gray-800" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" width="24" height="24" fill="none" viewBox="0 0 24 24">
+                                            <path stroke="currentColor" strokeLinecap="round" strokeLinejoin="round" strokeWidth="2.5" d="M3.933 13.909A4.357 4.357 0 0 1 3 12c0-1 4-6 9-6m7.6 3.8A5.068 5.068 0 0 1 21 12c0 1-3 6-9 6-.314 0-.62-.014-.918-.04M5 19 19 5m-4 7a3 3 0 1 1-6 0 3 3 0 0 1 6 0Z" />
+                                        </svg>
+                                }
+                            </ControlButton>
+                        </Controls>
                     </ReactFlow>
                 </div>
                 {/* </ReactFlowProvider> */}
