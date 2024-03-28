@@ -6,14 +6,16 @@ const NodeHoverContext = createContext();
 export const NodeHoverProvider = ({ children }) => {
 
     const [isHidden, setIsHidden] = useState(false);
-    
-    useEffect(() => {
-        console.log(isHidden);
-    },[isHidden, setIsHidden])
+    const [hoveredNode, setHoveredNode] = useState();
+
+    // useEffect(() => {
+    //     console.log(isHidden);
+    // console.log("hoverd ", hoveredNode);
+    // },[isHidden, setIsHidden])
 
     // provide the data state to all components wrapped inside this provider
     return (
-        <NodeHoverContext.Provider value={{ isHidden, setIsHidden }}>
+        <NodeHoverContext.Provider value={{ isHidden, setIsHidden, hoveredNode, setHoveredNode }}>
             {children}
         </NodeHoverContext.Provider>
     )

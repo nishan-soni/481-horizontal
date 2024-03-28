@@ -6,7 +6,7 @@ function CustomNode({ data }) {
 
     const { title, id, status, description, overview, preq, units, grade } = data;
 
-    const { setIsHidden } = useNodeHover();
+    const { setIsHidden, setHoveredNode } = useNodeHover();
     const [showDetails, setShowDetails] = useState(false);
     const [showDesc, setShowDesc] = useState(false);
 
@@ -30,10 +30,12 @@ function CustomNode({ data }) {
 
     const handleHideOnEnter = () => {
         setIsHidden(false);
+        setHoveredNode(data);
     };
 
     const handleHideOnLeave = () => {
         setIsHidden(true);
+        setHoveredNode();
     };
 
     const handleClick = () => {
@@ -42,10 +44,10 @@ function CustomNode({ data }) {
 
     return (
         <div
-            className={`shadow-md rounded-lg w-full bg-white border-[1px] border-stone-300 active:animate-pulse ${showDetails ? 'bg-opacity-[87%] backdrop-blur-sm' : ""}`}
+            className={`shadow-md rounded-lg w-full hover:shadow-lg active:shadow-xl bg-white border-[1px] border-stone-300 active:animate-pulse transition-all duration-300 ease-in-out ${showDetails ? 'bg-opacity-[87%] backdrop-blur-sm' : ""}`}
             onMouseEnter={handleHideOnEnter}
             onMouseLeave={handleHideOnLeave}
-            // onClick={handleClick}
+        // onClick={handleClick}
         >
             {/* Header */}
             <div className='flex justify-between items-center w-full border-b px-3 py-1 gap-3'>

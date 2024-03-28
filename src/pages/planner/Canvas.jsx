@@ -170,6 +170,7 @@ const getId = () => `dndnode_${id++}`;
 
 function Canvas({ onRemove }) {
 
+    const { isHidden, hoveredNode } = useNodeHover();
     const store = useStoreApi(); // access the reactflow store object for access to the internal state
     const reactFlowWrapper = useRef(null);
     const [nodes, setNodes, onNodesChange] = useNodesState(initialNodes);
@@ -474,22 +475,60 @@ function Canvas({ onRemove }) {
 
     }, [reactFlowInstance]);
 
-    /* ------------------ Functions to control canvas objects ------------------ */
+    /* ------------------ Functions to control edge visibility ------------------ */
 
-    const {isHidden} = useNodeHover();
 
-    const hide = (hidden) => (nodeOrEdge) => {
-        nodeOrEdge.hidden = hidden;
-        return nodeOrEdge;
+    // const hide = (hidden) => (edge) => {
+    //     console.log("innenenenne", hidden);
+    //     edge.hidden = hidden;
+    //     return edge;
+    // }
+
+    const hide = (hidden) => (edge) => {
+
+        const source = edge.source;
+        let sourceNode = nodes.find((node) => node.id === source);
+
+        if (!sourceNode || !sourceNode.data || !sourceNode.data.id || !sourceNode.data.id) {
+            return edge
+        }
+
+        // if hidden is false
+        if (!isHidden) {
+            if (hoveredNode != undefined) {
+                // console.log("source ", sourceNode.data.id);
+                // console.log("hvereddedede ", hoveredNode);
+
+                // if the source preq is once of the hover nodes prerequisites
+                if (hoveredNode.preq.includes(sourceNode.data.fullTitle) && hoveredNode.preq.includes(sourceNode.data.id)) {
+                    edge.hidden = hidden; // set the hidden property to false so that the edge is visible
+                    return edge;
+                }
+                else {
+                    edge.hidden = !hidden; // hide all other edge
+                    return edge;
+                }
+            }
+        }
+
+        // when hidden is true then hide all nodes
+        edge.hidden = hidden;
+        return edge;
+
     }
 
     useEffect(() => {
+        // takes an array of edges eds, maps over each edge, and applies the hide function to each edge with the hidden parameter provided.
         setEdges((eds) => eds.map(hide(hidden)))
     }, [hidden])
 
     useEffect(() => {
-       setHidden(isHidden)
-    }, [isHidden])
+        setHidden(isHidden)
+    }, [isHidden, hoveredNode])
+
+    // useEffect(() => {
+    //     console.log(edges);
+    // }, [edges])
 
     return (
         <>
@@ -528,12 +567,12 @@ function Canvas({ onRemove }) {
                             >
                                 {
                                     hidden ?
-                                        <svg className="w-6 h-6 text-red-500" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" width="24" height="24" fill="none" viewBox="0 0 24 24">
+                                        <svg className="w-6 h-6 text-red-500 duration-200 transition-all ease-in-out" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" width="24" height="24" fill="none" viewBox="0 0 24 24">
                                             <path stroke="currentColor" strokeWidth="2.5" d="M21 12c0 1.2-4.03 6-9 6s-9-4.8-9-6c0-1.2 4.03-6 9-6s9 4.8 9 6Z" />
                                             <path stroke="currentColor" strokeWidth="2.5" d="M15 12a3 3 0 1 1-6 0 3 3 0 0 1 6 0Z" />
                                         </svg>
                                         :
-                                        <svg className="w-6 h-6 text-gray-800" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" width="24" height="24" fill="none" viewBox="0 0 24 24">
+                                        <svg className="w-6 h-6 text-gray-800 duration-200 transition-all ease-in-out" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" width="24" height="24" fill="none" viewBox="0 0 24 24">
                                             <path stroke="currentColor" strokeLinecap="round" strokeLinejoin="round" strokeWidth="2.5" d="M3.933 13.909A4.357 4.357 0 0 1 3 12c0-1 4-6 9-6m7.6 3.8A5.068 5.068 0 0 1 21 12c0 1-3 6-9 6-.314 0-.62-.014-.918-.04M5 19 19 5m-4 7a3 3 0 1 1-6 0 3 3 0 0 1 6 0Z" />
                                         </svg>
                                 }
