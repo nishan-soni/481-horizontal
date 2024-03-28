@@ -1,12 +1,15 @@
 import React, { memo, useState } from 'react';
 import { Handle, Position } from 'reactflow';
+import { useNodeHover } from './NodeHoverProvider';
 
 function CustomNode({ data }) {
 
     const { title, id, status, description, overview, preq, units, grade } = data;
 
+    const { setIsHidden, setHoveredNode } = useNodeHover();
     const [showDetails, setShowDetails] = useState(false);
     const [showDesc, setShowDesc] = useState(false);
+
 
     const truncateText = (text, numWords) => {
         const words = text.split(' ');
@@ -25,10 +28,27 @@ function CustomNode({ data }) {
     const DESC_TRUNC_LENGTH = 25
     // const PREQ_TRUNC_LENGTH = 6
 
+    const handleHideOnEnter = () => {
+        setIsHidden(false);
+        setHoveredNode(data);
+    };
 
+    const handleHideOnLeave = () => {
+        setIsHidden(true);
+        setHoveredNode();
+    };
+
+    const handleClick = () => {
+        setShowDetails(!showDetails);
+    };
 
     return (
-        <div className={`shadow-md rounded-lg w-full bg-white border-[1.5px] border-stone-300 active:animate-pulse ${showDetails ?  'bg-opacity-[87%] backdrop-blur-sm' : ""}`}>
+        <div
+            className={`shadow-md rounded-lg w-full hover:shadow-lg active:shadow-xl bg-white border-[1px] border-stone-300 active:animate-pulse transition-all duration-300 ease-in-out ${showDetails ? 'bg-opacity-[87%] backdrop-blur-sm' : ""}`}
+            onMouseEnter={handleHideOnEnter}
+            onMouseLeave={handleHideOnLeave}
+        // onClick={handleClick}
+        >
             {/* Header */}
             <div className='flex justify-between items-center w-full border-b px-3 py-1 gap-3'>
                 <button
@@ -104,8 +124,8 @@ function CustomNode({ data }) {
             </div>
             {/* : ""
             } */}
-            <Handle type="target" position={Position.Left} style={{ ...HANDLE_STYLE, background: "#555555" }} />
-            <Handle type="source" position={Position.Right} style={{ ...HANDLE_STYLE, background: "#555555" }} />
+            <Handle type="target" position={Position.Left} style={{ ...HANDLE_STYLE, background: "#9ca3af" }} />
+            <Handle type="source" position={Position.Right} style={{ ...HANDLE_STYLE, background: "#9ca3af" }} />
         </div >
     );
 }

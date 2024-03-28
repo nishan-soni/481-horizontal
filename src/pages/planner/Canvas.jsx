@@ -6,66 +6,120 @@ import ReactFlow, {
     addEdge,
     MiniMap,
     Controls,
-    // ReactFlowProvider,
+    ControlButton,
     MarkerType,
     useStoreApi,
 } from 'reactflow';
 import 'reactflow/dist/style.css';
-import CustomNode from './CustomeNode';
+import CustomNode from './CustomNode';
 import { useData } from "../../DataProvider";
 import Timeline from "./Timeline";
 import normalEdge from "./NormalEdge";
 import WarningEdge from "./WarningEdge";
-import { red } from "@mui/material/colors";
+import YearNode from "./YearNode";
+import SemesterNode from "./SemesterNode";
+import { useNodeHover } from "./NodeHoverProvider";
 
 const nodeTypes = {
     custom: CustomNode,
+    yearNode: YearNode,
+    semNode: SemesterNode,
 };
 
 
 
 const initialNodes = [
+    // {
+    //     id: '4',
+    //     data: { label: '🍂 FALL' },
+    //     position: { x: -25, y: -225 },
+    //     style: { backgroundColor: 'rgba(254, 202, 202, 0.2)', width: 250, height: 500, },
+    //     selectable: false,
+    //     draggable: false,
+    //     connectable: false,
+    //     type: 'default',
+
+    // },
+    // {
+    //     id: '5',
+    //     data: { label: '❄ Winter' },
+    //     position: { x: 375, y: -225 },
+    //     style: { backgroundColor: 'rgba(214, 237, 255, 0.2)', width: 250, height: 500 },
+    //     selectable: false,
+    //     draggable: false,
+    //     connectable: false,
+    //     type: 'default',
+
+    // },
     {
-        id: '4',
-        data: { label: '🍂 FALL' },
-        position: { x: -25, y: -225 },
-        style: { backgroundColor: 'rgba(254, 202, 202, 0.2)', width: 250, height: 500, },
+        id: '10',
+        position: { x: 0, y: 0 },
         selectable: false,
-        draggable: false,
-        connectable: false,
-        type: 'default',
+        draggable: true,
+        type: 'yearNode',
+        data: { year: 'Year 1' }
+    },
+    {
+        id: '11',
+        position: { x: 525, y: 0 },
+        selectable: false,
+        draggable: true,
+        type: 'yearNode',
+        data: { year: 'Year 2' }
+    },
+    {
+        id: '14',
+        position: { x: 50, y: 25 },
+        selectable: false,
+        draggable: true,
+        type: 'semNode',
+        data: { color: 'red' }
+    },
+    {
+        id: '15',
+        position: { x: 275, y: 25 },
+        selectable: false,
+        draggable: true,
+        type: 'semNode',
+        data: { color: 'blue' }
 
     },
     {
-        id: '5',
-        data: { label: '❄ Winter' },
-        position: { x: 375, y: -225 },
-        style: { backgroundColor: 'rgba(214, 237, 255, 0.2)', width: 250, height: 500 },
+        id: '16',
+        position: { x: 575, y: 25 },
         selectable: false,
-        draggable: false,
-        connectable: false,
-        type: 'default',
+        draggable: true,
+        type: 'semNode',
+        data: { color: 'red' }
+    },
+    {
+        id: '17',
+        position: { x: 800, y: 25 },
+        selectable: false,
+        draggable: true,
+        type: 'semNode',
+        data: { color: 'blue' }
 
     },
-    {
-        id: '1',
-        type: 'custom',
-        data: { "title": "Add Courses", "id": 1, "grade": "N/A", "status": "in progress", "units": "3.0", "preq": [], "date-complete": "N/A", "description": "🆕 Add courses by dragging them from the side menu into the canvas." },
-        position: { x: 0, y: -100 },
-    },
-    {
-        id: '2',
-        type: 'custom',
-        data: { "title": "Delete Courses", "id": 2, "grade": "B", "status": "complete", "units": "3.0", "preq": [], "date-complete": "2023-04-12", "description": "🔙 Delete courses by selecting the course or link, then press backspace to delete it." },
-        position: { x: 0, y: 100 },
-    },
-    {
-        id: '3',
-        type: 'custom',
-        data: { "title": "Move Canvas", "id": 3, "grade": "N/A", "status": "incomplete", "units": "3.0", "preq": "", "date-complete": "N/A", "description": "🖱 Scroll to zoom and drag the cursor on the canvas to move. Hold and drag courses to move them around as needed." },
-        position: { x: 400, y: 0 },
-        // parentNode: '4'
-    },
+    // {
+    //     id: '1',
+    //     type: 'custom',
+    //     data: { "title": "Add Courses", "id": 1, "grade": "N/A", "status": "in progress", "units": "3.0", "preq": [], "date-complete": "N/A", "description": "🆕 Add courses by dragging them from the side menu into the canvas." },
+    //     position: { x: 0, y: -100 },
+    // },
+    // {
+    //     id: '2',
+    //     type: 'custom',
+    //     data: { "title": "Delete Courses", "id": 2, "grade": "B", "status": "complete", "units": "3.0", "preq": [], "date-complete": "2023-04-12", "description": "🔙 Delete courses by selecting the course or link, then press backspace to delete it." },
+    //     position: { x: 0, y: 100 },
+    // },
+    // {
+    //     id: '3',
+    //     type: 'custom',
+    //     data: { "title": "Move Canvas", "id": 3, "grade": "N/A", "status": "incomplete", "units": "3.0", "preq": "", "date-complete": "N/A", "description": "🖱 Scroll to zoom and drag the cursor on the canvas to move. Hold and drag courses to move them around as needed." },
+    //     position: { x: 400, y: 0 },
+    //     // parentNode: '4'
+    // },
 ];
 
 const edgeTypes = {
@@ -116,12 +170,14 @@ const getId = () => `dndnode_${id++}`;
 
 function Canvas({ onRemove }) {
 
+    const { isHidden, hoveredNode } = useNodeHover();
     const store = useStoreApi(); // access the reactflow store object for access to the internal state
     const reactFlowWrapper = useRef(null);
     const [nodes, setNodes, onNodesChange] = useNodesState(initialNodes);
     const [edges, setEdges, onEdgesChange] = useEdgesState(initialEdges);
     const [reactFlowInstance, setReactFlowInstance] = useState(null);
-    const MIN_DISTANCE = 300
+    const [hidden, setHidden] = useState(false);
+    const MIN_DISTANCE = 1000000 // make large value so that prerequisite nodes automatically connect on canvas
     const MIN_HORZ = 100
 
     // useEffect(() => {
@@ -129,27 +185,72 @@ function Canvas({ onRemove }) {
     //     console.log("Edges: ", edges);
     // }, [nodes, edges])
 
-    const normalEdge = {
-        "style": { strokeWidth: 1.5, stroke: '#d4d4d4' },
-        "markerEnd": { style: { stroke: '#d4d4d4' }, type: MarkerType.ArrowClosed, width: 20, height: 20, color: "#d4d4d4" },
-        "label": "", "labelStyle": {}, "labelBg": {}, animated: false, type: '',
+    let normalEdge = {
+        "style": { strokeWidth: 1.5, stroke: '#9ca3af' },
+        "markerEnd": { style: { stroke: '#9ca3af' }, type: MarkerType.ArrowClosed, width: 20, height: 20, color: "#9ca3af" },
+        "label": "Preq", "labelStyle": { fill: '#9ca3af', fontWeight: 'bold' }, "labelBg": { fill: '#fafaf9' }, animated: false, type: '',
 
     }
 
-    const warningEdge = {
+    // let normalEdge = {
+    //     "style": { strokeWidth: 1.5, stroke: '#bfbfbf' },
+    //     "markerEnd": { style: { stroke: '#bfbfbf' }, type: MarkerType.ArrowClosed, width: 20, height: 20, color: "#bfbfbf" },
+    //     "label": "Preq", "labelStyle": { fill: '#bfbfbf', fontWeight: 'bold' }, "labelBg": { fill: '#fafaf9' }, animated: false, type: 'smoothstep',
+
+    // }
+
+    let warningEdge = {
         "style": { strokeWidth: 1.5, stroke: '#ef4444' },
         "markerEnd": { style: { stroke: '#ef4444' }, type: MarkerType.ArrowClosed, width: 20, height: 20, color: "#ef4444" },
         "label": "", "labelStyle": { fill: '#ef4444', fontWeight: 'bold' }, "labelBg": { fill: '#fafaf9' }, animated: false, type: '',
 
     }
 
-    const tempEdge = {
-        "style": { strokeWidth: 1.5, stroke: '#e5e7eb' },
-        "markerEnd": { style: { stroke: '#e5e7eb' }, type: MarkerType.ArrowClosed, width: 20, height: 20, color: "#e5e7eb" },
-        "label": "", "labelStyle": { fill: '#e5e7eb', fontWeight: 'bold' }, "labelBg": { fill: '#fafaf9' }, animated: true, type: '',
+    let tempEdge = {
+        "style": { strokeWidth: 1.5, stroke: '#d4d4d4' },
+        "markerEnd": { style: { stroke: '#d4d4d4' }, type: MarkerType.ArrowClosed, width: 20, height: 20, color: "#d4d4d4" },
+        "label": "Preq", "labelStyle": { fill: '#d4d4d4', fontWeight: 'bold' }, "labelBg": { fill: '#fafaf9' }, animated: true, type: '',
+    }
+
+
+    /**
+     * @TODO first if statement is redundant with if statement in getClosestEdge function
+     * 
+     * 
+     * @param {*} source 
+     * @param {*} target 
+     * @param {*} temp 
+     * @returns 
+     */
+    function decideEdgePreview(source, target, temp) {
+
+        let sourceNode = nodes.find((node) => node.id === source);
+        let targetNode = nodes.find((node) => node.id === target);
+        let edgeType = JSON.parse(JSON.stringify(normalEdge));// Default edge attributes; create deep copy to avoid read-only error
+
+        if (!sourceNode || !sourceNode.data || !targetNode || !targetNode.data || !sourceNode.data.id || !sourceNode.data.id) {
+            return edgeType;
+        }
+
+        // if the node being dragged is temporary and if the target preq title and id is the same as the source nodes title and id
+        if (temp && targetNode.data.preq.includes(sourceNode.data.fullTitle) && targetNode.data.preq.includes(sourceNode.data.id)) {
+            // then set it to a temporary edge
+            edgeType = JSON.parse(JSON.stringify(tempEdge));
+            return edgeType
+        }
+        // if it is not a temporary node (i.e. the node being dragged is placed on canvas) 
+        else if (!temp && targetNode.data.preq.includes(sourceNode.data.fullTitle) && targetNode.data.preq.includes(sourceNode.data.id)) {
+            return edgeType // then set it to the normal edge
+        }
+        else {
+            // return null if the source course is not a preq to target and it is not a temporary edge 
+            return null;
+        }
     }
 
     /**
+     * @TODO Optomize deep copying by creating a custom edge instead
+     * 
      * Handles conditionally rendering the type of edge between nodes
      * @param {String} source source node
      * @param {String} target target node
@@ -158,7 +259,7 @@ function Canvas({ onRemove }) {
 
         let sourceNode = nodes.find((node) => node.id === source);
         let targetNode = nodes.find((node) => node.id === target);
-        let edgeType = normalEdge // Default edge attributes
+        let edgeType = JSON.parse(JSON.stringify(normalEdge));// Default edge attributes; create deep copy to avoid read-only error
         // console.log("TEST", sourceNode.data.fullTitle + " " + sourceNode.data.id);
 
         // if none of the following are defined just display a normal edge
@@ -166,21 +267,20 @@ function Canvas({ onRemove }) {
             return edgeType;
         }
 
-        if (temp) {
-            console.log("temp");
-            edgeType = tempEdge
-        }
         // checks if either the prereq string DOES NOT contain the fullTitle or the prereq string DOES NOT includes the id
         if ((!targetNode.data.preq.includes(sourceNode.data.fullTitle) || !targetNode.data.preq.includes(sourceNode.data.id))) {
             // set the edge type to warningEdge
-            warningEdge.label = "❌ Invalid Prereq" // checks if either the prereq string DOES NOT contain the fullTitle or the prereq string DOES NOT includes the id
-            temp && (warningEdge.style.stroke = "#fecaca", warningEdge.labelStyle.fill = "#fecaca", warningEdge.markerEnd.color = "#fecaca", warningEdge.animated = true) // render the temp colors if temp is true
-            edgeType = warningEdge
+            edgeType = JSON.parse(JSON.stringify(warningEdge));
+            edgeType.label = "❌ Invalid Prereq" // checks if either the prereq string DOES NOT contain the fullTitle or the prereq string DOES NOT includes the id
+            console.log(Object.isFrozen(edgeType.style)); // Check if style object is frozen
+            console.log(Object.isSealed(edgeType.style));
         }
         // checks if the course ids are in the wrong order. ex 200 before 300 level
         if (parseInt(sourceNode.data.id[0]) > parseInt(targetNode.data.id[0])) {
-            warningEdge.label = `❌ ${sourceNode.data.id[0]}00 level before ${targetNode.data.id[0]}00 level`;
-            edgeType = warningEdge
+            edgeType = JSON.parse(JSON.stringify(warningEdge));
+            edgeType.label = `❌ ${sourceNode.data.id[0]}00 level before ${targetNode.data.id[0]}00 level`;
+            console.log(Object.isFrozen(edgeType.style)); // Check if style object is frozen
+            console.log(Object.isSealed(edgeType.style));
         }
         return edgeType
     }
@@ -224,16 +324,22 @@ function Canvas({ onRemove }) {
         const storeNodes = Array.from(nodeInternals.values());
 
         const closestNode = storeNodes.reduce((res, n) => {
-            if (n.id !== node.id) {
-                //calculate the distance between the closest node node being dragged 
-                const dx = n.positionAbsolute.x - node.positionAbsolute.x;
-                const dy = n.positionAbsolute.y - node.positionAbsolute.y;
-                const d = Math.sqrt(dx * dx + dy * dy);
-                const horizontalDistance = Math.abs(dx); // additional parameter to fix the issue of nodes connecting when right under each other
+            // checks if the node being dragged id is not also the node in prxomity 
+            // and if the source node and target node data is not undefined
+            // and if the target nodes data includes the sources nodes id
+            // if (n.id !== node.id && node.data !== undefined && n.data !== undefined && n.data.preq.includes(node.data.id) && closestNode !== undefined) {
+            if (n.data !== undefined && node.data !== undefined && n.data.preq !== undefined && node.data.id !== undefined) {
+                if (n.id !== node.id && n.data.preq.includes(node.data.id)) {
+                    //calculate the distance between the closest node node being dragged 
+                    const dx = n.positionAbsolute.x - node.positionAbsolute.x;
+                    const dy = n.positionAbsolute.y - node.positionAbsolute.y;
+                    const d = Math.sqrt(dx * dx + dy * dy);
+                    const horizontalDistance = Math.abs(dx); // additional parameter to fix the issue of nodes connecting when right under each other
 
-                if (d < res.distance && d < MIN_DISTANCE && horizontalDistance > MIN_HORZ) {
-                    res.distance = d;
-                    res.node = n;
+                    if (d < res.distance && d < MIN_DISTANCE && horizontalDistance > MIN_HORZ) {
+                        res.distance = d;
+                        res.node = n;
+                    }
                 }
             }
             return res;
@@ -261,24 +367,29 @@ function Canvas({ onRemove }) {
         const closeEdge = getClosestEdge(node); // get the closest edge to the node being dragged
 
         setEdges((es) => {
-            const nextEdges = es.filter((e) => e.className !== 'temp');
+            const nextEdges = es.filter((e) => e.className !== 'temp'); // filter out non-temp edges
 
             if (closeEdge &&
                 !nextEdges.find((ne) => ne.source === closeEdge.source && ne.target === closeEdge.target,)
             ) {
-                const edgeType = decideEdge(closeEdge.source, closeEdge.target, true)
-                const updatedEdge = {
-                    ...closeEdge,
-                    markerEnd: edgeType.markerEnd,
-                    style: edgeType.style,
-                    label: edgeType.label,
-                    labelStyle: edgeType.labelStyle,
-                    labelBgStyle: edgeType.labelBg,
-                    animated: edgeType.animated,
-                    type: edgeType.type,
-                };
-                updatedEdge.className = 'temp' // indicator for filter so that the temp edge disconnects when a closer node is found
-                nextEdges.push(updatedEdge);
+                const edgeType = decideEdgePreview(closeEdge.source, closeEdge.target, true)
+
+                if (edgeType !== null) { // if the edtype is not null so that there is a temporary edge preview
+
+                    const updatedEdge = {
+                        ...closeEdge,
+                        markerEnd: edgeType.markerEnd,
+                        style: edgeType.style,
+                        label: edgeType.label,
+                        labelStyle: edgeType.labelStyle,
+                        labelBgStyle: edgeType.labelBg,
+                        animated: edgeType.animated,
+                        type: edgeType.type,
+                    };
+
+                    updatedEdge.className = 'temp' // indicator for filter so that the temp edge disconnects when a closer node is found
+                    nextEdges.push(updatedEdge);
+                }
             }
             return nextEdges;
         });
@@ -292,23 +403,26 @@ function Canvas({ onRemove }) {
         const closeEdge = getClosestEdge(node);
 
         setEdges((es) => {
-            const nextEdges = es.filter((e) => e.className !== 'temp');
+            const nextEdges = es.filter((e) => e.className !== 'temp'); // filter out non-temp edges
 
             if (closeEdge &&
                 !nextEdges.find((ne) => ne.source === closeEdge.source && ne.target === closeEdge.target,)
             ) {
-                const edgeType = decideEdge(closeEdge.source, closeEdge.target)
-                const updatedEdge = {
-                    ...closeEdge,
-                    markerEnd: edgeType.markerEnd,
-                    style: edgeType.style,
-                    label: edgeType.label,
-                    labelStyle: edgeType.labelStyle,
-                    labelBgStyle: edgeType.labelBg,
-                    animated: edgeType.animated,
-                    type: edgeType.type,
-                };
-                nextEdges.push(updatedEdge);
+                const edgeType = decideEdgePreview(closeEdge.source, closeEdge.target)
+
+                if (edgeType !== null) { // if it is not null so that the source is preq of target, place the normalEdge
+                    const updatedEdge = {
+                        ...closeEdge,
+                        markerEnd: edgeType.markerEnd,
+                        style: edgeType.style,
+                        label: edgeType.label,
+                        labelStyle: edgeType.labelStyle,
+                        labelBgStyle: edgeType.labelBg,
+                        animated: edgeType.animated,
+                        type: edgeType.type,
+                    };
+                    nextEdges.push(updatedEdge);
+                }
             }
             return nextEdges;
         });
@@ -361,9 +475,60 @@ function Canvas({ onRemove }) {
 
     }, [reactFlowInstance]);
 
+    /* ------------------ Functions to control edge visibility ------------------ */
+
+
+    // const hide = (hidden) => (edge) => {
+    //     console.log("innenenenne", hidden);
+    //     edge.hidden = hidden;
+    //     return edge;
+    // }
+
+    const hide = (hidden) => (edge) => {
+
+        const source = edge.source;
+        let sourceNode = nodes.find((node) => node.id === source);
+
+        if (!sourceNode || !sourceNode.data || !sourceNode.data.id || !sourceNode.data.id) {
+            return edge
+        }
+
+        // if hidden is false
+        if (!isHidden) {
+            if (hoveredNode != undefined) {
+                // console.log("source ", sourceNode.data.id);
+                // console.log("hvereddedede ", hoveredNode);
+
+                // if the source preq is once of the hover nodes prerequisites
+                if (hoveredNode.preq.includes(sourceNode.data.fullTitle) && hoveredNode.preq.includes(sourceNode.data.id)) {
+                    edge.hidden = hidden; // set the hidden property to false so that the edge is visible
+                    return edge;
+                }
+                else {
+                    edge.hidden = !hidden; // hide all other edge
+                    return edge;
+                }
+            }
+        }
+
+        // when hidden is true then hide all nodes
+        edge.hidden = hidden;
+        return edge;
+
+    }
+
     useEffect(() => {
-        // console.log(initialNodes);
-    }, [])
+        // takes an array of edges eds, maps over each edge, and applies the hide function to each edge with the hidden parameter provided.
+        setEdges((eds) => eds.map(hide(hidden)))
+    }, [hidden])
+
+    useEffect(() => {
+        setHidden(isHidden)
+    }, [isHidden, hoveredNode])
+
+    // useEffect(() => {
+    //     console.log(edges);
+    // }, [edges])
 
     return (
         <>
@@ -374,7 +539,8 @@ function Canvas({ onRemove }) {
                     <ReactFlow
                         fitView
                         maxZoom={1.1}
-                        snapToGrid={[100, 100]}
+                        snapToGrid
+                        snapGrid={[8, 8]}
                         nodes={nodes}
                         edges={edges}
                         nodeTypes={nodeTypes}
@@ -387,10 +553,31 @@ function Canvas({ onRemove }) {
                         onDrop={onDrop}
                         onDragOver={onDragOver}
                         edgeTypes={edgeTypes}
+                    // selectNodesOnDrag={false}
                     >
                         <Background color="#e7e5e4" variant="dots" size="2" />
                         {/* <MiniMap /> */}
-                        <Controls />
+                        <Controls>
+                            <ControlButton
+                                onClick={(() =>
+                                    setHidden(!hidden)
+                                )}
+
+                                title="hide/reveal edges"
+                            >
+                                {
+                                    hidden ?
+                                        <svg className="w-6 h-6 text-red-500 duration-200 transition-all ease-in-out" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" width="24" height="24" fill="none" viewBox="0 0 24 24">
+                                            <path stroke="currentColor" strokeWidth="2.5" d="M21 12c0 1.2-4.03 6-9 6s-9-4.8-9-6c0-1.2 4.03-6 9-6s9 4.8 9 6Z" />
+                                            <path stroke="currentColor" strokeWidth="2.5" d="M15 12a3 3 0 1 1-6 0 3 3 0 0 1 6 0Z" />
+                                        </svg>
+                                        :
+                                        <svg className="w-6 h-6 text-gray-800 duration-200 transition-all ease-in-out" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" width="24" height="24" fill="none" viewBox="0 0 24 24">
+                                            <path stroke="currentColor" strokeLinecap="round" strokeLinejoin="round" strokeWidth="2.5" d="M3.933 13.909A4.357 4.357 0 0 1 3 12c0-1 4-6 9-6m7.6 3.8A5.068 5.068 0 0 1 21 12c0 1-3 6-9 6-.314 0-.62-.014-.918-.04M5 19 19 5m-4 7a3 3 0 1 1-6 0 3 3 0 0 1 6 0Z" />
+                                        </svg>
+                                }
+                            </ControlButton>
+                        </Controls>
                     </ReactFlow>
                 </div>
                 {/* </ReactFlowProvider> */}

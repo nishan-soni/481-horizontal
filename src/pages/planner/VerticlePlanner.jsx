@@ -10,7 +10,7 @@ import ReactFlow, {
     MarkerType
 } from 'reactflow';
 import 'reactflow/dist/style.css';
-import CustomNode from './CustomeNode';
+import CustomNode from './CustomNode';
 import { useData } from "../../DataProvider";
 import Timeline from "./Timeline";
 import normalEdge from "./NormalEdge";
