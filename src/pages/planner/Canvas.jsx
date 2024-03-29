@@ -487,6 +487,7 @@ function Canvas({ onRemove }) {
     const hide = (hidden) => (edge) => {
 
         const source = edge.source;
+        const target = edge.target;
         let sourceNode = nodes.find((node) => node.id === source);
 
         if (!sourceNode || !sourceNode.data || !sourceNode.data.id || !sourceNode.data.id) {
@@ -496,16 +497,14 @@ function Canvas({ onRemove }) {
         // if hidden is false
         if (!isHidden) {
             if (hoveredNode != undefined) {
-                // console.log("source ", sourceNode.data.id);
-                // console.log("hvereddedede ", hoveredNode);
 
-                // if the source preq is once of the hover nodes prerequisites
-                if (hoveredNode.preq.includes(sourceNode.data.fullTitle) && hoveredNode.preq.includes(sourceNode.data.id)) {
+                // if the source preq is one of the hoverNode's prerequisites and the edge target corresponds to the hoverNode
+                if (hoveredNode.preq.includes(sourceNode.data.fullTitle) && hoveredNode.preq.includes(sourceNode.data.id) && target == hoveredNode.nodeID) {
                     edge.hidden = hidden; // set the hidden property to false so that the edge is visible
                     return edge;
                 }
                 else {
-                    edge.hidden = !hidden; // hide all other edge
+                    edge.hidden = !hidden; // hide all other edges
                     return edge;
                 }
             }
