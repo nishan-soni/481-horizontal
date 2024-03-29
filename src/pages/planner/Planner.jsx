@@ -129,8 +129,8 @@ const Planner = () => {
                 <p className="animate-pulse">Loading...</p>
               }
             </CourseDrawer>
-            <div className="z-10 absolute w-full flex justify-center items-center pt-2">
-              <button className="flex flex-row items-center w-fit gap-1 text-stone-300"
+            <div className="z-10 absolute w-full flex justify-center items-center pt-2 ">
+              <button className="flex flex-row items-center w-fit gap-1 text-stone-300 hover:text-stone-400 transition-all duration-200"
                 onClick={() => setModalOpen(true)}
               >
                 <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" strokeWidth="1.5" stroke="currentColor" className="w-5 h-5">

@@ -17,7 +17,7 @@ function ModalControls({ children }) {
                 <button className='bg-opacity-50 backdrop-blur-sm bg-white rounded-full shadow-md p-1'
                     onClick={() => setSlideNum((slideNum + 1) % slideList.length)}
                 >
-                    <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" strokeWidth="1.5" stroke="currentColor" className="w-6 h-6 text-gray-400">
+                    <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" strokeWidth="1.5" stroke="currentColor" className="w-6 h-6 hover:text-gray-500 text-gray-400 transition-all duration-200">
                         <path strokeLinecap="round" strokeLinejoin="round" d="M8.25 4.5l7.5 7.5-7.5 7.5" />
                     </svg>
                 </button>
@@ -33,7 +33,7 @@ function ModalControls({ children }) {
                 <button className='bg-opacity-50 backdrop-blur-sm bg-white rounded-full shadow-md p-1'
                     onClick={() => setSlideNum(((slideNum - 1) + slideList.length) % slideList.length)}
                 >
-                    <svg xmlns="http://www.w3.org/2000/svgh" fill="none" viewBox="0 0 24 24" strokeWidth="1.5" stroke="currentColor" className="w-6 h-6 text-gray-400">
+                    <svg xmlns="http://www.w3.org/2000/svgh" fill="none" viewBox="0 0 24 24" strokeWidth="1.5" stroke="currentColor" className="w-6 h-6 hover:text-gray-500 text-gray-400 transition-all duration-200">
                         <path strokeLinecap="round" strokeLinejoin="round" d="M15.75 19.5L8.25 12l7.5-7.5" />
                     </svg>
                 </button>

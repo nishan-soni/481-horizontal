@@ -1,7 +1,7 @@
 import ucalgarylogo from "../assets/logo.png"
 import { Link } from "react-router-dom"
 import NavLink from "./navlink";
-import { useState } from "react";
+import { useEffect, useState } from "react";
 
 
 // Nav bar content
@@ -24,7 +24,7 @@ const Nav = () => {
       <div className="w-1/5 max-w-full flex flex-col h-3/5 pl-10 fixed">
         <div className="flex-1 w-full flex flex-col justify-center gap-8 bg-red-20 font-light text-center text-base">
           <Link className={` pl-4 py-2 rounded-2xl rounded-r-sm hover:font-normal hover:bg-stone-100 ease-in-out transition-all duration-300
-            ${tab == "/" ? 'border-r-[6px] border-red-500  bg-red-50 text-red-500 font-normal' : ''}`}
+            ${tab == "/" ? 'border-r-[6px] border-red-500 hover:bg-red-50 bg-red-50 text-red-500 font-normal' : ''}`}
             to="/"
             onClick={() => setTab("/")}
           >
@@ -36,9 +36,9 @@ const Nav = () => {
             </div>
           </Link>
           <Link className={` pl-4 py-2 rounded-2xl rounded-r-sm hover:font-normal hover:bg-stone-100 ease-in-out transition-all duration-300
-            ${tab == "major" ? 'border-r-[6px] border-red-500  bg-red-50 text-red-500 font-normal' : ''}`}
+            ${tab == "/major" ? 'border-r-[6px] border-red-500 hover:bg-red-50 bg-red-50 text-red-500 font-normal' : ''}`}
             to="/major"
-            onClick={() => setTab("major")}
+            onClick={() => setTab("/major")}
           >
             <div className="flex flex-row gap-2 items-center">
               <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" strokeWidth="1.5" stroke="currentColor" className="w-6 h-6">
@@ -48,9 +48,9 @@ const Nav = () => {
             </div>
           </Link>
           <Link className={` pl-4 py-2 rounded-2xl rounded-r-sm hover:font-normal hover:bg-stone-100 ease-in-out transition-all duration-300
-            ${tab == "minor" ? 'border-r-[6px] border-red-500  bg-red-50 text-red-500 font-normal' : ''}`}
+            ${tab == "/minor" ? 'border-r-[6px] border-red-500 hover:bg-red-50 bg-red-50 text-red-500 font-normal' : ''}`}
             to="/minor"
-            onClick={() => setTab("minor")}
+            onClick={() => setTab("/minor")}
           >
             <div className="flex flex-row gap-2 items-center">
               <svg className="w-6 h-6" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24">
@@ -60,9 +60,9 @@ const Nav = () => {
             </div>
           </Link>
           <Link className={` pl-4 py-2 rounded-2xl rounded-r-sm hover:font-normal hover:bg-stone-100 ease-in-out transition-all duration-300
-            ${tab == "concentration" ? 'border-r-[6px] border-red-500  bg-red-50 text-red-500 font-normal' : ''}`}
+            ${tab == "/concentration" ? 'border-r-[6px] border-red-500 hover:bg-red-50 bg-red-50 text-red-500 font-normal' : ''}`}
             to="/concentration"
-            onClick={() => setTab("concentration")}
+            onClick={() => setTab("/concentration")}
           >
             <div className="flex flex-row gap-2 items-center">
               <svg className="w-6 h-6" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24">
@@ -72,9 +72,9 @@ const Nav = () => {
             </div>
           </Link>
           <Link className={` pl-4 py-2 rounded-2xl rounded-r-sm hover:font-normal hover:bg-stone-100 ease-in-out transition-all duration-300
-            ${tab == "planner" ? 'border-r-[6px] border-red-500  bg-red-50 text-red-500 font-normal' : ''}`}
+            ${tab == "/planner" ? 'border-r-[6px] border-red-500 hover:bg-red-50 bg-red-50 text-red-500 font-normal' : ''}`}
             to="/planner"
-            onClick={() => setTab("planner")}
+            onClick={() => setTab("/planner")}
           >
             <div className="flex flex-row gap-2 items-center">
               <svg className="w-6 h-6" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24">
