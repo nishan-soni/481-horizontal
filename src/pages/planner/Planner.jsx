@@ -105,12 +105,14 @@ const Planner = () => {
                 </span>
               }
               photo={Preview}
+              title={"Help"}
               onClose={() => setModalOpen(false)}
-            />
+              />
             <ModalBody
               header={"Bruh"}
               description={"STUFFF"}
               photo={Preview2}
+              title={"Help"}
               onClose={() => setModalOpen(false)}
             />
           </ModalControls>

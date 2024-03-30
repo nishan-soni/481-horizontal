@@ -19,6 +19,33 @@ const Overview = () => {
   const { data } = useData();
   const [newData, setNewData] = useState(null);
 
+  const sample = {
+    credits_completed: 9,
+    credits_remaining: 6,
+    reqtitle: "Intro CPSC Courses",
+    reqs: [
+      {
+        name: "6 units Computer Science 453 and 585",
+        credits: 3,
+        outof: 6,
+        completion: "in-complete",
+        courses: [
+          {
+            course: "CPSC 251",
+            sem: "Winter 2023",
+            grade: "C+",
+            status: "complete",
+          },
+          {
+            course: "CPSC 233",
+            sem: "N/A",
+            grade: "N/A",
+            status: "in-complete",
+          },
+        ],
+      },
+    ],
+  };
 
   useEffect(() => {
     if (data != null) {
@@ -34,9 +61,9 @@ const Overview = () => {
     <>
       <div className="w-full h-full flex flex-row">
 
-        <div className="w-full h-full min-h-full flex flex-col">
+        <div className="w-full h-full min-h-full flex flex-col ">
 
-          <div className="flex flex-col w-full h-full min-h-full p-14 pb-8 gap-y-8 rounded-r-none shadow-inner bg-stone-50">
+          <div className="flex flex-col w-full h-full min-h-full p-14 pb-8 gap-y-8 rounded-r-none  bg-stone-50">
 
             {/* Greeting */}
             <div className="w-full h-full max-h-full relative">
@@ -69,20 +96,14 @@ const Overview = () => {
             </div>
           </div>
 
-          <div className="flex w-full flex-col h-fit p-14 pt-0 gap-y-8 rounded-r-none bg-stone-50">
-            
+          <div className="flex w-full flex-col h-fit p-14 pt-0 gap-y-8 rounded-r-none bg-stone-50 border-x-[1px] border-gray-200">
+
             {/* Incomplete */}
             <div className="w-full">
               <p className="text-3xl font-semibold my-5">Incomplete</p>
               <div className="flex flex-col gap-3">
-                <Requirements>
-                  <p>Intro Math Courses</p>
-                  <p>1/2</p>
-                </Requirements>
-                <Requirements>
-                  <p>Intro CPSC Courses</p>
-                  <p>1/3</p>
-                </Requirements>
+                <Requirements header={"Intro Math Courses"} progress={"1/2"} data={sample}></Requirements>
+                <Requirements header={"Intro CPSC Courses"} progress={"1/3"} data={sample}></Requirements>
               </div>
             </div>
 
@@ -90,14 +111,8 @@ const Overview = () => {
             <div className="w-full">
               <p className="text-3xl font-semibold my-5">Complete</p>
               <div className="flex flex-col gap-3">
-                <Requirements>
-                  <p>300 Level Major Requirement</p>
-                  <p>2/4</p>
-                </Requirements>
-                <Requirements>
-                  <p>400 Level Major Requirement</p>
-                  <p>0/3</p>
-                </Requirements>
+                <Requirements header={"300 Level Major Requirement"} progress={"2/4"} data={sample}></Requirements>
+                <Requirements header={"Logic requirement"} progress={"0/3"} data={sample}></Requirements>
               </div>
             </div>
           </div>

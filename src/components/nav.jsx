@@ -23,8 +23,8 @@ const Nav = () => {
       {/* Navigation */}
       <div className="w-1/5 max-w-full flex flex-col h-3/5 pl-10 fixed">
         <div className="flex-1 w-full flex flex-col justify-center gap-8 bg-red-20 font-light text-center text-base">
-          <Link className={` pl-4 py-2 rounded-2xl rounded-r-sm hover:font-normal hover:bg-stone-100 ease-in-out transition-all duration-300
-            ${tab == "/" ? 'border-r-[6px] border-red-500 hover:bg-red-50 bg-red-50 text-red-500 font-normal' : ''}`}
+          <Link className={` pl-4 py-2 rounded-2xl rounded-r-sm hover:font-normal  ease-in-out transition-all duration-300
+            ${tab == "/" ? 'border-r-[6px] border-red-500 hover:bg-red-50 bg-red-50 text-red-500 font-normal' : 'hover:bg-stone-100'}`}
             to="/"
             onClick={() => setTab("/")}
           >
@@ -35,8 +35,8 @@ const Nav = () => {
               <NavLink>Overview</NavLink>
             </div>
           </Link>
-          <Link className={` pl-4 py-2 rounded-2xl rounded-r-sm hover:font-normal hover:bg-stone-100 ease-in-out transition-all duration-300
-            ${tab == "/major" ? 'border-r-[6px] border-red-500 hover:bg-red-50 bg-red-50 text-red-500 font-normal' : ''}`}
+          <Link className={` pl-4 py-2 rounded-2xl rounded-r-sm hover:font-normal ease-in-out transition-all duration-300
+            ${tab == "/major" ? 'border-r-[6px] border-red-500 hover:bg-red-50 bg-red-50 text-red-500 font-normal' : 'hover:bg-stone-100'}`}
             to="/major"
             onClick={() => setTab("/major")}
           >
@@ -47,8 +47,8 @@ const Nav = () => {
               <NavLink>Major Requirements</NavLink>
             </div>
           </Link>
-          <Link className={` pl-4 py-2 rounded-2xl rounded-r-sm hover:font-normal hover:bg-stone-100 ease-in-out transition-all duration-300
-            ${tab == "/minor" ? 'border-r-[6px] border-red-500 hover:bg-red-50 bg-red-50 text-red-500 font-normal' : ''}`}
+          <Link className={` pl-4 py-2 rounded-2xl rounded-r-sm hover:font-normal ease-in-out transition-all duration-300
+            ${tab == "/minor" ? 'border-r-[6px] border-red-500 hover:bg-red-50 bg-red-50 text-red-500 font-normal' : 'hover:bg-stone-100'}`}
             to="/minor"
             onClick={() => setTab("/minor")}
           >
@@ -59,8 +59,8 @@ const Nav = () => {
               <NavLink>Minor Requirements</NavLink>
             </div>
           </Link>
-          <Link className={` pl-4 py-2 rounded-2xl rounded-r-sm hover:font-normal hover:bg-stone-100 ease-in-out transition-all duration-300
-            ${tab == "/concentration" ? 'border-r-[6px] border-red-500 hover:bg-red-50 bg-red-50 text-red-500 font-normal' : ''}`}
+          <Link className={` pl-4 py-2 rounded-2xl rounded-r-sm hover:font-normal ease-in-out transition-all duration-300
+            ${tab == "/concentration" ? 'border-r-[6px] border-red-500 hover:bg-red-50 bg-red-50 text-red-500 font-normal' : 'hover:bg-stone-100'}`}
             to="/concentration"
             onClick={() => setTab("/concentration")}
           >
@@ -71,8 +71,8 @@ const Nav = () => {
               <NavLink>Concentration Requirements</NavLink>
             </div>
           </Link>
-          <Link className={` pl-4 py-2 rounded-2xl rounded-r-sm hover:font-normal hover:bg-stone-100 ease-in-out transition-all duration-300
-            ${tab == "/planner" ? 'border-r-[6px] border-red-500 hover:bg-red-50 bg-red-50 text-red-500 font-normal' : ''}`}
+          <Link className={` pl-4 py-2 rounded-2xl rounded-r-sm hover:font-normal ease-in-out transition-all duration-300
+            ${tab == "/planner" ? 'border-r-[6px] border-red-500 hover:bg-red-50 bg-red-50 text-red-500 font-normal' : 'hover:bg-stone-100'}`}
             to="/planner"
             onClick={() => setTab("/planner")}
           >
