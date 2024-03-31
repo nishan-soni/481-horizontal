@@ -158,7 +158,6 @@ function Row(props) {
 
 function ReqTable(props) {
   const { data } = props;
-  const user = useData();
 
   return (
     <>
