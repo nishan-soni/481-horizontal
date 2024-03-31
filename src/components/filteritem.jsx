@@ -8,9 +8,11 @@ import MenuItem from "@mui/material/MenuItem";
 import TextField from "@mui/material/TextField";
 import Autocomplete from "@mui/material/Autocomplete";
 import { Chip } from "@mui/material";
+import { useState } from "react";
 
 const FilterItem = (props) => {
   const { name, options, type } = props;
+  const [selected, setSelected] = useState({});
   return (
     <div className="flex flex-col w-full">
       <div className="text-lg">{name}</div>
@@ -23,7 +25,16 @@ const FilterItem = (props) => {
               return (
                 <FormControlLabel
                   key={item}
-                  control={<Checkbox />}
+                  control={
+                    <Checkbox
+                      onChange={(e) => {
+                        let new_selected = selected;
+                        new_selected[item] = e.target.checked;
+                        console.log(new_selected);
+                        setSelected(new_selected);
+                      }}
+                    />
+                  }
                   label={item}
                 />
               );
@@ -38,7 +49,6 @@ const FilterItem = (props) => {
         <Autocomplete
           fullWidth
           multiple
-          id="combo-box-demo"
           options={options}
           renderTags={(value, getTagProps) =>
             value.map((option, index) => (
@@ -50,7 +60,10 @@ const FilterItem = (props) => {
               />
             ))
           }
-          renderInput={(params) => <TextField {...params} fullWidth/>}
+          onChange={(e, v) => {
+            setSelected({ value: v });
+          }}
+          renderInput={(params) => <TextField {...params} fullWidth />}
         />
       )}
 
@@ -59,9 +72,17 @@ const FilterItem = (props) => {
       {type == "dropdown" && (
         <div>
           <FormControl fullWidth>
-            <Select>
+            <Select
+              onChange={(e) => {
+                setSelected({ value: e.target.value });
+              }}
+            >
               {options.map((item, index) => {
-                return <MenuItem key = {item} value={item}>{item}</MenuItem>;
+                return (
+                  <MenuItem key={item} value={item}>
+                    {item}
+                  </MenuItem>
+                );
               })}
             </Select>
           </FormControl>
