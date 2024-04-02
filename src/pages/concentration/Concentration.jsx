@@ -39,7 +39,7 @@ const Concentration = () => {
             course: "CPSC 531",
             sem: "Winter 2024",
             grade: "N/A",
-            status: "in-progress",
+            status: "in progress",
             credits: 3,
             reqsSatisfied: true,
           },
@@ -49,7 +49,7 @@ const Concentration = () => {
         name: "6 units Computer Science 453 and 585",
         credits: 3,
         outof: 6,
-        completion: "in-complete",
+        completion: "incomplete",
         courses: [
           {
             course: "CPSC 453",
@@ -63,7 +63,7 @@ const Concentration = () => {
             course: "CPSC 585",
             sem: "N/A",
             grade: "N/A",
-            status: "in-complete",
+            status: "incomplete",
             credits: 3,
             reqsSatisfied: false,
             reqs: ["Computer Science 453"]

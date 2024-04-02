@@ -25,7 +25,7 @@ const Major = () => {
         name: "21 units from Computer Science 251, 331, 351, 355, 413, 449 and 457",
         credits: 9,
         outof: 21,
-        completion: "in-complete",
+        completion: "incomplete",
         courses: [
           {
             course: "CPSC 251",
@@ -47,7 +47,7 @@ const Major = () => {
             course: "CPSC 351",
             sem: "Winter 2024",
             grade: "A+",
-            status: "in-progress",
+            status: "in progress",
             credits: 3,
             reqsSatisfied: true,
           },
@@ -63,7 +63,7 @@ const Major = () => {
             course: "CPSC 413",
             sem: "Winter 2024",
             grade: "N/A",
-            status: "in-progress",
+            status: "in progress",
             credits: 3,
             reqsSatisfied: true,
           },
@@ -71,7 +71,7 @@ const Major = () => {
             course: "CPSC 457",
             sem: "Winter 2024",
             grade: "N/A",
-            status: "in-progress",
+            status: "in progress",
             credits: 3,
             reqsSatisfied: true,
           },
@@ -79,7 +79,7 @@ const Major = () => {
       },
       {
         name: "Ethics Requirement",
-        completion: "in-complete",
+        completion: "incomplete",
         credits: 0,
         outof: 3,
         courses: [
@@ -87,7 +87,7 @@ const Major = () => {
             course: "PHIL 314",
             sem: "N/A",
             grade: "N/A",
-            status: "in-complete",
+            status: "incomplete",
             credits: 3,
             reqsSatisfied: true,
           },
@@ -97,7 +97,7 @@ const Major = () => {
         name: "9 Units of CPSC Courses at the 300 level or above.",
         credits: 9,
         outof: 9,
-        completion: "in-complete",
+        completion: "incomplete",
         courses: [
           {
             course: "CPSC 329",
@@ -119,7 +119,7 @@ const Major = () => {
             course: "CPSC 359",
             sem: "Winter 2024",
             grade: "A+",
-            status: "in-progress",
+            status: "in progress",
             credits: 3,
             reqsSatisfied: true,
           },

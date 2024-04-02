@@ -80,6 +80,7 @@ const FilterItem = (props) => {
         <div>
           <FormControl fullWidth>
             <Select
+              defaultValue={options[0]}
               onChange={(e) => {
                 let new_filters = filters;
                 new_filters[name] = {
