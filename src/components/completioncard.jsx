@@ -9,7 +9,7 @@ const CompletionCard = (props) => {
             ${
               decider === "complete"
                 ? "bg-green-200"
-                : decider === "in-complete"
+                : decider === "incomplete"
                 ? "bg-red-200"
                 : "bg-amber-100"
             }
@@ -17,7 +17,7 @@ const CompletionCard = (props) => {
     >
       {decider === "complete" ? (
         <div className=" text-green-600">Complete</div>
-      ) : decider === "in-complete" ? (
+      ) : decider === "incomplete" ? (
         <div className=" text-red-600">Incomplete</div>
       ) : (
         <div className=" text-amber-600">In Progress</div>
