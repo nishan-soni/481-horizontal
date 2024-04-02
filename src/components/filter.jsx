@@ -85,7 +85,7 @@ const Filter = ({ data, setFilteredData }) => {
             console.log(parseInt(filters["Start Year"].vals[0]), parseInt(c["Start Year"]))
             return parseInt(filters["Start Year"].vals[0]) <= parseInt(c["Start Year"]);
           })
-      }
+      } 
 
       // End Date
       if (

@@ -184,7 +184,7 @@ function ReqTable(props) {
           </TableHead>
           <TableBody className="">
             {data["reqs"].map((row) => (
-              <Row key={row.name} row={row} />
+              row.courses.length > 0 && <Row key={row.name} row={row} />
             ))}
           </TableBody>
         </Table>
