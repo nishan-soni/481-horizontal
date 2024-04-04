@@ -1,8 +1,17 @@
-# React + Vite
+# CPSC 481 T03-1 Vertical Prototype
 
-This template provides a minimal setup to get React working in Vite with HMR and some ESLint rules.
+This is the codebase for our vertical prototype of the Degree Requirements system.
 
-Currently, two official plugins are available:
+### Starting the website
+Before starting the website, ensure the following:
+- Your `node` version is at least `21.7.1`.
+- Your current working directory is the root folder of the project. 
 
-- [@vitejs/plugin-react](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react/README.md) uses [Babel](https://babeljs.io/) for Fast Refresh
-- [@vitejs/plugin-react-swc](https://github.com/vitejs/vite-plugin-react-swc) uses [SWC](https://swc.rs/) for Fast Refresh
+Next, run the following commands line by line.
+
+```sh
+npm i # To install packages.
+npm run dev # Running the website on localhost.
+```
+Navigate to the localhost port given from the terminal, usually its: `http://localhost:5173/`.
+
