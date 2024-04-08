@@ -2,6 +2,14 @@
 
 This is the codebase for our vertical prototype of the Degree Requirements system.
 
+You can demo it here: 
+[481-horizontal.vercel.app](https://481-horizontal.vercel.app), or
+
+Watch our demonstration:
+
+[![Demo](https://img.youtube.com/vi/EbwiWxFo9dU/0.jpg)](https://www.youtube.com/watch?v=EbwiWxFo9dU)
+
+
 ### Starting the website
 Before starting the website, ensure the following:
 - Your `node` version is at least `21.7.1`.
