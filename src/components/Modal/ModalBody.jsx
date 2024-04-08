@@ -1,7 +1,12 @@
-import React from 'react'
+import React, { useEffect } from 'react'
 
 
 function ModalBody({ children, header, description, photo, onClose, title }) {
+    useEffect(() => {
+        console.log(photo);
+
+    })
+
     return (
         <>
             {/* Topbar */}
@@ -17,7 +22,9 @@ function ModalBody({ children, header, description, photo, onClose, title }) {
             </div >
 
             {/* Video */}
-            < img src={photo} className={`rounded-xl rounded-b-none object-cover`}></img >
+            {photo &&
+                < video key={photo} className={`rounded-xl rounded-b-none object-cover`} autoPlay loop muted><source type="video/mp4" src={photo}></source></video >
+            }
 
             {/* Description */}
             < div className='flex flex-col gap-4 p-8 border-b-4 border-red-500' >

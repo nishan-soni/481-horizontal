@@ -13,8 +13,9 @@ import { ReactFlowProvider } from 'reactflow';
 import Modal from "../../components/Modal/Modal"
 import ModalBody from "../../components/Modal/ModalBody";
 import ModalControls from "../../components/Modal/ModalControls";
-import Preview from "../../assets/Preview.png"
-import Preview2 from "../../assets/Preview2.png"
+import Preview from "../../assets/add-delete_Trim.mp4"
+import Preview2 from "../../assets/show-course-desc_Trim-crop.mp4"
+import Preview3 from "../../assets/preqdemo-crop_Trim.mp4"
 import KeyboardKey from "../../components/Modal/KeyboardKey";
 
 const Planner = () => {
@@ -38,14 +39,14 @@ const Planner = () => {
   }, [data, totalCourseData]);
 
 
-  useEffect(() => {
-    console.log("coursenodeList ", courseNodeList)
-  }, [courseNodeList])
+  // useEffect(() => {
+  //   console.log("coursenodeList ", courseNodeList)
+  // }, [courseNodeList])
 
   // open the modal on page load
-  // useEffect(() => {
-  //   setModalOpen(true);
-  // }, [])
+  useEffect(() => {
+    setModalOpen(true);
+  }, [])
 
   // if (data != null && totalCourseData != null) {
   //   const userCourses = data['Nathan Ferris']['courses']; // Assuming 'Nathan Ferris' is the user key in your data object
@@ -102,6 +103,7 @@ const Planner = () => {
                 <span className="inline-block">
                   Drag courses from the sidebar onto the canvas to add them to your planner.
                   To delete a course, select it and press the <span title="Backspace" className="inline-block"><KeyboardKey /></span> key on your keyboard.
+                  You can also clear the canvas by pressing the trash bin icon on the toolbar.
                 </span>
               }
               photo={Preview}
@@ -109,9 +111,16 @@ const Planner = () => {
               onClose={() => setModalOpen(false)}
               />
             <ModalBody
-              header={"Bruh"}
-              description={"STUFFF"}
+              header={"View Course Details"}
+              description={"Press the dropdown arrow to view course details like the course description, prerequisites, and the number of units"}
               photo={Preview2}
+              title={"Help"}
+              onClose={() => setModalOpen(false)}
+            />
+            <ModalBody
+              header={"Connecting Prerequisites"}
+              description={"Drag courses close to each to see what you need to take them. You can also hover over courses to see their prerequisites. To reveal all prerequisites together, click the eyeball icon on the toolbar."}
+              photo={Preview3}
               title={"Help"}
               onClose={() => setModalOpen(false)}
             />

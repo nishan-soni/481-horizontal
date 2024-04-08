@@ -19,28 +19,57 @@ const Overview = () => {
   const { data } = useData();
   const [newData, setNewData] = useState(null);
 
+  
   const sample = {
-    credits_completed: 9,
-    credits_remaining: 6,
-    reqtitle: "Intro CPSC Courses",
+    credits_completed: 21,
+    credits_remaining: 16,
+    reqtitle: "Major in Computer Science",
     reqs: [
       {
-        name: "6 units Computer Science 453 and 585",
-        credits: 3,
-        outof: 6,
+        name: "9 Units of CPSC Courses at the 300 level or above.",
+        credits: 9,
+        outof: 9,
         completion: "in-complete",
         courses: [
           {
-            course: "CPSC 251",
-            sem: "Winter 2023",
-            grade: "C+",
+            course: "CPSC 329",
+            sem: "Winter 2022",
+            grade: "B-",
             status: "complete",
           },
           {
-            course: "CPSC 233",
-            sem: "N/A",
-            grade: "N/A",
-            status: "in-complete",
+            course: "CPSC 331",
+            sem: "Winter 2023",
+            grade: "A-",
+            status: "complete",
+          },
+          {
+            course: "CPSC 359",
+            sem: "Winter 2024",
+            grade: "A+",
+            status: "in-progress",
+          },
+        ],
+      },
+    ],
+  };
+
+  const sample2 = {
+    credits_completed: 21,
+    credits_remaining: 16,
+    reqtitle: "Major in Computer Science",
+    reqs: [
+      {
+        name: "Logic Requirement",
+        credits: 3,
+        outof:3,
+        completion: "complete",
+        courses: [
+          {
+            course: "PHIL 279",
+            sem: "Fall 2021",
+            grade: "A",
+            status: "complete",
           },
         ],
       },
@@ -102,8 +131,10 @@ const Overview = () => {
             <div className="w-full">
               <p className="text-3xl font-semibold my-5">Incomplete</p>
               <div className="flex flex-col gap-3">
-                <Requirements header={"Intro Math Courses"} progress={"1/2"} data={sample}></Requirements>
-                <Requirements header={"Intro CPSC Courses"} progress={"1/3"} data={sample}></Requirements>
+                <Requirements header={"Computer Science 251, 331, 351, 355, 413, 449 and 457"} progress={"9/21"} data={sample}></Requirements>
+                <Requirements header={"CPSC Courses at the 300 level or above"} progress={"9/9"} data={sample}></Requirements>
+                <Requirements header={"Ethics Requirement"} progress={"0/3"} data={sample}></Requirements>
+                <Requirements header={"6 units Computer Science 453 and 585"} progress={"3/6"} data={sample}></Requirements>
               </div>
             </div>
 
@@ -111,8 +142,10 @@ const Overview = () => {
             <div className="w-full">
               <p className="text-3xl font-semibold my-5">Complete</p>
               <div className="flex flex-col gap-3">
-                <Requirements header={"300 Level Major Requirement"} progress={"2/4"} data={sample}></Requirements>
-                <Requirements header={"Logic requirement"} progress={"0/3"} data={sample}></Requirements>
+                <Requirements header={"Logic Requirement"} progress={"3/3"} data={sample2}></Requirements>
+                {/* <Requirements header={"Minor In Management"} progress={"6/6"} data={sample}></Requirements> */}
+                {/* <Requirements header={"3 units from Physics 211, 221 or 227"} progress={"3/3"} data={sample}></Requirements> */}
+                {/* <Requirements header={"3 units from Computer Science 433, 531 or 535"} progress={"3/3"} data={sample}></Requirements> */}
               </div>
             </div>
           </div>

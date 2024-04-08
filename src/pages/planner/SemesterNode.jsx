@@ -24,15 +24,15 @@ function SemesterNode({ id, data }) {
     //     }
 
 
-    useEffect(() => {
-        console.log(id, color);
-    })
+    // useEffect(() => {
+    //     console.log(id, color);
+    // })
 
     // })
 
     return (
         <div className={`flex flex-col justify-start items-center w-48 h-[400px] bg-opacity-30 ${DICTIONARY[color]} border-[1px] rounded-md`}>
-            <p className={`pt-2 px-2`} placeholder='🍂 Fall'>{color == 'red' ? "🍂 Fall" : "❄ Winter"}</p>
+            <p className={`pt-2 px-2 font-semibold`} placeholder='🍂 Fall'>{color == 'red' ? "🍁 Fall" : "❄ Winter"}</p>
             <div className='flex flex-col items-center justify-evenly h-full w-full gap-6 px-2    pt-2'>
                 {/* <div className='h-8 w-full'></div>
                 <div className='h-8 w-full'></div>
