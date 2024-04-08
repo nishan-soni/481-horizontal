@@ -154,6 +154,14 @@ const Filter = ({ data, setFilteredData }) => {
         >
           Apply Filters
         </button>
+        <button
+          onClick={() => {
+            window.alert("The clear filters button will be implemented in the future!")
+          }}
+          className="p-2 rounded-md border-2 shadow-sm"
+        >
+          Clear Filters
+        </button>
       </div>
     </div>
   );
