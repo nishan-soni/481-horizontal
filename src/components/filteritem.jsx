@@ -3,14 +3,15 @@ import FormGroup from "@mui/material/FormGroup";
 import FormControlLabel from "@mui/material/FormControlLabel";
 import FormControl from "@mui/material/FormControl";
 import Select from "@mui/material/Select";
-import InputLabel from "@mui/material/InputLabel";
 import MenuItem from "@mui/material/MenuItem";
 import TextField from "@mui/material/TextField";
 import Autocomplete from "@mui/material/Autocomplete";
 import { Chip } from "@mui/material";
+import { useState } from "react";
 
 const FilterItem = (props) => {
-  const { name, options, type } = props;
+  const { name, options, type, filterState } = props;
+  const [filters, setFilters] = filterState;
   return (
     <div className="flex flex-col w-full">
       <div className="text-lg">{name}</div>
@@ -23,7 +24,19 @@ const FilterItem = (props) => {
               return (
                 <FormControlLabel
                   key={item}
-                  control={<Checkbox />}
+                  control={
+                    <Checkbox
+                      onClick={(e) => {
+                        let new_filters = filters;
+                        new_filters[name] = {
+                          ...new_filters[name],
+                          [item]: e.target.checked,
+                          type: type,
+                        };
+                        setFilters(new_filters);
+                      }}
+                    />
+                  }
                   label={item}
                 />
               );
@@ -38,7 +51,6 @@ const FilterItem = (props) => {
         <Autocomplete
           fullWidth
           multiple
-          id="combo-box-demo"
           options={options}
           renderTags={(value, getTagProps) =>
             value.map((option, index) => (
@@ -50,7 +62,15 @@ const FilterItem = (props) => {
               />
             ))
           }
-          renderInput={(params) => <TextField {...params} fullWidth/>}
+          onChange={(e, v) => {
+            let new_filters = filters;
+            new_filters[name] = {
+              vals: v,
+              type: type,
+            };
+            setFilters(new_filters);
+          }}
+          renderInput={(params) => <TextField {...params} fullWidth />}
         />
       )}
 
@@ -59,9 +79,23 @@ const FilterItem = (props) => {
       {type == "dropdown" && (
         <div>
           <FormControl fullWidth>
-            <Select>
+            <Select
+              defaultValue={options[0]}
+              onChange={(e) => {
+                let new_filters = filters;
+                new_filters[name] = {
+                  vals: [e.target.value],
+                  type: type,
+                };
+                setFilters(new_filters);
+              }}
+            >
               {options.map((item, index) => {
-                return <MenuItem key = {item} value={item}>{item}</MenuItem>;
+                return (
+                  <MenuItem key={item} value={item}>
+                    {item}
+                  </MenuItem>
+                );
               })}
             </Select>
           </FormControl>
