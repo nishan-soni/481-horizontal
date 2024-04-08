@@ -13,7 +13,7 @@ import { ReactFlowProvider } from 'reactflow';
 import Modal from "../../components/Modal/Modal"
 import ModalBody from "../../components/Modal/ModalBody";
 import ModalControls from "../../components/Modal/ModalControls";
-import Preview from "../../assets/add-delete_Trim.mp4"
+import Preview from "../../assets/add-delete_Trim-crop.mp4"
 import Preview2 from "../../assets/show-course-desc_Trim-crop.mp4"
 import Preview3 from "../../assets/preqdemo-crop_Trim.mp4"
 import KeyboardKey from "../../components/Modal/KeyboardKey";
