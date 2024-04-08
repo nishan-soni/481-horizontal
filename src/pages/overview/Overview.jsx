@@ -19,7 +19,9 @@ const Overview = () => {
   const { data } = useData();
   const [newData, setNewData] = useState(null);
 
-  
+  /**
+   * TODO: remove dummy data
+   */
   const sample = {
     credits_completed: 21,
     credits_remaining: 16,
@@ -29,25 +31,31 @@ const Overview = () => {
         name: "9 Units of CPSC Courses at the 300 level or above.",
         credits: 9,
         outof: 9,
-        completion: "in-complete",
+        completion: "incomplete",
         courses: [
           {
             course: "CPSC 329",
             sem: "Winter 2022",
             grade: "B-",
             status: "complete",
+            credits: 3,
+            reqsSatisfied: true,
           },
           {
             course: "CPSC 331",
             sem: "Winter 2023",
             grade: "A-",
             status: "complete",
+            credits: 3,
+            reqsSatisfied: true,
           },
           {
             course: "CPSC 359",
             sem: "Winter 2024",
             grade: "A+",
-            status: "in-progress",
+            status: "in progress",
+            credits: 3,
+            reqsSatisfied: true,
           },
         ],
       },
@@ -62,7 +70,7 @@ const Overview = () => {
       {
         name: "Logic Requirement",
         credits: 3,
-        outof:3,
+        outof: 3,
         completion: "complete",
         courses: [
           {
@@ -70,6 +78,95 @@ const Overview = () => {
             sem: "Fall 2021",
             grade: "A",
             status: "complete",
+            reqsSatisfied: true,
+          },
+        ],
+      },
+    ],
+  };
+
+  const sample3 = {
+    credits_completed: 21,
+    credits_remaining: 16,
+    reqtitle: "Major in Computer Science",
+    reqs: [
+      {
+        name: "21 units from Computer Science 251, 331, 351, 355, 413, 449 and 457",
+        credits: 9,
+        outof: 21,
+        completion: "incomplete",
+        courses: [
+          {
+            course: "CPSC 251",
+            sem: "Winter 2022",
+            grade: "B-",
+            status: "complete",
+            credits: 3,
+            reqsSatisfied: true,
+          },
+          {
+            course: "CPSC 331",
+            sem: "Winter 2023",
+            grade: "A-",
+            status: "complete",
+            credits: 3,
+            reqsSatisfied: true,
+          },
+          {
+            course: "CPSC 351",
+            sem: "Winter 2024",
+            grade: "A+",
+            status: "in progress",
+            credits: 3,
+            reqsSatisfied: true,
+          },
+          {
+            course: "CPSC 355",
+            sem: "Fall 2023",
+            grade: "A+",
+            status: "complete",
+            credits: 3,
+            reqsSatisfied: true,
+          },
+          {
+            course: "CPSC 413",
+            sem: "Winter 2024",
+            grade: "N/A",
+            status: "in progress",
+            credits: 3,
+            reqsSatisfied: true,
+          },
+          {
+            course: "CPSC 457",
+            sem: "Winter 2024",
+            grade: "N/A",
+            status: "in progress",
+            credits: 3,
+            reqsSatisfied: true,
+          },
+        ],
+      },
+    ],
+  };
+
+  const sample4 = {
+    credits_completed: 21,
+    credits_remaining: 16,
+    reqtitle: "Major in Computer Science",
+    reqs: [
+      {
+        name: "Ethics Requirement",
+        completion: "incomplete",
+        credits: 0,
+        outof: 3,
+        courses: [
+          {
+            course: "PHIL 314",
+            sem: "N/A",
+            grade: "N/A",
+            status: "incomplete",
+            credits: 3,
+            reqsSatisfied: true,
           },
         ],
       },
@@ -131,10 +228,10 @@ const Overview = () => {
             <div className="w-full">
               <p className="text-3xl font-semibold my-5">Incomplete</p>
               <div className="flex flex-col gap-3">
-                <Requirements header={"Computer Science 251, 331, 351, 355, 413, 449 and 457"} progress={"9/21"} data={sample}></Requirements>
+                <Requirements header={"Computer Science 251, 331, 351, 355, 413, 449 and 457"} progress={"9/21"} data={sample3}></Requirements>
                 <Requirements header={"CPSC Courses at the 300 level or above"} progress={"9/9"} data={sample}></Requirements>
-                <Requirements header={"Ethics Requirement"} progress={"0/3"} data={sample}></Requirements>
-                <Requirements header={"6 units Computer Science 453 and 585"} progress={"3/6"} data={sample}></Requirements>
+                <Requirements header={"Ethics Requirement"} progress={"0/3"} data={sample4}></Requirements>
+                {/* <Requirements header={"6 units Computer Science 453 and 585"} progress={"3/6"} data={sample}></Requirements> */}
               </div>
             </div>
 
