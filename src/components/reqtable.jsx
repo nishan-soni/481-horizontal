@@ -16,6 +16,7 @@ import { Typography } from "@mui/material";
 import CheckCircleOutlinedIcon from "@mui/icons-material/CheckCircleOutlined";
 import FeedbackOutlinedIcon from "@mui/icons-material/FeedbackOutlined";
 import Tooltip from "@mui/material/Tooltip";
+import RowCompletion from "./RowCompletion";
 
 function Row(props) {
   const { row } = props;
@@ -44,7 +45,7 @@ function Row(props) {
           <strong>{row.name}</strong>
         </TableCell>
         <TableCell align="center">
-          <CompletionCard decider={row.completion} />
+          <RowCompletion decider={row.completion} />
         </TableCell>
         <TableCell align="center">
           {row.credits} / {row.outof}
