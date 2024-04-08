@@ -9,6 +9,7 @@ import ReactFlow, {
     ControlButton,
     MarkerType,
     useStoreApi,
+    useReactFlow
 } from 'reactflow';
 import 'reactflow/dist/style.css';
 import CustomNode from './CustomNode';
@@ -165,20 +166,23 @@ const initialEdges = [
 ];
 
 
-let id = 0;
-const getId = () => `dndnode_${id++}`;
+// let id = 0;
+// const getId = () => `dndnode_${id++}`;
 
 function Canvas({ onRemove }) {
 
     const { isHidden, hoveredNode } = useNodeHover();
+    const { setViewport } = useReactFlow();
     const store = useStoreApi(); // access the reactflow store object for access to the internal state
     const reactFlowWrapper = useRef(null);
     const [nodes, setNodes, onNodesChange] = useNodesState(initialNodes);
     const [edges, setEdges, onEdgesChange] = useEdgesState(initialEdges);
     const [reactFlowInstance, setReactFlowInstance] = useState(null);
     const [hidden, setHidden] = useState(false);
+    // const [rfInstance, setRfInstance] = useState(null);
     const MIN_DISTANCE = 1000000 // make large value so that prerequisite nodes automatically connect on canvas
     const MIN_HORZ = 100
+    const courseKey = 'course-data'
 
     // useEffect(() => {
     //     console.log("Nodes: ", nodes);
@@ -211,6 +215,16 @@ function Canvas({ onRemove }) {
         "markerEnd": { style: { stroke: '#d4d4d4' }, type: MarkerType.ArrowClosed, width: 20, height: 20, color: "#d4d4d4" },
         "label": "Preq", "labelStyle": { fill: '#d4d4d4', fontWeight: 'bold' }, "labelBg": { fill: '#fafaf9' }, animated: true, type: '',
     }
+
+    let id = nodes.length;
+    const getId = () => {
+        let newId = `dndnode_${id++}`; // Convert id to string when concatenating
+        while (nodes.some(node => node.id === newId)) { // Check for existing id
+            newId = `dndnode_${id++}`; // Increment id if it already exists
+        }
+        console.log("ADDDDING NEW ID", newId);
+        return newId;
+    };
 
 
     /**
@@ -447,11 +461,6 @@ function Canvas({ onRemove }) {
         const dataString = event.dataTransfer.getData('application/reactFlow'); // catch the data transfered from CourseDrawerNode
         const { type, courseProp } = JSON.parse(dataString);
 
-        // console.log(dataString);
-        // console.log(type);
-        // console.log("courseProp ", courseProp);
-        // console.log(typeof (type));
-
         // checking if the dragged element is a valid
         if (typeof type === 'undefined' || !type) {
             return;
@@ -471,7 +480,7 @@ function Canvas({ onRemove }) {
 
         setNodes((nds) => nds.concat(newNode)); // add the node to the list of nodes
         // console.log("removing node: ", courseProp.title + courseProp.id);
-        onRemove(courseProp);
+        onRemove(courseProp); // remove the course from the side menu
 
     }, [reactFlowInstance]);
 
@@ -487,6 +496,7 @@ function Canvas({ onRemove }) {
     const hide = (hidden) => (edge) => {
 
         const source = edge.source;
+        const target = edge.target;
         let sourceNode = nodes.find((node) => node.id === source);
 
         if (!sourceNode || !sourceNode.data || !sourceNode.data.id || !sourceNode.data.id) {
@@ -496,16 +506,14 @@ function Canvas({ onRemove }) {
         // if hidden is false
         if (!isHidden) {
             if (hoveredNode != undefined) {
-                // console.log("source ", sourceNode.data.id);
-                // console.log("hvereddedede ", hoveredNode);
 
-                // if the source preq is once of the hover nodes prerequisites
-                if (hoveredNode.preq.includes(sourceNode.data.fullTitle) && hoveredNode.preq.includes(sourceNode.data.id)) {
+                // if the source preq is one of the hoverNode's prerequisites and the edge target corresponds to the hoverNode
+                if (hoveredNode.preq.includes(sourceNode.data.fullTitle) && hoveredNode.preq.includes(sourceNode.data.id) && target == hoveredNode.nodeID) {
                     edge.hidden = hidden; // set the hidden property to false so that the edge is visible
                     return edge;
                 }
                 else {
-                    edge.hidden = !hidden; // hide all other edge
+                    edge.hidden = !hidden; // hide all other edges
                     return edge;
                 }
             }
@@ -526,15 +534,50 @@ function Canvas({ onRemove }) {
         setHidden(isHidden)
     }, [isHidden, hoveredNode])
 
-    // useEffect(() => {
-    //     console.log(edges);
-    // }, [edges])
+    /* ------------------ Functions to control save and restore ------------------ */
+
+    const onSave = useCallback(() => {
+        // console.log("Save");
+        if (reactFlowInstance) {
+            const flow = reactFlowInstance.toObject();
+            localStorage.setItem(courseKey, JSON.stringify(flow));
+        }
+    }, [reactFlowInstance]);
+
+    const onRestore = useCallback(() => {
+        // console.log("Restore");
+        const restoreFlow = () => {
+            const flow = JSON.parse(localStorage.getItem(courseKey));
+
+            if (flow) {
+                const { x = 0, y = 0, zoom = 1 } = flow.viewport;
+                setNodes(flow.nodes || []);
+                setEdges(flow.edges || []);
+                setViewport({ x, y, zoom });
+            }
+        }
+
+        restoreFlow();
+    }, [setNodes, setViewport]);
+
+    useEffect(() => {
+        onSave();
+    }, [nodes, edges])
+
+    useEffect(() => {
+        onRestore();
+    }, [])
+
+
+
 
     return (
         <>
             <div className="w-full h-full bg-stone-50 shadow-inner relative">
                 {/* <Timeline /> */}
                 {/* <ReactFlowProvider> */}
+                {/* <button className="w-fit mr-10 bg-gray-300" onClick={onSave}>save</button>
+                <button className="w-fit bg-gray-300" onClick={onRestore}>restore</button> */}
                 <div className="w-full h-full" ref={reactFlowWrapper}>
                     <ReactFlow
                         fitView
@@ -559,6 +602,15 @@ function Canvas({ onRemove }) {
                         {/* <MiniMap /> */}
                         <Controls>
                             <ControlButton
+                                onClick={() => {
+                                    setNodes(nodes.filter((node) => !node.id.includes("dnode")));
+                                }}
+                            >
+                                <svg className="w-6 h-6 hover:text-red-500 text-black" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" width="24" height="24" fill="currentColor" viewBox="0 0 24 24">
+                                    <path fillRule="evenodd" d="M8.586 2.586A2 2 0 0 1 10 2h4a2 2 0 0 1 2 2v2h3a1 1 0 1 1 0 2v12a2 2 0 0 1-2 2H7a2 2 0 0 1-2-2V8a1 1 0 0 1 0-2h3V4a2 2 0 0 1 .586-1.414ZM10 6h4V4h-4v2Zm1 4a1 1 0 1 0-2 0v8a1 1 0 1 0 2 0v-8Zm4 0a1 1 0 1 0-2 0v8a1 1 0 1 0 2 0v-8Z" clipRule="evenodd" />
+                                </svg>
+                            </ControlButton>
+                            <ControlButton
                                 onClick={(() =>
                                     setHidden(!hidden)
                                 )}
@@ -568,12 +620,12 @@ function Canvas({ onRemove }) {
                                 {
                                     hidden ?
                                         <svg className="w-6 h-6 text-red-500 duration-200 transition-all ease-in-out" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" width="24" height="24" fill="none" viewBox="0 0 24 24">
-                                            <path stroke="currentColor" strokeWidth="2.5" d="M21 12c0 1.2-4.03 6-9 6s-9-4.8-9-6c0-1.2 4.03-6 9-6s9 4.8 9 6Z" />
-                                            <path stroke="currentColor" strokeWidth="2.5" d="M15 12a3 3 0 1 1-6 0 3 3 0 0 1 6 0Z" />
+                                            <path stroke="currentColor" strokeLinecap="round" strokeLinejoin="round" strokeWidth="2.5" d="M3.933 13.909A4.357 4.357 0 0 1 3 12c0-1 4-6 9-6m7.6 3.8A5.068 5.068 0 0 1 21 12c0 1-3 6-9 6-.314 0-.62-.014-.918-.04M5 19 19 5m-4 7a3 3 0 1 1-6 0 3 3 0 0 1 6 0Z" />
                                         </svg>
                                         :
-                                        <svg className="w-6 h-6 text-gray-800 duration-200 transition-all ease-in-out" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" width="24" height="24" fill="none" viewBox="0 0 24 24">
-                                            <path stroke="currentColor" strokeLinecap="round" strokeLinejoin="round" strokeWidth="2.5" d="M3.933 13.909A4.357 4.357 0 0 1 3 12c0-1 4-6 9-6m7.6 3.8A5.068 5.068 0 0 1 21 12c0 1-3 6-9 6-.314 0-.62-.014-.918-.04M5 19 19 5m-4 7a3 3 0 1 1-6 0 3 3 0 0 1 6 0Z" />
+                                        <svg className="w-6 h-6 text-black duration-200 transition-all ease-in-out" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" width="24" height="24" fill="none" viewBox="0 0 24 24">
+                                            <path stroke="currentColor" strokeWidth="2.5" d="M21 12c0 1.2-4.03 6-9 6s-9-4.8-9-6c0-1.2 4.03-6 9-6s9 4.8 9 6Z" />
+                                            <path stroke="currentColor" strokeWidth="2.5" d="M15 12a3 3 0 1 1-6 0 3 3 0 0 1 6 0Z" />
                                         </svg>
                                 }
                             </ControlButton>

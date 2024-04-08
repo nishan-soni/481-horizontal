@@ -1,5 +1,5 @@
 import React from "react";
-import Box from "@mui/material/Box";
+import {Box}from "@mui/material"; 
 import Collapse from "@mui/material/Collapse";
 import IconButton from "@mui/material/IconButton";
 import Table from "@mui/material/Table";

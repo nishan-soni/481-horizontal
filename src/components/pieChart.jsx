@@ -4,11 +4,11 @@ import { useData } from "../DataProvider";
 
 const pieChart = ({ data, details, mb }) => {
 
-    useEffect(() => {
-        if (data != null) {
-            console.log("nivo", data);
-        }
-    }, [data])
+    // useEffect(() => {
+    //     if (data != null) {
+    //         console.log("nivo", data);
+    //     }
+    // }, [data])
 
     const customColors = ['#e7e5e4', '#f98b8b', '#fde68a', '#BAD7F2', '#B6E2D5'];
 

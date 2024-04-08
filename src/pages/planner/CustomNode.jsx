@@ -2,9 +2,9 @@ import React, { memo, useState } from 'react';
 import { Handle, Position } from 'reactflow';
 import { useNodeHover } from './NodeHoverProvider';
 
-function CustomNode({ data }) {
+function CustomNode({ data, id }) {
 
-    const { title, id, status, description, overview, preq, units, grade } = data;
+    const { title, id: courseID, status, description, overview, preq, units, grade } = data;
 
     const { setIsHidden, setHoveredNode } = useNodeHover();
     const [showDetails, setShowDetails] = useState(false);
@@ -30,6 +30,8 @@ function CustomNode({ data }) {
 
     const handleHideOnEnter = () => {
         setIsHidden(false);
+        data.nodeID = id // append the id to the end of the object
+        // console.log(data);
         setHoveredNode(data);
     };
 
@@ -64,7 +66,7 @@ function CustomNode({ data }) {
                             </svg>
                     }
                 </button>
-                <p className='font-semibold'>{title + " " + id}</p>
+                <p className='font-semibold'>{title + " " + courseID}</p>
                 <div className={`rounded-full w-2.5 h-2.5 border-2 
                 ${status === "complete" ? 'bg-green-200 border-green-300'
                         : status === "incomplete" ? 'bg-red-200 border-red-300'

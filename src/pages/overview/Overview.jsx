@@ -19,6 +19,62 @@ const Overview = () => {
   const { data } = useData();
   const [newData, setNewData] = useState(null);
 
+  
+  const sample = {
+    credits_completed: 21,
+    credits_remaining: 16,
+    reqtitle: "Major in Computer Science",
+    reqs: [
+      {
+        name: "9 Units of CPSC Courses at the 300 level or above.",
+        credits: 9,
+        outof: 9,
+        completion: "in-complete",
+        courses: [
+          {
+            course: "CPSC 329",
+            sem: "Winter 2022",
+            grade: "B-",
+            status: "complete",
+          },
+          {
+            course: "CPSC 331",
+            sem: "Winter 2023",
+            grade: "A-",
+            status: "complete",
+          },
+          {
+            course: "CPSC 359",
+            sem: "Winter 2024",
+            grade: "A+",
+            status: "in-progress",
+          },
+        ],
+      },
+    ],
+  };
+
+  const sample2 = {
+    credits_completed: 21,
+    credits_remaining: 16,
+    reqtitle: "Major in Computer Science",
+    reqs: [
+      {
+        name: "Logic Requirement",
+        credits: 3,
+        outof:3,
+        completion: "complete",
+        courses: [
+          {
+            course: "PHIL 279",
+            sem: "Fall 2021",
+            grade: "A",
+            status: "complete",
+          },
+        ],
+      },
+    ],
+  };
 
   useEffect(() => {
     if (data != null) {
@@ -34,9 +90,9 @@ const Overview = () => {
     <>
       <div className="w-full h-full flex flex-row">
 
-        <div className="w-full h-full min-h-full flex flex-col">
+        <div className="w-full h-full min-h-full flex flex-col ">
 
-          <div className="flex flex-col w-full h-full min-h-full p-14 pb-8 gap-y-8 rounded-r-none shadow-inner bg-stone-50">
+          <div className="flex flex-col w-full h-full min-h-full p-14 pb-8 gap-y-8 rounded-r-none  bg-stone-50">
 
             {/* Greeting */}
             <div className="w-full h-full max-h-full relative">
@@ -69,20 +125,16 @@ const Overview = () => {
             </div>
           </div>
 
-          <div className="flex w-full flex-col h-fit p-14 pt-0 gap-y-8 rounded-r-none bg-stone-50">
-            
+          <div className="flex w-full flex-col h-fit p-14 pt-0 gap-y-8 rounded-r-none bg-stone-50 border-x-[1px] border-gray-200">
+
             {/* Incomplete */}
             <div className="w-full">
               <p className="text-3xl font-semibold my-5">Incomplete</p>
               <div className="flex flex-col gap-3">
-                <Requirements>
-                  <p>Intro Math Courses</p>
-                  <p>1/2</p>
-                </Requirements>
-                <Requirements>
-                  <p>Intro CPSC Courses</p>
-                  <p>1/3</p>
-                </Requirements>
+                <Requirements header={"Computer Science 251, 331, 351, 355, 413, 449 and 457"} progress={"9/21"} data={sample}></Requirements>
+                <Requirements header={"CPSC Courses at the 300 level or above"} progress={"9/9"} data={sample}></Requirements>
+                <Requirements header={"Ethics Requirement"} progress={"0/3"} data={sample}></Requirements>
+                <Requirements header={"6 units Computer Science 453 and 585"} progress={"3/6"} data={sample}></Requirements>
               </div>
             </div>
 
@@ -90,14 +142,10 @@ const Overview = () => {
             <div className="w-full">
               <p className="text-3xl font-semibold my-5">Complete</p>
               <div className="flex flex-col gap-3">
-                <Requirements>
-                  <p>300 Level Major Requirement</p>
-                  <p>2/4</p>
-                </Requirements>
-                <Requirements>
-                  <p>400 Level Major Requirement</p>
-                  <p>0/3</p>
-                </Requirements>
+                <Requirements header={"Logic Requirement"} progress={"3/3"} data={sample2}></Requirements>
+                {/* <Requirements header={"Minor In Management"} progress={"6/6"} data={sample}></Requirements> */}
+                {/* <Requirements header={"3 units from Physics 211, 221 or 227"} progress={"3/3"} data={sample}></Requirements> */}
+                {/* <Requirements header={"3 units from Computer Science 433, 531 or 535"} progress={"3/3"} data={sample}></Requirements> */}
               </div>
             </div>
           </div>
