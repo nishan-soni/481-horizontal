@@ -36,7 +36,7 @@ const Filter = ({ data, setFilteredData }) => {
 
     new_data["reqs"] = arr;
     console.log(new_data);
-    new_data["reqs"].forEach((r, r_i) => {
+    new_data["reqs"].some((r, r_i) => {
       new_data["reqs"][r_i].courses = Array.from(new_data["reqs"][r_i].courses);
 
       // Course Type
@@ -99,6 +99,18 @@ const Filter = ({ data, setFilteredData }) => {
             return parseInt(filters["End Year"].vals[0]) >= parseInt(c["End Year"]);
           })
       }
+
+      // Date error handling
+      if ((Object.keys(filters["End Year"]).length !== 0) && Object.keys(filters["Start Year"]).length !== 0) {
+        if (filters["Start Year"].vals[0] !== "None" && filters["End Year"].vals[0] !== "None") {
+          if (parseInt(filters["Start Year"].vals[0]) > parseInt(filters["End Year"].vals[0])) {
+            window.alert("Error: Start year is later than the end year. Filters have not been applied.")
+            new_data = data;
+            return true;
+          }
+        }
+      } 
+
     });
     console.log(new_data);
     setFilteredData(new_data);
