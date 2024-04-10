@@ -21,7 +21,7 @@ function YearNode({ id, data }) {
     // })
 
     const handleButtonClick = () => {
-        const confirmed = window.confirm('Adding new terms and semesters is not yet supported');
+        const confirmed = window.confirm('Adding/Removing new terms and semesters is not yet supported');
     };
 
     return (
@@ -32,13 +32,23 @@ function YearNode({ id, data }) {
 
                 {/* Add button */}
                 <div className='flex justify-end items-center w-full h-full'>
-                    <div className='flex items-center absolute right-0 w-3 h-full opacity-0 hover:opacity-100 transition-all duration-200'>
-                        <button className='flex justify-center items-center w-6 h-6 rounded-full border-2 border-stone-500 bg-gray-50'
+                    <div className='flex flex-col justify-center gap-2 absolute right-0 w-3 h-full opacity-50 hover:opacity-100 transition-all duration-200'>
+                        <button className='flex justify-center items-center w-6 h-6 rounded-full'
+                        // <button className='flex justify-center items-center w-6 h-6 rounded-full border-2 border-stone-400 bg-gray-50'
                             onClick={handleButtonClick}
                         >
-                            <svg className="w-6 h-6 text-gray-500 " aria-hidden="true" xmlns="http://www.w3.org/2000/svg" width="24" height="24" fill="none" viewBox="0 0 24 24">
-                                <path stroke="currentColor" strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M5 12h14m-7 7V5" />
+                            <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="currentColor" class="w-6 h-6 text-stone-400">
+                                <path fillRule="evenodd" d="M12 2.25c-5.385 0-9.75 4.365-9.75 9.75s4.365 9.75 9.75 9.75 9.75-4.365 9.75-9.75S17.385 2.25 12 2.25ZM12.75 9a.75.75 0 0 0-1.5 0v2.25H9a.75.75 0 0 0 0 1.5h2.25V15a.75.75 0 0 0 1.5 0v-2.25H15a.75.75 0 0 0 0-1.5h-2.25V9Z" clipRule="evenodd" />
                             </svg>
+
+                        </button>
+                        <button className='flex justify-center items-center w-6 h-6 rounded-full'
+                            onClick={handleButtonClick}
+                        >
+                            <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="currentColor" class="w-6 h-6 text-stone-400">
+                                <path fillRule="evenodd" d="M12 2.25c-5.385 0-9.75 4.365-9.75 9.75s4.365 9.75 9.75 9.75 9.75-4.365 9.75-9.75S17.385 2.25 12 2.25Zm3 10.5a.75.75 0 0 0 0-1.5H9a.75.75 0 0 0 0 1.5h6Z" clipRule="evenodd" />
+                            </svg>
+
                         </button>
                     </div>
                 </div>
